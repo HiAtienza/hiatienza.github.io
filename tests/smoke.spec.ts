@@ -67,6 +67,16 @@ test("project hierarchy, language switching and public CV links work", async ({ 
   const visual = await page.request.get("/cv/Adrian_Munoz_Atienza_CV_Public_Visual.pdf");
   expect(ats.ok()).toBeTruthy();
   expect(visual.ok()).toBeTruthy();
+
+  const linkedInFallback = page.locator(
+    '#contact a[href="https://www.linkedin.com/in/inmunozatienza"]'
+  );
+  await expect(linkedInFallback).toHaveAccessibleName(
+    /View Adrián Muñoz Atienza on LinkedIn|Ver el perfil de Adrián Muñoz Atienza en LinkedIn/
+  );
+  await expect(
+    page.locator('script[src="https://platform.linkedin.com/badges/js/profile.js"]')
+  ).toHaveCount(0);
 });
 
 test("reduced motion preserves the complete experience", async ({ page }) => {

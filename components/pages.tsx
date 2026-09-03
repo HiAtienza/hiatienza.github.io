@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { FlowDiagram } from "@/components/diagram";
+import { LinkedInProfileBadge } from "@/components/linkedin-profile-badge";
 import { Portrait } from "@/components/media";
 import { SignalField } from "@/components/signal-field";
 import { SiteShell } from "@/components/site-shell";
@@ -183,7 +184,7 @@ export function HomePage({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      <ContactSection locale={locale} />
+      <ContactSection locale={locale} showLinkedInBadge />
     </SiteShell>
   );
 }
@@ -516,15 +517,21 @@ export function PrivacyPage({ locale }: { locale: Locale }) {
         </ul>
         <p className="privacy-note" data-reveal>
           {locale === "en"
-            ? "This static site has no analytics, cookies, forms, accounts, external fonts or runtime data requests."
-            : "Este sitio estático no utiliza analítica, cookies, formularios, cuentas, fuentes externas ni solicitudes de datos en tiempo de ejecución."}
+            ? "This static site has no analytics, cookies, forms, accounts or external fonts. The Contact area may load LinkedIn’s official public-profile badge only when the profile owner enables it with exact markup from LinkedIn’s badge builder."
+            : "Este sitio estático no utiliza analítica, cookies, formularios, cuentas ni fuentes externas. La sección de Contacto solo puede cargar la insignia oficial de perfil público de LinkedIn cuando el propietario del perfil la habilita con el marcado exacto del generador de insignias de LinkedIn."}
         </p>
       </article>
     </SiteShell>
   );
 }
 
-function ContactSection({ locale }: { locale: Locale }) {
+function ContactSection({
+  locale,
+  showLinkedInBadge = false
+}: {
+  locale: Locale;
+  showLinkedInBadge?: boolean;
+}) {
   const t = copy[locale].contact;
   return (
     <section id="contact" className="section contact-section" aria-labelledby="contact-title">
@@ -533,7 +540,15 @@ function ContactSection({ locale }: { locale: Locale }) {
         <h2 id="contact-title">{t.title}</h2>
         <p>{t.body}</p>
         <div className="button-row">
-          <a className="button button-light" href={external.linkedin}>
+          <a
+            className="button button-light"
+            href={external.linkedin}
+            aria-label={
+              locale === "en"
+                ? "View Adrián Muñoz Atienza on LinkedIn"
+                : "Ver el perfil de Adrián Muñoz Atienza en LinkedIn"
+            }
+          >
             {t.linkedin}
           </a>
           <a className="button button-ghost" href={external.github}>
@@ -546,6 +561,7 @@ function ContactSection({ locale }: { locale: Locale }) {
             {t.visual} <span aria-hidden="true">↗</span>
           </a>
         </div>
+        {showLinkedInBadge ? <LinkedInProfileBadge /> : null}
       </div>
     </section>
   );

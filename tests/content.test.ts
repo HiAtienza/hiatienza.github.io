@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { aboutPages, copy, projects, route, slugs } from "../lib/site-data";
+import { linkedInBadgeIntegrationState, officialLinkedInBadgeMarkup } from "../lib/linkedin-badge";
 
 describe("public portfolio content", () => {
   it("keeps the agreed flagship-project order in both languages", () => {
@@ -45,5 +46,9 @@ describe("public portfolio content", () => {
     expect(route("en", "/about/")).toBe("/about/");
     expect(route("es", "/about/")).toBe("/es/about/");
     expect(route("es", "/projects/cybermastery/")).toBe("/es/projects/cybermastery/");
+  });
+  it("keeps the official LinkedIn badge opt-in until builder markup is supplied", () => {
+    expect(linkedInBadgeIntegrationState).toBe("LINKEDIN_BADGE_MARKUP_REQUIRED");
+    expect(officialLinkedInBadgeMarkup).toBeNull();
   });
 });

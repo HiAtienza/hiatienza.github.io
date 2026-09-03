@@ -1032,6 +1032,15 @@ dd {
 .contact-layout .button-row {
   justify-content: center;
 }
+.linkedin-badge-slot {
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+  margin: 2rem auto 0;
+}
+.linkedin-badge-slot > * {
+  max-width: 100%;
+}
 .site-footer {
   display: flex;
   justify-content: space-between;
@@ -1609,6 +1618,9 @@ dd {
     width: 100%;
     justify-content: center;
     text-align: center;
+  }
+  .linkedin-badge-slot {
+    margin-top: 1.5rem;
   }
   .signal-field {
     min-height: 430px;
