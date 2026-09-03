@@ -28,24 +28,25 @@ export const copy = {
   en: {
     nav: {
       work: "Work",
+      about: "About",
       research: "Research",
-      process: "How I build",
       contact: "Contact",
       language: "Español"
     },
     hero: {
-      eyebrow: "Computer Science Student @ XJTLU",
-      title: "Building software that helps people understand, learn and act.",
-      lead: "Product-focused Software Engineering | Android, Full-Stack Web & Applied AI",
-      meta: "Suzhou, China · Expected graduation July 2028 · Open to software engineering internships",
-      work: "Explore my work",
-      cv: "Download public ATS CV",
-      visual: "View public visual CV"
+      eyebrow: "Computer Science student @ XJTLU",
+      title: "I turn complex signals into software people can understand and act on.",
+      lead: "Developing as a Software Engineer, focused on Human-Centered AI, Behavioral Technology and Human-AI Interaction.",
+      work: "Explore selected work",
+      about: "About my path",
+      cv: "Download CV",
+      visual: "View public visual CV",
+      signals: ["Suzhou, China", "Available now", "On-site · Hybrid · Remote"]
     },
     about: {
       label: "About",
-      title: "Human-centred engineering, grounded in the product work.",
-      body: "I’m a Year 3 BSc Information and Computing Science student at Xi’an Jiaotong-Liverpool University. I build across full-stack web, Android and applied-AI products, with a focus on making complex information easier to understand and act on. Tutoring and multicultural customer service have strengthened how I listen, explain and design for real people.",
+      title: "Software Engineering is the foundation; human-centered systems are the direction.",
+      body: "I’m a Year 3 BSc Information and Computing Science student at Xi’an Jiaotong-Liverpool University. I build full-stack web, Android and applied-AI products that help people understand information, learn, recognise patterns and make decisions.",
       side: "Spain ↔ China\nInternational context, practical collaboration and a product mindset."
     },
     projects: {
@@ -66,13 +67,51 @@ export const copy = {
       steps: ["Understand", "Design", "Build", "Test", "Learn", "Improve"],
       body: "I start with the real user problem, narrow the scope, select an architecture and build an end-to-end workflow. I test edge cases, make limitations visible, and improve from evidence rather than assumption."
     },
+    specialization: {
+      label: "Emerging specialization",
+      title: "One engineering path, shaped by how people learn and decide.",
+      intro:
+        "Software Engineering is my technical backbone. I am building the other layers through projects, supervised research and continued study—not claiming finished expertise.",
+      parts: [
+        [
+          "Software Engineering",
+          "Gives systems structure through architecture, implementation, data, testing and reliability."
+        ],
+        [
+          "Behavioral Technology",
+          "Frames attention, learning, patterns and reflection as product-design questions, without clinical claims."
+        ],
+        [
+          "Human-Centered AI",
+          "Keeps evidence, uncertainty, human control and real decision contexts visible."
+        ],
+        [
+          "Human-AI Interaction",
+          "Determines whether intelligent support becomes understandable, accountable and genuinely useful."
+        ]
+      ],
+      outcome:
+        "Together, these layers guide me toward software that helps people understand, learn, decide and act."
+    },
     skills: {
       label: "Skills",
-      title: "Tools and practices I use to make work concrete.",
+      title: "A software-engineering toolkit with a human-centered direction.",
+      priorities: [
+        "Software Engineering",
+        "Human-Centered AI",
+        "Product Development",
+        "Human-AI Interaction",
+        "Human-Computer Interaction",
+        "TypeScript",
+        "Applied AI",
+        "Behavioral Technology",
+        "User-Centered Design",
+        "Learning Technology"
+      ],
       groups: [
         [
-          "Core engineering",
-          "Software Engineering · TypeScript · JavaScript · Java · Python · Kotlin · Git"
+          "Engineering foundation",
+          "TypeScript · JavaScript · Java · Python · Kotlin · Git · REST APIs · Authentication"
         ],
         [
           "Web & backend",
@@ -87,8 +126,8 @@ export const copy = {
           "Automated Testing · Unit Testing · Integration Testing · Browser Testing · Playwright · Technical Documentation"
         ],
         [
-          "Human-centred",
-          "Product Development · Human-Computer Interaction · Human-AI Interaction · Learning Technology · Active Listening · Cross-Cultural Communication"
+          "Human-centered practice",
+          "Human-Centered AI · Human-AI Interaction · Human-Computer Interaction · User-Centered Design · Learning Technology · Behavioral Technology (emerging specialization)"
         ]
       ]
     },
@@ -97,7 +136,7 @@ export const copy = {
       title: "Engineering practice, research context and international experience.",
       items: [
         [
-          "2026 – present",
+          "Jul 2026 – present",
           "Undergraduate Researcher",
           "XJTLU Summer Undergraduate Research Fellowship · supervised HCI research and VIDEO-RESCUE prototype work."
         ],
@@ -107,7 +146,7 @@ export const copy = {
           "CyberMastery and LifeMap across full-stack web and Android."
         ],
         [
-          "2024",
+          "Jul – Sep 2024",
           "Bellperson",
           "Marriott International · seasonal multicultural customer service in Madrid."
         ],
@@ -125,11 +164,12 @@ export const copy = {
     },
     contact: {
       label: "Contact",
-      title: "Open to internships and conversations about useful, human-centred products.",
-      body: "For a public conversation, reach me through LinkedIn or GitHub. I’m currently seeking product-focused software engineering internships.",
+      title: "Have a problem worth making easier to understand?",
+      body: "I’m available now for Software Engineering, Product Engineering and Human-Centered AI internships or suitable early-career roles. I’m open to on-site, hybrid and compatible remote work across Suzhou, Shanghai, Spain and the European Union.",
       linkedin: "LinkedIn",
       github: "GitHub",
-      cv: "Download public ATS CV"
+      cv: "Download public ATS CV",
+      visual: "View visual CV"
     },
     footer:
       "© 2026 Adrián Muñoz Atienza. Source code is MIT licensed; personal content remains protected.",
@@ -173,24 +213,26 @@ export const copy = {
   es: {
     nav: {
       work: "Proyectos",
+      about: "Sobre mí",
       research: "Investigación",
-      process: "Cómo trabajo",
       contact: "Contacto",
       language: "English"
     },
     hero: {
-      eyebrow: "Estudiante de Informática en XJTLU",
-      title: "Desarrollo software que ayuda a comprender, aprender y actuar.",
-      lead: "Ingeniería de software orientada a producto | Android, web full-stack e IA aplicada",
-      meta: "Suzhou, China · Finalización prevista: julio de 2028 · Busco prácticas de ingeniería de software",
-      work: "Explorar proyectos",
-      cv: "Descargar CV ATS público",
-      visual: "Ver CV visual público"
+      eyebrow: "Estudiante de Computer Science @ XJTLU",
+      title: "Convierto señales complejas en software que las personas pueden entender y usar.",
+      lead: "Me desarrollo como Software Engineer con foco en Human-Centered AI, Behavioral Technology e interacción persona-IA.",
+      work: "Ver proyectos",
+      about: "Conoce mi recorrido",
+      cv: "Descargar CV",
+      visual: "Ver CV visual público",
+      signals: ["Suzhou, China", "Disponible ahora", "Presencial · Híbrido · Remoto"]
     },
     about: {
       label: "Perfil",
-      title: "Ingeniería centrada en las personas y conectada con el producto.",
-      body: "Soy estudiante de tercer curso del BSc Information and Computing Science en Xi’an Jiaotong-Liverpool University. Desarrollo productos web full-stack, Android y de IA aplicada, con interés en hacer que la información compleja sea más fácil de comprender y usar. La tutoría y la atención al cliente multicultural han reforzado mi forma de escuchar, explicar y diseñar para personas reales.",
+      title:
+        "Software Engineering es la base; los sistemas centrados en las personas son la dirección.",
+      body: "Soy estudiante de tercer curso del BSc Information and Computing Science en Xi’an Jiaotong-Liverpool University. Desarrollo productos web full-stack, Android y de IA aplicada que ayudan a comprender información, aprender, reconocer patrones y tomar decisiones.",
       side: "España ↔ China\nContexto internacional, colaboración práctica y mentalidad de producto."
     },
     projects: {
@@ -211,13 +253,51 @@ export const copy = {
       steps: ["Comprender", "Diseñar", "Construir", "Probar", "Aprender", "Mejorar"],
       body: "Empiezo por el problema real de la persona usuaria, acoto el alcance, selecciono una arquitectura y construyo un flujo completo. Pruebo casos límite, hago visibles las limitaciones y mejoro a partir de evidencias."
     },
+    specialization: {
+      label: "Especialización en desarrollo",
+      title: "Una trayectoria de ingeniería guiada por cómo aprendemos y decidimos.",
+      intro:
+        "Software Engineering es mi base técnica. Desarrollo las demás capas mediante proyectos, investigación supervisada y estudio continuo, sin presentarlas como una especialización ya consolidada.",
+      parts: [
+        [
+          "Software Engineering",
+          "Da estructura a los sistemas mediante arquitectura, implementación, datos, pruebas y fiabilidad."
+        ],
+        [
+          "Behavioral Technology",
+          "Plantea la atención, el aprendizaje, los patrones y la reflexión como preguntas de producto, sin afirmaciones clínicas."
+        ],
+        [
+          "Human-Centered AI",
+          "Mantiene visibles la evidencia, la incertidumbre, el control humano y el contexto real de decisión."
+        ],
+        [
+          "Interacción persona-IA",
+          "Determina si el apoyo inteligente resulta comprensible, responsable y realmente útil."
+        ]
+      ],
+      outcome:
+        "En conjunto, estas capas orientan mi trabajo hacia software que ayuda a comprender, aprender, decidir y actuar."
+    },
     skills: {
       label: "Aptitudes",
-      title: "Herramientas y prácticas para convertir ideas en productos.",
+      title: "Una base de ingeniería de software con dirección human-centered.",
+      priorities: [
+        "Software Engineering",
+        "Human-Centered AI",
+        "Product Development",
+        "Interacción persona-IA",
+        "Interacción persona-ordenador",
+        "TypeScript",
+        "IA aplicada",
+        "Behavioral Technology",
+        "Diseño centrado en las personas",
+        "Learning Technology"
+      ],
       groups: [
         [
-          "Ingeniería base",
-          "Software Engineering · TypeScript · JavaScript · Java · Python · Kotlin · Git"
+          "Base de ingeniería",
+          "TypeScript · JavaScript · Java · Python · Kotlin · Git · REST APIs · Authentication"
         ],
         [
           "Web y backend",
@@ -232,8 +312,8 @@ export const copy = {
           "Automated Testing · Unit Testing · Integration Testing · Browser Testing · Playwright · Technical Documentation"
         ],
         [
-          "Centrado en las personas",
-          "Product Development · Interacción persona-ordenador · Interacción persona-IA · Learning Technology · Active Listening · Cross-Cultural Communication"
+          "Práctica human-centered",
+          "Human-Centered AI · Interacción persona-IA · Interacción persona-ordenador · Diseño centrado en las personas · Learning Technology · Behavioral Technology (especialización en desarrollo)"
         ]
       ]
     },
@@ -242,7 +322,7 @@ export const copy = {
       title: "Práctica de ingeniería, investigación e experiencia internacional.",
       items: [
         [
-          "2026 – actualidad",
+          "Jul 2026 – actualidad",
           "Investigador universitario",
           "XJTLU Summer Undergraduate Research Fellowship · investigación supervisada de HCI y trabajo de prototipo VIDEO-RESCUE."
         ],
@@ -252,7 +332,7 @@ export const copy = {
           "CyberMastery y LifeMap en desarrollo web full-stack y Android."
         ],
         [
-          "2024",
+          "Jul – Sep 2024",
           "Botones",
           "Marriott International · atención al cliente multicultural de temporada en Madrid."
         ],
@@ -270,12 +350,12 @@ export const copy = {
     },
     contact: {
       label: "Contacto",
-      title:
-        "Abierto a prácticas y conversaciones sobre productos útiles y centrados en las personas.",
-      body: "Para una conversación pública, puedes contactar conmigo a través de LinkedIn o GitHub. Actualmente busco prácticas de ingeniería de software orientada a producto.",
+      title: "¿Tienes un problema que debería ser más fácil de entender?",
+      body: "Estoy disponible ahora para prácticas o puestos junior adecuados en Software Engineering, Product Engineering y Human-Centered AI. Estoy abierto a trabajo presencial, híbrido y remoto compatible en Suzhou, Shanghái, España y la Unión Europea.",
       linkedin: "LinkedIn",
       github: "GitHub",
-      cv: "Descargar CV ATS público"
+      cv: "Descargar CV ATS público",
+      visual: "Ver CV visual"
     },
     footer:
       "© 2026 Adrián Muñoz Atienza. El código fuente usa licencia MIT; el contenido personal permanece protegido.",
@@ -358,7 +438,7 @@ export const projects: Record<Locale, Record<ProjectSlug, Project>> = {
       slug: "cybermastery",
       order: "02",
       name: "CyberMastery",
-      context: "Independent product development · evidence frozen to the audited remote baseline",
+      context: "Independent product development · full-stack learning product",
       problem:
         "Learners need a structured way to move from guided explanation to independent practice, evidence and rechecking without turning progress into an opaque score.",
       role: "Full-stack product and learning-domain implementation",
@@ -462,8 +542,7 @@ export const projects: Record<Locale, Record<ProjectSlug, Project>> = {
       slug: "cybermastery",
       order: "02",
       name: "CyberMastery",
-      context:
-        "Desarrollo independiente de producto · evidencia congelada en la base remota auditada",
+      context: "Desarrollo independiente · producto de aprendizaje full-stack",
       problem:
         "Las personas que aprenden necesitan una forma estructurada de pasar de explicaciones guiadas a práctica independiente, evidencias y revisiones sin convertir el progreso en una puntuación opaca.",
       role: "Implementación full-stack de producto y dominio de aprendizaje",
@@ -530,7 +609,107 @@ export const projects: Record<Locale, Record<ProjectSlug, Project>> = {
   }
 };
 
+export const aboutPages = {
+  en: {
+    label: "About",
+    title: "Building as a software engineer. Human-centered by intent.",
+    intro:
+      "I’m Adrián, a Computer Science student at XJTLU developing as a Software Engineer. I build across web, Android and applied AI, with a growing focus on Human-Centered AI, Behavioral Technology and Human-AI Interaction.",
+    storyTitle: "A path shaped between Spain and China.",
+    story: [
+      "I began my software engineering studies at U-TAD in Madrid before transferring to Xi’an Jiaotong-Liverpool University, where I am now a Year 3 BSc Information and Computing Science student with expected graduation in July 2028.",
+      "Moving between countries and working in tutoring, multicultural customer service and supervised research taught me to treat communication as part of engineering. A system is not useful simply because it works; people also need to understand what it is doing, trust its boundaries and know what to do next.",
+      "That idea connects my current work: coordination support for complex transcripts, structured cybersecurity learning and calm tools for visualising time and goals."
+    ],
+    dual: [
+      {
+        label: "Engineering foundation",
+        title: "I make ideas executable.",
+        body: "I work across product architecture, full-stack TypeScript, Android, persistence, authentication and automated testing. I prefer complete vertical slices that make assumptions and limitations visible."
+      },
+      {
+        label: "Human-centered direction",
+        title: "I make systems understandable.",
+        body: "I use HCI thinking, active listening and clear information design to connect implementation decisions with the way people learn, coordinate and act."
+      }
+    ],
+    principlesTitle: "How I like to work",
+    principles: [
+      [
+        "Start with the person",
+        "Understand the decision, frustration or learning need before choosing the interface."
+      ],
+      ["Build the whole path", "Create a small end-to-end workflow before expanding breadth."],
+      ["Keep evidence visible", "Make sources, uncertainty, state and limitations inspectable."],
+      [
+        "Learn through testing",
+        "Use technical tests and human feedback to improve the next iteration."
+      ]
+    ],
+    factsTitle: "A few useful facts",
+    facts: [
+      "Spanish native speaker; fluent English.",
+      "Based in Suzhou and open to relocation across target regions.",
+      "Available now for internships and full-time early-career roles.",
+      "Interested in product engineering, applied AI and selected HCI opportunities."
+    ],
+    cta: "See how this thinking becomes product work"
+  },
+  es: {
+    label: "Sobre mí",
+    title: "Desarrollándome como ingeniero de software. Centrado en las personas por intención.",
+    intro:
+      "Soy Adrián, estudiante de Computer Science en XJTLU, y me desarrollo como Software Engineer. Creo software web, Android y de IA aplicada con un foco creciente en Human-Centered AI, Behavioral Technology e interacción persona-IA.",
+    storyTitle: "Un recorrido construido entre España y China.",
+    story: [
+      "Comencé mis estudios de ingeniería del software en U-TAD, Madrid, antes de trasladarme a Xi’an Jiaotong-Liverpool University, donde actualmente curso tercero del BSc Information and Computing Science y tengo prevista la graduación en julio de 2028.",
+      "Vivir entre países y trabajar en tutoría, atención al cliente multicultural e investigación supervisada me enseñó que la comunicación forma parte de la ingeniería. Un sistema no es útil solo porque funcione: las personas también necesitan entender qué hace, confiar en sus límites y saber cuál es el siguiente paso.",
+      "Esa idea conecta mi trabajo actual: apoyo a la coordinación de transcripciones complejas, aprendizaje estructurado de ciberseguridad y herramientas tranquilas para visualizar tiempo y objetivos."
+    ],
+    dual: [
+      {
+        label: "Base de ingeniería",
+        title: "Convierto ideas en sistemas ejecutables.",
+        body: "Trabajo con arquitectura de producto, TypeScript full-stack, Android, persistencia, autenticación y pruebas automatizadas. Prefiero crear vertical slices completos que hagan visibles las decisiones y limitaciones."
+      },
+      {
+        label: "Dirección human-centered",
+        title: "Hago comprensibles los sistemas.",
+        body: "Aplico HCI, escucha activa y diseño claro de información para conectar decisiones de implementación con la forma en que las personas aprenden, coordinan y actúan."
+      }
+    ],
+    principlesTitle: "Cómo me gusta trabajar",
+    principles: [
+      [
+        "Empezar por la persona",
+        "Comprender la decisión, frustración o necesidad de aprendizaje antes de elegir la interfaz."
+      ],
+      [
+        "Construir el recorrido completo",
+        "Crear un flujo pequeño de extremo a extremo antes de ampliar el alcance."
+      ],
+      [
+        "Mantener visible la evidencia",
+        "Hacer inspeccionables las fuentes, la incertidumbre, el estado y las limitaciones."
+      ],
+      [
+        "Aprender mediante pruebas",
+        "Usar pruebas técnicas y feedback humano para mejorar la siguiente iteración."
+      ]
+    ],
+    factsTitle: "Algunos datos útiles",
+    facts: [
+      "Español nativo e inglés fluido.",
+      "Vivo en Suzhou y estoy abierto a reubicarme en las regiones objetivo.",
+      "Disponible ahora para prácticas y puestos junior a tiempo completo.",
+      "Interesado en product engineering, IA aplicada y oportunidades seleccionadas de HCI."
+    ],
+    cta: "Ver cómo este enfoque se convierte en producto"
+  }
+} as const;
+
 export function route(locale: Locale, path = "") {
-  const base = locale === "es" ? "/es" : "";
-  return `${base}${path || "/"}`;
+  const normalized = path ? (path.startsWith("/") ? path : `/${path}`) : "/";
+  if (locale === "en") return normalized;
+  return normalized === "/" ? "/es/" : `/es${normalized}`;
 }

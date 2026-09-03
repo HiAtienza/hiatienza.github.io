@@ -9,14 +9,16 @@ export function HeroImage() {
   );
 }
 
-export function Portrait() {
+export function Portrait({ locale = "en" }: { locale?: "en" | "es" }) {
   return (
     <picture className="portrait">
       <source srcSet="/images/profile-800.avif" type="image/avif" />
       <source srcSet="/images/profile-800.webp" type="image/webp" />
       <img
         src="/images/profile-800.jpg"
-        alt="Portrait of Adrián Muñoz Atienza"
+        alt={
+          locale === "en" ? "Portrait of Adrián Muñoz Atienza" : "Retrato de Adrián Muñoz Atienza"
+        }
         width="800"
         height="800"
       />

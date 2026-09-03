@@ -4,11 +4,18 @@ import AxeBuilder from "@axe-core/playwright";
 const pages = [
   "/",
   "/es/",
+  "/about/",
+  "/es/about/",
   "/projects/video-rescue/",
   "/projects/cybermastery/",
   "/projects/lifemap/",
+  "/es/projects/video-rescue/",
+  "/es/projects/cybermastery/",
+  "/es/projects/lifemap/",
   "/research/",
-  "/privacy/"
+  "/es/research/",
+  "/privacy/",
+  "/es/privacy/"
 ];
 
 test("public routes load with no console errors or horizontal overflow", async ({ page }) => {
@@ -36,6 +43,38 @@ test("core navigation is keyboard reachable and public pages have no automated a
   await expect(page.locator("main")).toBeFocused();
   const scan = await new AxeBuilder({ page }).analyze();
   expect(scan.violations).toEqual([]);
+});
+
+test("project hierarchy, language switching and public CV links work", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator(".project-feature h3")).toHaveText([
+    "VIDEO-RESCUE",
+    "CyberMastery",
+    "LifeMap"
+  ]);
+
+  const desktopLanguageLink = page.locator(".desktop-nav .language-link");
+  if (await desktopLanguageLink.isVisible()) {
+    await desktopLanguageLink.click();
+  } else {
+    await page.locator(".nav-menu summary").click();
+    await page.locator(".nav-menu .language-link").click();
+  }
+  await expect(page).toHaveURL(/\/es\/$/);
+  await expect(page.locator("main")).toHaveAttribute("lang", "es");
+
+  const ats = await page.request.get("/cv/Adrian_Munoz_Atienza_CV_Public_ATS.pdf");
+  const visual = await page.request.get("/cv/Adrian_Munoz_Atienza_CV_Public_Visual.pdf");
+  expect(ats.ok()).toBeTruthy();
+  expect(visual.ok()).toBeTruthy();
+});
+
+test("reduced motion preserves the complete experience", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  await expect(page.locator("#hero-title")).toBeVisible();
+  await expect(page.locator("#work .project-feature")).toHaveCount(3);
+  await expect(page.locator(".specialization-path li")).toHaveCount(4);
 });
 
 test("unknown paths use the public 404 page", async ({ page }) => {

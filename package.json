@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Bilingual static software engineering portfolio for Adrián Muñoz Atienza.",
+  "description": "Bilingual Software Engineering and Human-Centered AI portfolio for Adrián Muñoz Atienza.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
