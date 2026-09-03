@@ -1041,6 +1041,9 @@ dd {
 .linkedin-badge-slot > * {
   max-width: 100%;
 }
+.LI-profile-badge[data-rendered="true"] > .LI-simple-link {
+  display: none;
+}
 .site-footer {
   display: flex;
   justify-content: space-between;

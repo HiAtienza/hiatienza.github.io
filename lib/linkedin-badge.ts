@@ -3,9 +3,9 @@
  * badge builder here. Do not add a second script tag: the contact component
  * loads LinkedIn's official loader once, and only when this value is present.
  *
- * Current integration state: LINKEDIN_BADGE_MARKUP_REQUIRED.
+ * Current integration state: OFFICIAL_MARKUP_CONFIGURED.
  */
-export const officialLinkedInBadgeMarkup: string | null = null;
+export const officialLinkedInBadgeMarkup = `<div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="inmunozatienza" data-version="v1"><a class="badge-base__link LI-simple-link" href="https://cn.linkedin.com/in/inmunozatienza?trk=profile-badge">Adrian Muñoz Atienza</a></div>`;
 
 export const linkedInBadgeIntegrationState =
   officialLinkedInBadgeMarkup === null

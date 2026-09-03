@@ -76,7 +76,15 @@ test("project hierarchy, language switching and public CV links work", async ({ 
   );
   await expect(
     page.locator('script[src="https://platform.linkedin.com/badges/js/profile.js"]')
-  ).toHaveCount(0);
+  ).toHaveCount(1);
+  const linkedInBadge = page.locator('[data-linkedin-badge="official"] .LI-profile-badge');
+  await expect(linkedInBadge).toHaveAttribute("data-size", "medium");
+  await expect(linkedInBadge).toHaveAttribute("data-theme", "light");
+  await expect(linkedInBadge).toHaveAttribute("data-type", "VERTICAL");
+  await expect(linkedInBadge).toHaveAttribute("data-vanity", "inmunozatienza");
+  await expect(
+    linkedInBadge.locator('a[href="https://cn.linkedin.com/in/inmunozatienza?trk=profile-badge"]')
+  ).toHaveCount(1);
 });
 
 test("reduced motion preserves the complete experience", async ({ page }) => {

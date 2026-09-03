@@ -47,8 +47,17 @@ describe("public portfolio content", () => {
     expect(route("es", "/about/")).toBe("/es/about/");
     expect(route("es", "/projects/cybermastery/")).toBe("/es/projects/cybermastery/");
   });
-  it("keeps the official LinkedIn badge opt-in until builder markup is supplied", () => {
-    expect(linkedInBadgeIntegrationState).toBe("LINKEDIN_BADGE_MARKUP_REQUIRED");
-    expect(officialLinkedInBadgeMarkup).toBeNull();
+  it("uses the supplied official LinkedIn public-profile badge markup", () => {
+    expect(linkedInBadgeIntegrationState).toBe("OFFICIAL_MARKUP_CONFIGURED");
+    expect(officialLinkedInBadgeMarkup).toContain('class="badge-base LI-profile-badge"');
+    expect(officialLinkedInBadgeMarkup).toContain('data-locale="en_US"');
+    expect(officialLinkedInBadgeMarkup).toContain('data-size="medium"');
+    expect(officialLinkedInBadgeMarkup).toContain('data-theme="light"');
+    expect(officialLinkedInBadgeMarkup).toContain('data-type="VERTICAL"');
+    expect(officialLinkedInBadgeMarkup).toContain('data-vanity="inmunozatienza"');
+    expect(officialLinkedInBadgeMarkup).toContain('data-version="v1"');
+    expect(officialLinkedInBadgeMarkup).toContain(
+      'href="https://cn.linkedin.com/in/inmunozatienza?trk=profile-badge"'
+    );
   });
 });

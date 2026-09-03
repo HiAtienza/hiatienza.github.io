@@ -6,9 +6,8 @@ export function LinkedInProfileBadge() {
 
   return (
     <>
-      <aside
+      <div
         className="linkedin-badge-slot"
-        aria-label="LinkedIn public profile badge"
         data-linkedin-badge="official"
         dangerouslySetInnerHTML={{ __html: officialLinkedInBadgeMarkup ?? "" }}
       />
