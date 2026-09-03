@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Adrián Muñoz Atienza portfolio</title><desc id="desc">Software engineering portfolio</desc>
+  <rect width="1200" height="630" fill="#102849"/>
+  <path d="M0 490C225 380 380 620 635 470S975 275 1200 350V630H0Z" fill="#315f8e" opacity=".38"/>
+  <path d="M820 0v630M920 0v630M1020 0v630M1120 0v630M0 105h1200M0 210h1200M0 315h1200" stroke="#f7f3ed" stroke-opacity=".13"/>
+  <text x="86" y="120" fill="#d4a25e" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" letter-spacing="4">SOFTWARE ENGINEERING PORTFOLIO</text>
+  <text x="86" y="260" fill="#fffdfa" font-family="Arial, Helvetica, sans-serif" font-size="70" font-weight="700">Adrián Muñoz</text>
+  <text x="86" y="340" fill="#fffdfa" font-family="Arial, Helvetica, sans-serif" font-size="70" font-weight="700">Atienza</text>
+  <text x="86" y="425" fill="#d9e9f4" font-family="Arial, Helvetica, sans-serif" font-size="30">Human-centred Android, web &amp; applied-AI products</text>
+  <text x="86" y="535" fill="#fffdfa" font-family="Arial, Helvetica, sans-serif" font-size="24">hiatienza.github.io</text>
+</svg>

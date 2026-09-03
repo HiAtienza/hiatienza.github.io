@@ -1,0 +1,35 @@
+{
+  "name": "hiatienza.github.io",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Bilingual static software engineering portfolio for Adrián Muñoz Atienza.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "lint": "eslint . --max-warnings=0",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:links": "node scripts/check-links.mjs",
+    "test:smoke": "playwright test"
+  },
+  "dependencies": {
+    "next": "16.3.4",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.11.1",
+    "@playwright/test": "1.62.1",
+    "@types/node": "24.10.1",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
+    "eslint": "9.39.5",
+    "eslint-config-next": "16.3.4",
+    "prettier": "3.9.6",
+    "typescript": "5.9.3",
+    "vitest": "4.1.0"
+  }
+}

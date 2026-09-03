@@ -1,0 +1,9 @@
+{
+  "name": "Adrián Muñoz Atienza | Software Engineering Portfolio",
+  "short_name": "Adrián Portfolio",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#f7f8fa",
+  "theme_color": "#10263f",
+  "icons": [{ "src": "/icons/favicon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}
