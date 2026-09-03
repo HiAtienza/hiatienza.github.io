@@ -517,6 +517,10 @@ dt,
   padding-block: clamp(4.5rem, 8vw, 7.5rem);
   border-bottom: 1px solid var(--line);
 }
+.project-copy,
+.project-visual {
+  min-width: 0;
+}
 .project-feature:nth-child(even) .project-copy {
   grid-column: 2;
 }
@@ -1520,7 +1524,7 @@ dd {
   .project-feature,
   .case-hero,
   .about-hero {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     min-height: auto;
   }
   .project-feature:nth-child(even) .project-copy,
