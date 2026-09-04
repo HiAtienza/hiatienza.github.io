@@ -3,7 +3,7 @@ export type Locale = "en" | "es";
 export const siteUrl = "https://hiatienza.github.io";
 export const external = {
   github: "https://github.com/HiAtienza",
-  linkedin: "https://www.linkedin.com/in/inmunozatienza"
+  linkedin: "https://www.linkedin.com/in/hiatienza/"
 };
 
 export const slugs = ["video-rescue", "cybermastery", "lifemap"] as const;

@@ -69,7 +69,7 @@ test("project hierarchy, language switching and public CV links work", async ({ 
   expect(visual.ok()).toBeTruthy();
 
   const linkedInFallback = page.locator(
-    '#contact a[href="https://www.linkedin.com/in/inmunozatienza"]'
+    '#contact a[href="https://www.linkedin.com/in/hiatienza/"]'
   );
   await expect(linkedInFallback).toHaveAccessibleName(
     /View Adrián Muñoz Atienza on LinkedIn|Ver el perfil de Adrián Muñoz Atienza en LinkedIn/

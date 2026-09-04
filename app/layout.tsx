@@ -54,7 +54,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       "Human-AI Interaction",
       "Human-Computer Interaction"
     ],
-    sameAs: ["https://github.com/HiAtienza", "https://www.linkedin.com/in/inmunozatienza"]
+    sameAs: ["https://github.com/HiAtienza", "https://www.linkedin.com/in/hiatienza/"]
   };
   return (
     <html lang="en" data-scroll-behavior="smooth">
