@@ -6,6 +6,8 @@ const pages = [
   "/es/",
   "/about/",
   "/es/about/",
+  "/projects/lock-calendar/",
+  "/es/projects/lock-calendar/",
   "/projects/video-rescue/",
   "/projects/cybermastery/",
   "/projects/lifemap/",
@@ -48,6 +50,7 @@ test("core navigation is keyboard reachable and public pages have no automated a
 test("project hierarchy, language switching and public CV links work", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator(".project-feature h3")).toHaveText([
+    "Lock Calendar",
     "VIDEO-RESCUE",
     "CyberMastery",
     "LifeMap"
@@ -91,11 +94,51 @@ test("reduced motion preserves the complete experience", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
   await expect(page.locator("#hero-title")).toBeVisible();
-  await expect(page.locator("#work .project-feature")).toHaveCount(3);
+  await expect(page.locator("#work .project-feature")).toHaveCount(4);
   await expect(page.locator(".specialization-path li")).toHaveCount(4);
 });
 
 test("unknown paths use the public 404 page", async ({ page }) => {
   await page.goto("/not-a-public-page/");
   await expect(page.getByRole("heading", { name: "That page is not here." })).toBeVisible();
+});
+
+test("Lock Calendar explains its concept with accessible example controls at 375px", async ({
+  page
+}) => {
+  await page.setViewportSize({ width: 375, height: 812 });
+  for (const locale of ["en", "es"] as const) {
+    await page.goto(locale === "en" ? "/projects/lock-calendar/" : "/es/projects/lock-calendar/");
+    await expect(page.getByRole("heading", { name: "Lock Calendar", exact: true })).toBeVisible();
+    const monday = page.getByRole("button", {
+      name: locale === "en" ? "Mon 10" : "Lun 10",
+      exact: true
+    });
+    await monday.click();
+    await expect(monday).toHaveAttribute("aria-pressed", "true");
+    await expect(page.locator(".lock-agenda")).toContainText(
+      locale === "en" ? "Algorithms" : "Algoritmos"
+    );
+    const darkScan = await new AxeBuilder({ page }).analyze();
+    expect(darkScan.violations).toEqual([]);
+    await page
+      .getByRole("button", { name: locale === "en" ? "Light theme" : "Tema claro" })
+      .click();
+    const lightScan = await new AxeBuilder({ page }).analyze();
+    expect(lightScan.violations).toEqual([]);
+    await page
+      .getByText(locale === "en" ? "Can I download it now?" : "¿Ya puedo descargarla?", {
+        exact: true
+      })
+      .click();
+    await expect(page.locator(".lock-faq details[open]")).toContainText(
+      locale === "en" ? "active Android development" : "desarrollo activo"
+    );
+    expect(
+      await page.locator(".lock-week").evaluate((week) => week.scrollWidth <= week.clientWidth)
+    ).toBeTruthy();
+    expect(
+      await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)
+    ).toBeTruthy();
+  }
 });

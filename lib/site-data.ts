@@ -6,7 +6,7 @@ export const external = {
   linkedin: "https://www.linkedin.com/in/hiatienza/"
 };
 
-export const slugs = ["video-rescue", "cybermastery", "lifemap"] as const;
+export const slugs = ["lock-calendar", "video-rescue", "cybermastery", "lifemap"] as const;
 export type ProjectSlug = (typeof slugs)[number];
 
 type Project = {
@@ -36,8 +36,8 @@ export const copy = {
     hero: {
       eyebrow: "Computer Science student @ XJTLU",
       title: "I turn complex signals into software people can understand and act on.",
-      lead: "Developing as a Software Engineer, focused on Human-Centered AI, Behavioral Technology and Human-AI Interaction.",
-      work: "Explore selected work",
+      lead: "Currently building Lock Calendar: an Android app that brings your week and next appointment to your lock screen. My wider work connects Software Engineering, Human-Centered AI, Behavioral Technology and Human-AI Interaction.",
+      work: "Explore Lock Calendar",
       about: "About my path",
       cv: "Download CV",
       visual: "View public visual CV",
@@ -51,7 +51,7 @@ export const copy = {
     },
     projects: {
       label: "Flagship projects",
-      title: "Three product threads. One engineering direction.",
+      title: "Everyday friction. Thoughtful software.",
       link: "Read case study",
       source: "Source remains private"
     },
@@ -143,7 +143,7 @@ export const copy = {
         [
           "2026 – present",
           "Independent product development",
-          "CyberMastery and LifeMap across full-stack web and Android."
+          "Currently focused on Lock Calendar, alongside CyberMastery and LifeMap across full-stack web and Android."
         ],
         [
           "Jul – Sep 2024",
@@ -182,7 +182,7 @@ export const copy = {
         "No phone number, home address, private email or identity document.",
         "No private repository, deployment, participant, mission or transcript link.",
         "No operational rescue, autonomous decision, AI-accuracy, production or validated-impact claim.",
-        "Case studies use simplified explanatory diagrams rather than private screenshots or source code."
+        "Case studies use original explanatory visuals and synthetic app captures; no personal calendar events or private source code are published."
       ]
     },
     researchPage: {
@@ -221,8 +221,8 @@ export const copy = {
     hero: {
       eyebrow: "Estudiante de Computer Science @ XJTLU",
       title: "Convierto señales complejas en software que las personas pueden entender y usar.",
-      lead: "Me desarrollo como Software Engineer con foco en Human-Centered AI, Behavioral Technology e interacción persona-IA.",
-      work: "Ver proyectos",
+      lead: "Ahora estoy creando Lock Calendar: una app Android que lleva tu semana y tu próxima cita a la pantalla de bloqueo. Mi trabajo conecta ingeniería de software, Human-Centered AI y tecnología del comportamiento.",
+      work: "Conoce Lock Calendar",
       about: "Conoce mi recorrido",
       cv: "Descargar CV",
       visual: "Ver CV visual público",
@@ -237,7 +237,7 @@ export const copy = {
     },
     projects: {
       label: "Proyectos principales",
-      title: "Tres líneas de producto. Una dirección de ingeniería.",
+      title: "Problemas cotidianos. Software con intención.",
       link: "Leer caso de estudio",
       source: "El código fuente permanece privado"
     },
@@ -329,7 +329,7 @@ export const copy = {
         [
           "2026 – actualidad",
           "Desarrollo de productos independientes",
-          "CyberMastery y LifeMap en desarrollo web full-stack y Android."
+          "Ahora centrado en Lock Calendar, junto a CyberMastery y LifeMap en desarrollo web full-stack y Android."
         ],
         [
           "Jul – Sep 2024",
@@ -368,7 +368,7 @@ export const copy = {
         "No contiene teléfono, dirección, correo privado ni documento de identidad.",
         "No enlaza repositorios, despliegues, participantes, misiones o transcripciones privadas.",
         "No afirma despliegue operativo, decisiones autónomas, precisión de IA, producción ni impacto validado.",
-        "Los casos de estudio usan diagramas explicativos simplificados, no capturas privadas ni código fuente."
+        "Los casos utilizan visuales explicativos originales y capturas sintéticas de la app; no se publican eventos personales ni código privado."
       ]
     },
     researchPage: {
@@ -400,9 +400,43 @@ export const copy = {
 
 export const projects: Record<Locale, Record<ProjectSlug, Project>> = {
   en: {
+    "lock-calendar": {
+      slug: "lock-calendar",
+      order: "01",
+      name: "Lock Calendar",
+      context: "Current focus · independent Android product",
+      problem:
+        "A timetable screenshot becomes outdated, gets cropped, or disappears behind the lock-screen clock. Your next class or appointment should be easier to see.",
+      role: "Product concept, UX, Android architecture and implementation",
+      tech: ["Kotlin", "Jetpack Compose", "CalendarContract", "Canvas", "Google Calendar API"],
+      status: "Android app in active development · not yet publicly released",
+      summary:
+        "Your week, right where you look. Lock Calendar turns connected calendars into a readable live wallpaper, bringing classes and everyday appointments to your Android lock screen.",
+      facts: [
+        {
+          title: "One place for what comes next",
+          text: "Device calendars and a direct Google Calendar integration feed a weekly view and daily agenda. Calendar sources are explicitly selected; the wallpaper reads your schedule without editing calendar events."
+        },
+        {
+          title: "A layout made for a lock screen",
+          text: "A shared Compose and Canvas layout model powers the in-app preview and live wallpaper. Placement controls let you adjust the agenda around system elements instead of cropping a screenshot."
+        },
+        {
+          title: "Updates with the schedule",
+          text: "Calendar-change notifications, visibility checks and bounded refresh policies keep the display connected to its source while avoiding a continuous rendering loop. Freshness depends on the source and Android lifecycle."
+        },
+        {
+          title: "An app designed around the preview",
+          text: "Calendar selection, layout and background customization, and grouped settings make the result visible before applying it. Synthetic captures document the current app design."
+        }
+      ],
+      limitation:
+        "Android only and still in development. Google authorization and device-calendar flows have implementation and test evidence, but broader Google acceptance and cross-device validation remain ongoing. Some lock-screen clocks still require manual placement; no universal fit or measured productivity improvement is claimed.",
+      next: "Keep validating synchronization and placement across devices, refine the student workflow, and prepare a public release after the remaining acceptance checks."
+    },
     "video-rescue": {
       slug: "video-rescue",
-      order: "01",
+      order: "02",
       name: "VIDEO-RESCUE",
       context: "Supervised XJTLU research · one of two student team members",
       problem:
@@ -436,7 +470,7 @@ export const projects: Record<Locale, Record<ProjectSlug, Project>> = {
     },
     cybermastery: {
       slug: "cybermastery",
-      order: "02",
+      order: "03",
       name: "CyberMastery",
       context: "Independent product development · full-stack learning product",
       problem:
@@ -470,7 +504,7 @@ export const projects: Record<Locale, Record<ProjectSlug, Project>> = {
     },
     lifemap: {
       slug: "lifemap",
-      order: "03",
+      order: "04",
       name: "LifeMap",
       context: "Independent Android product development",
       problem:
@@ -504,9 +538,43 @@ export const projects: Record<Locale, Record<ProjectSlug, Project>> = {
     }
   },
   es: {
+    "lock-calendar": {
+      slug: "lock-calendar",
+      order: "01",
+      name: "Lock Calendar",
+      context: "Mi foco actual · producto Android independiente",
+      problem:
+        "Una captura del horario se queda desactualizada, se recorta o queda tapada por el reloj de la pantalla de bloqueo. Ver tu próxima clase o cita debería ser más fácil.",
+      role: "Concepto de producto, UX, arquitectura Android e implementación",
+      tech: ["Kotlin", "Jetpack Compose", "CalendarContract", "Canvas", "Google Calendar API"],
+      status: "App Android en desarrollo activo · todavía sin lanzamiento público",
+      summary:
+        "Tu semana, donde ya miras. Lock Calendar convierte tus calendarios conectados en un fondo de pantalla dinámico y legible, con tus clases y citas cotidianas en la pantalla de bloqueo de Android.",
+      facts: [
+        {
+          title: "Lo siguiente, en un mismo lugar",
+          text: "Los calendarios del teléfono y una integración directa con Google Calendar alimentan la vista semanal y la agenda diaria. Tú eliges la fuente y los calendarios; el fondo lee tu horario sin editar sus eventos."
+        },
+        {
+          title: "Un diseño para la pantalla de bloqueo",
+          text: "Un modelo de diseño compartido entre Compose y Canvas alimenta la vista previa y el fondo dinámico. Puedes ajustar la posición de la agenda alrededor de los elementos del sistema en lugar de recortar una captura."
+        },
+        {
+          title: "El horario cambia; la agenda se actualiza",
+          text: "Las notificaciones de cambios, las comprobaciones al volver a mostrar la pantalla y las políticas de refresco mantienen la conexión con la fuente sin renderizar continuamente. La actualización depende de la fuente y del ciclo de vida de Android."
+        },
+        {
+          title: "Una app construida alrededor de la vista previa",
+          text: "La selección de calendarios, la personalización del diseño y el fondo, y los ajustes agrupados permiten ver el resultado antes de aplicarlo. Las capturas sintéticas muestran el diseño actual de la app."
+        }
+      ],
+      limitation:
+        "Solo Android y todavía en desarrollo. La autorización de Google y los calendarios del dispositivo tienen evidencia de implementación y pruebas; continúa la validación más amplia de Google y de distintos dispositivos. Algunos relojes requieren ajustar la posición manualmente. No se garantiza un encaje universal ni una mejora de productividad medida.",
+      next: "Seguir validando sincronización y posición en distintos dispositivos, mejorar el flujo para estudiantes y preparar el lanzamiento público tras las comprobaciones pendientes."
+    },
     "video-rescue": {
       slug: "video-rescue",
-      order: "01",
+      order: "02",
       name: "VIDEO-RESCUE",
       context: "Investigación supervisada en XJTLU · uno de los dos estudiantes del equipo",
       problem:
@@ -540,7 +608,7 @@ export const projects: Record<Locale, Record<ProjectSlug, Project>> = {
     },
     cybermastery: {
       slug: "cybermastery",
-      order: "02",
+      order: "03",
       name: "CyberMastery",
       context: "Desarrollo independiente · producto de aprendizaje full-stack",
       problem:
@@ -574,7 +642,7 @@ export const projects: Record<Locale, Record<ProjectSlug, Project>> = {
     },
     lifemap: {
       slug: "lifemap",
-      order: "03",
+      order: "04",
       name: "LifeMap",
       context: "Desarrollo independiente de producto Android",
       problem:
@@ -614,12 +682,13 @@ export const aboutPages = {
     label: "About",
     title: "Building as a software engineer. Human-centered by intent.",
     intro:
-      "I’m Adrián, a Computer Science student at XJTLU developing as a Software Engineer. I build across web, Android and applied AI, with a growing focus on Human-Centered AI, Behavioral Technology and Human-AI Interaction.",
+      "I’m Adrián, a Computer Science student at XJTLU developing as a Software Engineer. Right now, my main product focus is Lock Calendar: making everyday schedules easier to see from an Android lock screen. I also build across web and applied AI.",
     storyTitle: "A path shaped between Spain and China.",
     story: [
       "I began my software engineering studies at U-TAD in Madrid before transferring to Xi’an Jiaotong-Liverpool University, where I am now a Year 3 BSc Information and Computing Science student with expected graduation in July 2028.",
       "Moving between countries and working in tutoring, multicultural customer service and supervised research taught me to treat communication as part of engineering. A system is not useful simply because it works; people also need to understand what it is doing, trust its boundaries and know what to do next.",
-      "That idea connects my current work: coordination support for complex transcripts, structured cybersecurity learning and calm tools for visualising time and goals."
+      "Lock Calendar began with something I kept seeing at university: students taking screenshots of class timetables and struggling to make them fit behind the lock-screen clock. I wanted a cleaner, connected calendar that could keep up with real life, rather than a static image.",
+      "That idea connects my current work: visible everyday schedules, coordination support for complex transcripts, structured cybersecurity learning and calm tools for visualising time and goals."
     ],
     dual: [
       {
@@ -659,12 +728,13 @@ export const aboutPages = {
     label: "Sobre mí",
     title: "Desarrollándome como ingeniero de software. Centrado en las personas por intención.",
     intro:
-      "Soy Adrián, estudiante de Computer Science en XJTLU, y me desarrollo como Software Engineer. Creo software web, Android y de IA aplicada con un foco creciente en Human-Centered AI, Behavioral Technology e interacción persona-IA.",
+      "Soy Adrián, estudiante de Computer Science en XJTLU, y me desarrollo como ingeniero de software. Ahora mi foco principal es Lock Calendar: hacer más fácil consultar el día a día desde la pantalla de bloqueo de Android. También desarrollo productos web y de IA aplicada.",
     storyTitle: "Un recorrido construido entre España y China.",
     story: [
       "Comencé mis estudios de ingeniería del software en U-TAD, Madrid, antes de trasladarme a Xi’an Jiaotong-Liverpool University, donde actualmente curso tercero del BSc Information and Computing Science y tengo prevista la graduación en julio de 2028.",
       "Vivir entre países y trabajar en tutoría, atención al cliente multicultural e investigación supervisada me enseñó que la comunicación forma parte de la ingeniería. Un sistema no es útil solo porque funcione: las personas también necesitan entender qué hace, confiar en sus límites y saber cuál es el siguiente paso.",
-      "Esa idea conecta mi trabajo actual: apoyo a la coordinación de transcripciones complejas, aprendizaje estructurado de ciberseguridad y herramientas tranquilas para visualizar tiempo y objetivos."
+      "Lock Calendar nació de algo que veía continuamente en la universidad: estudiantes haciendo capturas del horario de clases y tratando de encajarlas detrás del reloj de la pantalla de bloqueo. Quería una agenda más limpia y conectada que siguiera el ritmo del día a día, en lugar de una imagen estática.",
+      "Esa idea conecta mi trabajo actual: horarios cotidianos visibles, apoyo a la coordinación de transcripciones complejas, aprendizaje estructurado de ciberseguridad y herramientas tranquilas para visualizar tiempo y objetivos."
     ],
     dual: [
       {

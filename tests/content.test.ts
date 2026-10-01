@@ -4,9 +4,10 @@ import { linkedInBadgeIntegrationState, officialLinkedInBadgeMarkup } from "../l
 
 describe("public portfolio content", () => {
   it("keeps the agreed flagship-project order in both languages", () => {
-    expect(slugs).toEqual(["video-rescue", "cybermastery", "lifemap"]);
+    expect(slugs).toEqual(["lock-calendar", "video-rescue", "cybermastery", "lifemap"]);
     for (const locale of ["en", "es"] as const)
       expect(slugs.map((slug) => projects[locale][slug].name)).toEqual([
+        "Lock Calendar",
         "VIDEO-RESCUE",
         "CyberMastery",
         "LifeMap"
@@ -24,7 +25,7 @@ describe("public portfolio content", () => {
   it("keeps the new positioning and About story aligned across languages", () => {
     expect(copy.en.hero.title).toMatch(/complex signals/);
     expect(copy.es.hero.title).toMatch(/señales complejas/);
-    expect(copy.en.hero.lead).toMatch(/Software Engineer/);
+    expect(copy.en.hero.lead).toMatch(/Software Engineering/);
     expect(copy.en.hero.lead).toMatch(/Human-Centered AI/);
     expect(copy.en.hero.lead).toMatch(/Behavioral Technology/);
     expect(copy.en.hero.lead).toMatch(/Human-AI Interaction/);

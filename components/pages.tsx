@@ -2,6 +2,8 @@ import Link from "next/link";
 import type { CSSProperties } from "react";
 import { FlowDiagram } from "@/components/diagram";
 import { LinkedInProfileBadge } from "@/components/linkedin-profile-badge";
+import { LockCalendarPreview } from "@/components/lock-calendar-preview";
+import { LockCalendarAbout, LockCalendarStory } from "@/components/lock-calendar-story";
 import { Portrait } from "@/components/media";
 import { SignalField } from "@/components/signal-field";
 import { SiteShell } from "@/components/site-shell";
@@ -17,6 +19,7 @@ import {
 } from "@/lib/site-data";
 
 const diagramType: Record<ProjectSlug, "coordination" | "architecture" | "calendar"> = {
+  "lock-calendar": "calendar",
   "video-rescue": "coordination",
   cybermastery: "architecture",
   lifemap: "calendar"
@@ -34,9 +37,9 @@ export function HomePage({ locale }: { locale: Locale }) {
             <h1 id="hero-title">{t.hero.title}</h1>
             <p className="hero-lead">{t.hero.lead}</p>
             <div className="button-row">
-              <a className="button" href="#work">
+              <Link className="button" href={route(locale, "/projects/lock-calendar/")}>
                 {t.hero.work}
-              </a>
+              </Link>
               <Link className="button button-secondary" href={route(locale, "/about/")}>
                 {t.hero.about}
               </Link>
@@ -70,8 +73,8 @@ export function HomePage({ locale }: { locale: Locale }) {
             <h2 id="work-title">{t.projects.title}</h2>
             <p>
               {locale === "en"
-                ? "Three systems for turning complex information into coordination, learning and intentional action."
-                : "Tres sistemas para convertir información compleja en coordinación, aprendizaje y acción intencional."}
+                ? "Now focused on Lock Calendar: helping people see what comes next. Alongside it, projects in coordination, learning and intentional time."
+                : "Ahora centrado en Lock Calendar: ayudar a ver qué viene después. Junto a él, proyectos de coordinación, aprendizaje y tiempo intencional."}
             </p>
           </div>
         </div>
@@ -194,10 +197,19 @@ function ProjectFeature({ locale, slug }: { locale: Locale; slug: ProjectSlug })
   return (
     <article className={`project-feature project-${slug}`} data-reveal>
       <div className="project-copy">
-        <p className="project-index">{project.order} / 03</p>
+        <p className="project-index">
+          {project.order} / {String(slugs.length).padStart(2, "0")}
+        </p>
         <p className="context">{project.context}</p>
         <h3>{project.name}</h3>
         <p className="project-problem">{project.problem}</p>
+        {slug === "lock-calendar" && (
+          <p className="lock-feature-line">
+            {locale === "en"
+              ? "Your classes. Your appointments. Your week at a glance."
+              : "Tus clases. Tus citas. Tu semana de un vistazo."}
+          </p>
+        )}
         <dl className="project-meta">
           <div>
             <dt>{locale === "en" ? "My role" : "Mi función"}</dt>
@@ -213,7 +225,11 @@ function ProjectFeature({ locale, slug }: { locale: Locale; slug: ProjectSlug })
         </Link>
       </div>
       <div className="project-visual">
-        <FlowDiagram type={diagramType[slug]} locale={locale} />
+        {slug === "lock-calendar" ? (
+          <LockCalendarPreview locale={locale} />
+        ) : (
+          <FlowDiagram type={diagramType[slug]} locale={locale} />
+        )}
         <p>{project.status}</p>
       </div>
     </article>
@@ -286,6 +302,8 @@ export function AboutPage({ locale }: { locale: Locale }) {
             ))}
           </div>
         </section>
+
+        <LockCalendarAbout locale={locale} />
 
         <section className="section principles-section">
           <div className="page-wrap">
@@ -370,8 +388,8 @@ export function ProjectPage({ locale, slug }: { locale: Locale; slug: ProjectSlu
         };
   const boundary =
     locale === "en"
-      ? "This public case study uses only approved, non-sensitive descriptions and simplified diagrams. Private source, internal artifacts, live environments and operational data are not published."
-      : "Este caso público utiliza solo descripciones aprobadas y no sensibles, además de diagramas simplificados. No se publican código privado, artefactos internos, entornos activos ni datos operativos.";
+      ? "This public case study uses non-sensitive descriptions, original illustrations and, where labelled, synthetic app captures. Personal calendars, private source, live environments and operational data are not published."
+      : "Este caso público utiliza descripciones no sensibles, ilustraciones originales y capturas sintéticas identificadas. No se publican calendarios personales, código privado, entornos activos ni datos operativos.";
   const workSchema = {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
@@ -397,7 +415,11 @@ export function ProjectPage({ locale, slug }: { locale: Locale; slug: ProjectSlu
             <p className="case-summary">{project.summary}</p>
           </div>
           <div className="case-hero-visual" data-reveal>
-            <FlowDiagram type={diagramType[slug]} locale={locale} />
+            {slug === "lock-calendar" ? (
+              <LockCalendarPreview locale={locale} />
+            ) : (
+              <FlowDiagram type={diagramType[slug]} locale={locale} />
+            )}
           </div>
         </header>
 
@@ -413,7 +435,7 @@ export function ProjectPage({ locale, slug }: { locale: Locale; slug: ProjectSlu
                 <dd>{project.role}</dd>
               </div>
               <div>
-                <dt>Status</dt>
+                <dt>{locale === "en" ? "Status" : "Estado"}</dt>
                 <dd>{project.status}</dd>
               </div>
               <div>
@@ -423,6 +445,8 @@ export function ProjectPage({ locale, slug }: { locale: Locale; slug: ProjectSlu
             </dl>
           </div>
         </section>
+
+        {slug === "lock-calendar" && <LockCalendarStory locale={locale} />}
 
         <section className="section page-wrap case-decisions" aria-labelledby="decisions-title">
           <div className="section-heading" data-reveal>

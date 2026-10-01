@@ -4,6 +4,8 @@ Public bilingual portfolio for a Computer Science student developing as a Softwa
 
 The current design uses the original concept **Human Signals → Useful Systems**: an editorial portfolio with restrained creative-coding interactions that connect Adrián's work in coordination, learning and intentional decision-making.
 
+The current featured project is **Lock Calendar**, an Android app in active development that turns selected calendars into a weekly live wallpaper and daily agenda. English and Spanish case studies explain its university-timetable origin, calendar integration, placement and refresh behavior. The interactive phone illustration uses sample events; the three app captures use synthetic emulator data. No public app-store release is claimed.
+
 ## Public site
 
 - English: `https://hiatienza.github.io/`

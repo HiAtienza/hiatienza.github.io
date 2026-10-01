@@ -1721,6 +1721,340 @@ dd {
   }
 }
 
+.signal-route {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  align-content: start;
+  padding: 124px 20px 190px;
+}
+.signal-route .signal-node {
+  position: static;
+  min-width: 0;
+}
+.signal-route .signal-node-1 {
+  border-color: #753249;
+  color: #571f30;
+}
+.signal-route .signal-node-1 span,
+.signal-route .signal-node-1 small {
+  color: #753249;
+}
+.project-lock-calendar .project-visual,
+.case-lock-calendar .case-hero-visual {
+  padding: clamp(1rem, 3vw, 2rem);
+  border-color: #d5c4c8;
+  background: #f2e9e6;
+}
+.project-lock-calendar .project-visual::before {
+  background: radial-gradient(ellipse at 70% 25%, #d8aeb533, transparent 65%);
+}
+.project-lock-calendar .project-copy h3,
+.case-lock-calendar .case-hero h1 {
+  color: #571f30;
+}
+.case-lock-calendar .case-hero h1 {
+  font-size: clamp(3rem, 5.5vw, 5.6rem);
+}
+.lock-feature-line {
+  color: #571f30;
+  font-weight: 650;
+}
+.lock-preview {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  color: #fff5f2;
+}
+.lock-device {
+  position: relative;
+  width: min(100%, 320px);
+  margin-inline: auto;
+  padding: 18px 14px;
+  border: 6px solid #211a1d;
+  border-radius: 38px;
+  background:
+    radial-gradient(ellipse at 95% 10%, #8d3e50, transparent 65%),
+    radial-gradient(ellipse at 5% 75%, #6d2339, transparent 62%), #220e17;
+  box-shadow: 0 24px 50px #571f3026;
+}
+.lock-system,
+.lock-bottom {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+}
+.lock-clock {
+  display: grid;
+  gap: 2px;
+  padding-block: 25px 35px;
+  text-align: center;
+}
+.lock-clock span {
+  font-size: 0.75rem;
+}
+.lock-clock strong {
+  font-size: 4.5rem;
+  line-height: 1.1;
+  font-weight: 500;
+  letter-spacing: -0.065em;
+}
+.lock-week {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 3px;
+}
+.lock-week button {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 4px;
+  padding: 6px 3px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.lock-week button > span:first-child {
+  font-size: 0.65rem;
+}
+.lock-week button > strong {
+  font-size: 0.9rem;
+}
+.lock-week button[aria-pressed="true"] {
+  border-color: #f4cad4;
+  background: #fff5f21f;
+}
+.lock-week-events {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  width: 100%;
+  gap: 4px;
+}
+.lock-week-events i {
+  display: block;
+  min-width: 0;
+  min-height: 45px;
+  padding: 4px;
+  border-radius: 5px;
+  background: #f2c4ce;
+  color: #34101d;
+  font-size: 0.52rem;
+  font-style: normal;
+  font-weight: 650;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+  text-align: left;
+}
+.lock-week-events i:nth-child(2) {
+  background: #e4dce7;
+}
+.lock-week-events small {
+  display: block;
+  margin-bottom: 3px;
+  font-size: 0.5rem;
+  font-weight: 500;
+}
+.lock-week-events b {
+  display: block;
+  overflow: hidden;
+  font-weight: 650;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lock-agenda {
+  min-height: 215px;
+  padding: 20px 8px 10px;
+}
+.lock-agenda-label {
+  margin-bottom: 14px;
+  font-size: 0.65rem;
+  font-weight: 600;
+}
+.lock-agenda ul {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.lock-agenda li {
+  display: flex;
+  gap: 10px;
+  padding-left: 10px;
+  border-left: 3px solid #f2c4ce;
+  line-height: 1.35;
+}
+.lock-agenda time {
+  padding-top: 2px;
+  font-size: 0.72rem;
+}
+.lock-agenda strong,
+.lock-agenda li span {
+  display: block;
+}
+.lock-agenda strong {
+  font-size: 0.88rem;
+}
+.lock-agenda li span {
+  margin-top: 3px;
+  font-size: 0.64rem;
+}
+.lock-bottom {
+  padding: 14px 8px 0;
+}
+.lock-preview-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-block: 20px 12px;
+  color: #571f30;
+  font-size: 0.75rem;
+}
+.lock-preview-controls button {
+  min-height: 44px;
+  padding: 8px 15px;
+  border: 1px solid #571f30;
+  border-radius: 24px;
+  background: #fffaf8;
+  color: #571f30;
+  font: inherit;
+  cursor: pointer;
+}
+.lock-preview-controls button[aria-pressed="true"] {
+  background: #571f30;
+  color: #fffaf8;
+}
+.lock-preview figcaption {
+  max-width: 42ch;
+  margin-inline: auto;
+  color: #62454e;
+  font-size: 0.65rem;
+  line-height: 1.5;
+  text-align: center;
+}
+.lock-preview-light .lock-device {
+  background: radial-gradient(ellipse at 0 10%, #ead0d6, transparent 75%), #fcf0e9;
+  color: #461b2b;
+}
+.lock-preview-light .lock-week button[aria-pressed="true"] {
+  border-color: #571f30;
+  background: #571f3010;
+}
+.lock-preview-light .lock-agenda li {
+  border-color: #753249;
+}
+.lock-about {
+  border-block: 1px solid #d5c4c8;
+  background: #f2e9e6;
+}
+.lock-about-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 7vw, 6rem);
+}
+.lock-about h2,
+.lock-origin h2,
+.lock-gallery h2,
+.lock-faq h2 {
+  color: #571f30;
+}
+.lock-origin h2 {
+  max-width: 850px;
+}
+.lock-origin-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2rem;
+  margin-top: 3.5rem;
+}
+.lock-origin-steps article {
+  padding-top: 1.5rem;
+  border-top: 1px solid #d5c4c8;
+}
+.lock-origin-steps article > span {
+  color: #753249;
+  font-family: ui-monospace, monospace;
+  font-size: 0.8rem;
+}
+.lock-origin-steps h3 {
+  margin-top: 1.5rem;
+  font-size: 1.5rem;
+}
+.lock-origin-steps p {
+  color: var(--ink-soft);
+}
+.lock-gallery {
+  background: #f2e9e6;
+}
+.lock-captures {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+.lock-captures figure {
+  min-width: 0;
+  margin: 0;
+}
+.lock-captures figure > div {
+  overflow: hidden;
+  border: 1px solid #d5c4c8;
+  border-radius: 24px;
+  background: #fafafa;
+}
+.lock-captures img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.lock-captures figcaption {
+  padding-top: 1.5rem;
+}
+.lock-captures h3 {
+  font-size: 1.2rem;
+}
+.lock-captures p {
+  font-size: 0.88rem;
+}
+.lock-faq details {
+  border-bottom: 1px solid #d5c4c8;
+}
+.lock-faq summary {
+  padding-block: 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.lock-faq details p {
+  padding-bottom: 1rem;
+  color: var(--ink-soft);
+}
+@media (max-width: 780px) {
+  .lock-about-layout,
+  .lock-origin-steps,
+  .lock-captures {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .lock-captures figure {
+    max-width: 360px;
+    margin-inline: auto;
+  }
+}
+@media (max-width: 1040px) {
+  .signal-field {
+    min-height: 520px;
+  }
+}
+@media (max-width: 520px) {
+  .signal-field {
+    min-height: 500px;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
