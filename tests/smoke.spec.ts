@@ -103,6 +103,51 @@ test("unknown paths use the public 404 page", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "That page is not here." })).toBeVisible();
 });
 
+test("VIDEO-RESCUE visuals load, retain evidence boundaries and are accessible", async ({
+  page
+}) => {
+  const originalViewport = page.viewportSize()!;
+  for (const locale of ["en", "es"] as const) {
+    await page.setViewportSize(originalViewport);
+    await page.goto(locale === "en" ? "/projects/video-rescue/" : "/es/projects/video-rescue/");
+    await expect(page.locator(".rescue-figure")).toHaveCount(3);
+    await expect(page.locator(".rescue-steps li")).toHaveCount(4);
+    await expect(page.locator(".rescue-research-status")).toContainText(
+      locale === "en" ? "Fuller analysis ongoing" : "Análisis más completo en curso"
+    );
+    await expect(page.locator(".rescue-geographic-boundary")).toContainText(
+      locale === "en" ? "future integration work" : "futuras integraciones"
+    );
+    await expect(page.locator(".rescue-figure-assistant figcaption")).toContainText(
+      locale === "en" ? "not independently verified truth" : "no una verdad verificada"
+    );
+    for (const image of await page.locator(".rescue-figure img").all()) {
+      await image.scrollIntoViewIfNeeded();
+      await expect(image).toBeVisible();
+      await expect
+        .poll(() => image.evaluate((element) => (element as HTMLImageElement).naturalWidth))
+        .toBeGreaterThan(0);
+      const fullSize = image.locator("..").getByRole("link");
+      expect((await page.request.get((await fullSize.getAttribute("href"))!)).ok()).toBeTruthy();
+    }
+    const scan = await new AxeBuilder({ page }).analyze();
+    expect(scan.violations).toEqual([]);
+    await page.setViewportSize({ width: 375, height: 812 });
+    expect(
+      await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)
+    ).toBeTruthy();
+    const requests: string[] = [];
+    page.on("request", (request) => requests.push(request.url()));
+    await page.goto(locale === "en" ? "/research/" : "/es/research/");
+    await expect(page.locator(".rescue-figure-workspace")).toHaveCount(1);
+    const researchScan = await new AxeBuilder({ page }).analyze();
+    expect(researchScan.violations).toEqual([]);
+    await page.locator(".rescue-case-link").click();
+    await expect(page).toHaveURL(/\/projects\/video-rescue\/$/);
+    expect(requests.every((url) => new URL(url).origin === "http://127.0.0.1:4173")).toBeTruthy();
+  }
+});
+
 test("Lock Calendar explains its concept with accessible example controls at 375px", async ({
   page
 }) => {

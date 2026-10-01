@@ -182,7 +182,7 @@ export const copy = {
         "No phone number, home address, private email or identity document.",
         "No private repository, deployment, participant, mission or transcript link.",
         "No operational rescue, autonomous decision, AI-accuracy, production or validated-impact claim.",
-        "Case studies use original explanatory visuals and synthetic app captures; no personal calendar events or private source code are published."
+        "Case studies use explanatory illustrations and labelled app captures with fictional demonstration data. No personal calendar events, participant-session captures or private source code are published."
       ]
     },
     researchPage: {
@@ -205,7 +205,7 @@ export const copy = {
         ],
         [
           "Evaluation and privacy",
-          "I supported study design, participant recruitment, research sessions and analysis. No participant identifiers, mission data, transcripts or internal material are published here."
+          "I supported study design, recruitment, sessions and analysis. The supplied presentation reports data collection complete, with fuller analysis ongoing. Public captures use fictional exercise reports; actual participant-session images, transcripts and connection codes are excluded."
         ]
       ]
     }
@@ -368,7 +368,7 @@ export const copy = {
         "No contiene teléfono, dirección, correo privado ni documento de identidad.",
         "No enlaza repositorios, despliegues, participantes, misiones o transcripciones privadas.",
         "No afirma despliegue operativo, decisiones autónomas, precisión de IA, producción ni impacto validado.",
-        "Los casos utilizan visuales explicativos originales y capturas sintéticas de la app; no se publican eventos personales ni código privado."
+        "Los casos utilizan ilustraciones explicativas y capturas identificadas con datos ficticios. No se publican eventos personales, capturas de sesiones de participantes ni código privado."
       ]
     },
     researchPage: {
@@ -391,7 +391,7 @@ export const copy = {
         ],
         [
           "Evaluación y privacidad",
-          "Apoyé el diseño del estudio, la captación de participantes, las sesiones de investigación y el análisis. No se publica ningún identificador de participante, dato de misión, transcripción ni material interno."
+          "Apoyé el diseño del estudio, la captación, las sesiones y el análisis. La presentación facilitada indica recogida de datos completada y análisis más completo en curso. Las capturas públicas usan informes ficticios; se excluyen imágenes de sesiones reales, transcripciones de participantes y códigos de conexión."
         ]
       ]
     }
@@ -443,17 +443,17 @@ export const projects: Record<Locale, Record<ProjectSlug, Project>> = {
         "Fragmented field information can make it difficult for teams to form a shared picture without losing accountability.",
       role: "Browser-prototype development within supervised research",
       tech: ["React", "TypeScript", "Express", "SQLite", "LiveKit/WebRTC"],
-      status: "Research/prototyping system — not an operational rescue platform",
+      status: "Research prototype · data collection complete, fuller analysis ongoing",
       summary:
         "A browser-based coordination prototype that connects maps, live media, captions, durable events, operator tasking and evidence-linked AI support.",
       facts: [
         {
           title: "System overview",
-          text: "Reports, map context, media, tasks and durable event history are brought into one coordination workflow."
+          text: "Field media, live transcripts, a map for human operators and durable reports share one workspace. Report assignment, receipt confirmation and export support follow-up and later review."
         },
         {
           title: "Human-AI interaction",
-          text: "AI correlation support exposes supporting events, confidence, unknowns and suggested next actions rather than hiding uncertainty."
+          text: "The assistant helps retrieve and relate reports while keeping unknowns visible. The published demonstration distinguishes logged records from unverified speech; these UI labels are not independent validation of truth."
         },
         {
           title: "Decision boundary",
@@ -461,12 +461,12 @@ export const projects: Record<Locale, Record<ProjectSlug, Project>> = {
         },
         {
           title: "Research setting",
-          text: "The work sits in a supervised, two-student research context. Study design, recruitment, sessions and analysis are team/supervisor work."
+          text: "The work sits in a supervised, two-student research context. The supplied presentation reports data collection complete and preliminary qualitative feedback; fuller analysis remains ongoing."
         }
       ],
       limitation:
-        "No field deployment, operational safety claim, rescue-outcome claim or validated AI-accuracy claim is made.",
-      next: "Continue research-led evaluation and refine evidence presentation with approved study feedback."
+        "No field deployment, operational safety claim, rescue-outcome claim or validated AI-accuracy claim is made. The assistant does not directly access map data, building names or distances; a human-visible map does not establish AI navigation.",
+      next: "Complete fuller analysis and explore team-wide assistance and geographic-context integration as future work, guided by the preliminary feedback."
     },
     cybermastery: {
       slug: "cybermastery",
@@ -581,17 +581,17 @@ export const projects: Record<Locale, Record<ProjectSlug, Project>> = {
         "La información de campo fragmentada puede dificultar que un equipo comparta una visión común sin perder responsabilidad.",
       role: "Desarrollo de prototipo web dentro de investigación supervisada",
       tech: ["React", "TypeScript", "Express", "SQLite", "LiveKit/WebRTC"],
-      status: "Sistema de investigación/prototipado — no es una plataforma operativa de rescate",
+      status: "Prototipo de investigación · datos recogidos, análisis más completo en curso",
       summary:
         "Un prototipo web de coordinación que conecta mapas, contenido multimedia en directo, subtítulos, eventos persistentes, tareas y asistencia de IA vinculada a evidencias.",
       facts: [
         {
           title: "Visión del sistema",
-          text: "Los informes, el contexto de mapa, los contenidos, las tareas y el historial de eventos persistentes se reúnen en un flujo de coordinación."
+          text: "Contenidos de campo, transcripciones en directo, un mapa para operadores humanos e informes persistentes comparten un espacio. La asignación, confirmación de recepción y exportación permiten seguimiento y revisión posterior."
         },
         {
           title: "Interacción persona-IA",
-          text: "La asistencia de correlación con IA muestra eventos de apoyo, confianza, incógnitas y siguientes acciones sugeridas sin ocultar la incertidumbre."
+          text: "El asistente ayuda a recuperar y relacionar informes manteniendo visibles las incógnitas. La demostración publicada distingue registros de voz no verificada; estas etiquetas no validan la verdad de forma independiente."
         },
         {
           title: "Límite de decisión",
@@ -599,12 +599,12 @@ export const projects: Record<Locale, Record<ProjectSlug, Project>> = {
         },
         {
           title: "Entorno de investigación",
-          text: "El trabajo se sitúa en un contexto de investigación supervisada con dos estudiantes. Diseño, captación, sesiones y análisis son trabajo de equipo/supervisión."
+          text: "El trabajo se sitúa en investigación supervisada con dos estudiantes. La presentación facilitada indica recogida de datos completada y comentarios cualitativos preliminares; el análisis más completo continúa."
         }
       ],
       limitation:
-        "No se afirma despliegue de campo, seguridad operativa, mejora de resultados de rescate ni precisión validada de IA.",
-      next: "Continuar la evaluación dirigida por la investigación y mejorar la presentación de evidencias con comentarios aprobados del estudio."
+        "No se afirma despliegue de campo, seguridad operativa, mejora de resultados de rescate ni precisión validada de IA. El asistente no accede directamente a datos del mapa, nombres de edificios ni distancias; un mapa visible para personas no demuestra navegación con IA.",
+      next: "Completar el análisis más amplio y explorar asistencia para todo el equipo e integración de contexto geográfico como trabajo futuro, a partir de los comentarios preliminares."
     },
     cybermastery: {
       slug: "cybermastery",

@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { aboutPages, copy, projects, route, slugs } from "../lib/site-data";
 import { linkedInBadgeIntegrationState, officialLinkedInBadgeMarkup } from "../lib/linkedin-badge";
+import { videoRescueAssets, videoRescueStory } from "../lib/video-rescue-data";
 
 describe("public portfolio content", () => {
   it("keeps the agreed flagship-project order in both languages", () => {
@@ -21,6 +22,25 @@ describe("public portfolio content", () => {
   it("publishes complete English and Spanish navigation", () => {
     for (const locale of ["en", "es"] as const)
       expect(Object.values(copy[locale].nav)).toHaveLength(5);
+  });
+  it("separates VIDEO-RESCUE illustrations, demonstration captures and preliminary findings", () => {
+    expect(videoRescueAssets.workflow.en.caption).toMatch(/not a screenshot/);
+    expect(videoRescueAssets.workspace.en.label).toMatch(/Fictional demonstration/);
+    expect(videoRescueAssets.assistant.en.caption).toMatch(/not independently verified/);
+    expect(videoRescueStory.en.findingsStatus).toMatch(/Fuller analysis ongoing/);
+    expect(videoRescueStory.es.findingsStatus).toMatch(/Análisis más completo en curso/);
+    expect(projects.en["video-rescue"].limitation).toMatch(/does not directly access map data/);
+    expect(projects.es["video-rescue"].limitation).toMatch(
+      /no accede directamente a datos del mapa/
+    );
+    for (const locale of ["en", "es"] as const) {
+      expect(videoRescueStory[locale].steps).toHaveLength(4);
+      expect(videoRescueStory[locale].findings).toHaveLength(3);
+      for (const asset of Object.values(videoRescueAssets)) {
+        expect(asset[locale].alt.length).toBeGreaterThan(40);
+        expect(asset.src).toMatch(/^\/images\/video-rescue-.*\.webp$/);
+      }
+    }
   });
   it("keeps the new positioning and About story aligned across languages", () => {
     expect(copy.en.hero.title).toMatch(/complex signals/);

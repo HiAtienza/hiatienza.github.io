@@ -8,6 +8,11 @@ import { Portrait } from "@/components/media";
 import { SignalField } from "@/components/signal-field";
 import { SiteShell } from "@/components/site-shell";
 import {
+  VideoRescueFigure,
+  VideoRescueFindings,
+  VideoRescueStory
+} from "@/components/video-rescue-story";
+import {
   aboutPages,
   copy,
   external,
@@ -227,6 +232,8 @@ function ProjectFeature({ locale, slug }: { locale: Locale; slug: ProjectSlug })
       <div className="project-visual">
         {slug === "lock-calendar" ? (
           <LockCalendarPreview locale={locale} />
+        ) : slug === "video-rescue" ? (
+          <VideoRescueFigure locale={locale} compact />
         ) : (
           <FlowDiagram type={diagramType[slug]} locale={locale} />
         )}
@@ -388,8 +395,8 @@ export function ProjectPage({ locale, slug }: { locale: Locale; slug: ProjectSlu
         };
   const boundary =
     locale === "en"
-      ? "This public case study uses non-sensitive descriptions, original illustrations and, where labelled, synthetic app captures. Personal calendars, private source, live environments and operational data are not published."
-      : "Este caso público utiliza descripciones no sensibles, ilustraciones originales y capturas sintéticas identificadas. No se publican calendarios personales, código privado, entornos activos ni datos operativos.";
+      ? "This public case study uses non-sensitive descriptions, illustrations and labelled app captures with fictional demonstration data. Personal calendars, participant sessions, private source, live environments and operational data are not published."
+      : "Este caso público utiliza descripciones no sensibles, ilustraciones y capturas identificadas con datos ficticios de demostración. No se publican calendarios personales, sesiones de participantes, código privado, entornos activos ni datos operativos.";
   const workSchema = {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
@@ -417,6 +424,8 @@ export function ProjectPage({ locale, slug }: { locale: Locale; slug: ProjectSlu
           <div className="case-hero-visual" data-reveal>
             {slug === "lock-calendar" ? (
               <LockCalendarPreview locale={locale} />
+            ) : slug === "video-rescue" ? (
+              <VideoRescueFigure locale={locale} asset="workflow" eager />
             ) : (
               <FlowDiagram type={diagramType[slug]} locale={locale} />
             )}
@@ -447,6 +456,7 @@ export function ProjectPage({ locale, slug }: { locale: Locale; slug: ProjectSlu
         </section>
 
         {slug === "lock-calendar" && <LockCalendarStory locale={locale} />}
+        {slug === "video-rescue" && <VideoRescueStory locale={locale} />}
 
         <section className="section page-wrap case-decisions" aria-labelledby="decisions-title">
           <div className="section-heading" data-reveal>
@@ -506,7 +516,16 @@ export function ResearchPage({ locale }: { locale: Locale }) {
         </header>
         <section className="research-diagram-band">
           <div className="page-wrap" data-reveal>
-            <FlowDiagram type="coordination" locale={locale} />
+            <VideoRescueFigure locale={locale} />
+            <Link
+              className="arrow-link rescue-case-link"
+              href={route(locale, "/projects/video-rescue/")}
+            >
+              {locale === "en"
+                ? "Explore the prototype and its workflow"
+                : "Explorar el prototipo y su flujo"}
+              <span aria-hidden="true"> →</span>
+            </Link>
           </div>
         </section>
         <section className="page-wrap research-sections">
@@ -518,6 +537,7 @@ export function ResearchPage({ locale }: { locale: Locale }) {
             </article>
           ))}
         </section>
+        <VideoRescueFindings locale={locale} />
         <ContactSection locale={locale} />
       </article>
     </SiteShell>

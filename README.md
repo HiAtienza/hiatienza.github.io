@@ -6,6 +6,8 @@ The current design uses the original concept **Human Signals → Useful Systems*
 
 The current featured project is **Lock Calendar**, an Android app in active development that turns selected calendars into a weekly live wallpaper and daily agenda. English and Spanish case studies explain its university-timetable origin, calendar integration, placement and refresh behavior. The interactive phone illustration uses sample events; the three app captures use synthetic emulator data. No public app-store release is claimed.
 
+The **VIDEO-RESCUE** case study includes an owner-supplied workflow illustration and selected prototype captures from the SURF presentation, explicitly labelled as fictional demonstration data. The bilingual story explains human-controlled coordination and preliminary qualitative feedback. The human-visible map is separate from direct AI access to geographic data, which remains future integration work. Participant-session photos, transcripts and connection codes are excluded.
+
 ## Public site
 
 - English: `https://hiatienza.github.io/`
