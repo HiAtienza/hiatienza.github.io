@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: "Human–AI Coordination Research | Adrián Muñoz Atienza",
     description:
       "Supervised research into evidence-linked AI support for search-and-rescue transcript coordination.",
-    images: ["/og.jpg"]
+    images: ["/social-profile-en.png"]
   }
 };
 

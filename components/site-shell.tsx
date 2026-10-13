@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { MobileNavigation } from "@/components/mobile-navigation";
 import { MotionObserver } from "@/components/motion-observer";
 import { copy, external, route, type Locale, type NavigationItem } from "@/lib/site-data";
 
@@ -32,7 +33,7 @@ export function SiteShell({
         </Link>
       ))}
       <a className="nav-cv" href="/cv/Adrian_Munoz_Atienza_CV_Public_ATS.pdf">
-        CV
+        {locale === "en" ? "CV" : "CV · EN"}
       </a>
       <Link className="language-link" href={route(other, path)} lang={other}>
         {t.nav.language}
@@ -57,15 +58,7 @@ export function SiteShell({
           >
             {navigationLinks}
           </nav>
-          <details className="nav-menu">
-            <summary aria-label={locale === "en" ? "Open navigation" : "Abrir navegación"}>
-              <span aria-hidden="true" />
-              <span aria-hidden="true" />
-            </summary>
-            <nav aria-label={locale === "en" ? "Primary navigation" : "Navegación principal"}>
-              {navigationLinks}
-            </nav>
-          </details>
+          <MobileNavigation locale={locale}>{navigationLinks}</MobileNavigation>
         </div>
       </header>
       <main id="main" lang={locale} tabIndex={-1}>

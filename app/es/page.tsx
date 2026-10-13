@@ -8,17 +8,17 @@ export const metadata: Metadata = {
   alternates: { canonical: "/es/", languages: { en: "/", es: "/es/" } },
   openGraph: {
     url: "/es/",
-    title: "Señales humanas → sistemas útiles | Adrián Muñoz Atienza",
+    title: "Software útil para las personas | Adrián Muñoz Atienza",
     description:
       "LockIn para planes y enfoque, Setline para registrar entrenamientos y VIDEO-RESCUE para coordinación supervisada persona-IA. Proyectos de ingeniería de software centrados en las personas.",
     locale: "es_ES",
-    images: ["/og.jpg"]
+    images: ["/social-profile-es.png"]
   },
   twitter: {
-    title: "Señales humanas → sistemas útiles | Adrián Muñoz Atienza",
+    title: "Software útil para las personas | Adrián Muñoz Atienza",
     description:
       "LockIn, Setline y VIDEO-RESCUE: productos personales e investigación supervisada. Conoce mis proyectos de software centrados en las personas.",
-    images: ["/og.jpg"]
+    images: ["/social-profile-es.png"]
   }
 };
 

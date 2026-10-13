@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     url: "/privacy/",
     title: "Privacy | Adrián Muñoz Atienza",
     description: "Privacy and public-evidence boundaries for this portfolio.",
-    images: ["/og.jpg"]
+    images: ["/social-profile-en.png"]
   }
 };
 

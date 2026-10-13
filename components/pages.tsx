@@ -1,19 +1,22 @@
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { ActionLink, MetadataList } from "@/components/ui";
-import { FlowDiagram } from "@/components/diagram";
 import { LinkedInProfileBadge } from "@/components/linkedin-profile-badge";
-import { CurrentProductsAbout, LockInStory } from "@/components/lock-in-story";
+import { LockInStory } from "@/components/lock-in-story";
 import { ProductShowcase } from "@/components/product-capture";
 import { SetlineStory } from "@/components/setline-story";
 import { Portrait } from "@/components/media";
-import { SignalField } from "@/components/signal-field";
-import { SiteShell } from "@/components/site-shell";
 import {
-  VideoRescueFigure,
-  VideoRescueFindings,
-  VideoRescueStory
-} from "@/components/video-rescue-story";
+  CaseLearning,
+  PersonalIntroduction,
+  ProfileDirection,
+  ProfilePortrait,
+  ProfileProof,
+  StrengthsSection
+} from "@/components/profile-sections";
+import { profileCopy, projectPerspectives } from "@/lib/portfolio-profile";
+import { SiteShell } from "@/components/site-shell";
+import { VideoRescueFigure, VideoRescueStory } from "@/components/video-rescue-story";
 import {
   aboutPages,
   copy,
@@ -53,17 +56,18 @@ function ProjectPreview({
 
 export function HomePage({ locale }: { locale: Locale }) {
   const t = copy[locale];
-
+  const profile = profileCopy[locale];
   return (
     <SiteShell locale={locale} path="/">
-      <section className="hero" aria-labelledby="hero-title">
+      <section className="hero personal-hero" aria-labelledby="hero-title">
         <div className="page-wrap hero-layout">
           <div className="hero-copy">
             <p className="eyebrow">{t.hero.eyebrow}</p>
             <h1 id="hero-title">{t.hero.title}</h1>
             <p className="hero-lead">{t.hero.lead}</p>
+            <p className="hero-goal">{profile.goal}</p>
             <div className="button-row">
-              <ActionLink href={route(locale, "/projects/lock-in/")}>{t.hero.work}</ActionLink>
+              <ActionLink href={route(locale, "/#work")}>{t.hero.work}</ActionLink>
               <ActionLink variant="secondary" href={route(locale, "/about/")}>
                 {t.hero.about}
               </ActionLink>
@@ -73,33 +77,23 @@ export function HomePage({ locale }: { locale: Locale }) {
             </div>
             <ul
               className="hero-signals"
-              aria-label={locale === "en" ? "Availability" : "Disponibilidad"}
+              aria-label={locale === "en" ? "My current situation" : "Mi situación actual"}
             >
               {t.hero.signals.map((signal) => (
                 <li key={signal}>{signal}</li>
               ))}
             </ul>
           </div>
-          <div className="hero-system">
-            <SignalField locale={locale} />
-            <div className="hero-portrait">
-              <Portrait locale={locale} eager />
-              <p>Adrián · Suzhou, China</p>
-            </div>
-          </div>
+          <ProfilePortrait locale={locale} />
         </div>
       </section>
-
+      <ProfileProof locale={locale} />
       <section id="work" className="section work-section" aria-labelledby="work-title">
         <div className="page-wrap section-heading" data-reveal>
           <p className="eyebrow">{t.projects.label}</p>
           <div>
             <h2 id="work-title">{t.projects.title}</h2>
-            <p>
-              {locale === "en"
-                ? "LockIn makes everyday plans and attention visible. Setline keeps workout logging and progress clear. VIDEO-RESCUE explores human-AI coordination through supervised research."
-                : "LockIn hace visibles los planes y la atención. Setline facilita registrar entrenamientos y entender el progreso. VIDEO-RESCUE explora la coordinación persona-IA en investigación supervisada."}
-            </p>
+            <p>{profile.introduction}</p>
           </div>
         </div>
         <div className="project-list page-wrap">
@@ -108,23 +102,7 @@ export function HomePage({ locale }: { locale: Locale }) {
           ))}
         </div>
       </section>
-
-      <section className="section research-story" aria-labelledby="research-title">
-        <div className="page-wrap research-layout">
-          <div data-reveal>
-            <p className="eyebrow">{t.research.label}</p>
-            <h2 id="research-title">{t.research.title}</h2>
-            <p>{t.research.body}</p>
-            <Link className="arrow-link light-link" href={route(locale, "/research/")}>
-              {t.research.link} <span aria-hidden="true">→</span>
-            </Link>
-          </div>
-          <div data-reveal>
-            <FlowDiagram type="coordination" locale={locale} />
-          </div>
-        </div>
-      </section>
-
+      <StrengthsSection locale={locale} />
       <section id="process" className="section process-section" aria-labelledby="process-title">
         <div className="page-wrap">
           <div className="section-heading" data-reveal>
@@ -144,73 +122,7 @@ export function HomePage({ locale }: { locale: Locale }) {
           </ol>
         </div>
       </section>
-
-      <section className="section specialization-section" aria-labelledby="specialization-title">
-        <div className="page-wrap">
-          <div className="specialization-intro" data-reveal>
-            <p className="eyebrow">{t.specialization.label}</p>
-            <h2 id="specialization-title">{t.specialization.title}</h2>
-            <p>{t.specialization.intro}</p>
-          </div>
-          <ol className="specialization-path">
-            {t.specialization.parts.map(([title, body], index) => (
-              <li key={title} data-reveal>
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                <h3>{title}</h3>
-                <p>{body}</p>
-              </li>
-            ))}
-          </ol>
-          <div className="specialization-outcome" data-reveal>
-            <span aria-hidden="true">→</span>
-            <p>{t.specialization.outcome}</p>
-            <Link className="arrow-link" href={route(locale, "/about/")}>
-              {locale === "en" ? "Read my full story" : "Leer mi historia completa"}{" "}
-              <span aria-hidden="true">↗</span>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="section journey-section" aria-labelledby="journey-title">
-        <div className="page-wrap journey-layout">
-          <div data-reveal>
-            <p className="eyebrow">{t.journey.label}</p>
-            <h2 id="journey-title">{t.journey.title}</h2>
-          </div>
-          <Journey locale={locale} />
-        </div>
-      </section>
-
-      <section className="section capability-section" aria-labelledby="skills-title">
-        <div className="page-wrap">
-          <div className="section-heading" data-reveal>
-            <p className="eyebrow">{t.skills.label}</p>
-            <h2 id="skills-title">{t.skills.title}</h2>
-          </div>
-          <ol
-            className="skill-priorities"
-            aria-label={locale === "en" ? "Priority capabilities" : "Capacidades prioritarias"}
-          >
-            {t.skills.priorities.map((skill, index) => (
-              <li key={skill}>
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                {skill}
-              </li>
-            ))}
-          </ol>
-          <div className="capability-list">
-            {t.skills.groups.map(([title, body], index) => (
-              <article key={title} data-reveal>
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                <h3>{title}</h3>
-                <p>{body}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
+      <PersonalIntroduction locale={locale} />
       <ContactSection locale={locale} showLinkedInBadge />
     </SiteShell>
   );
@@ -218,6 +130,7 @@ export function HomePage({ locale }: { locale: Locale }) {
 
 function ProjectFeature({ locale, slug }: { locale: Locale; slug: ProjectSlug }) {
   const project = projects[locale][slug];
+  const perspective = projectPerspectives[locale][slug];
   return (
     <article className={`project-feature project-${slug}`} data-reveal>
       <div className="project-copy">
@@ -226,22 +139,15 @@ function ProjectFeature({ locale, slug }: { locale: Locale; slug: ProjectSlug })
         </p>
         <p className="context">{project.context}</p>
         <h3>{project.name}</h3>
-        <p className="project-problem">{project.problem}</p>
-        {slug === "lock-in" && (
-          <p className="lock-feature-line">
-            {locale === "en"
-              ? "Your plans. Your focus. Your next useful action."
-              : "Tus planes. Tu enfoque. Tu próxima acción útil."}
-          </p>
-        )}
+        <p className="project-problem">{perspective.summary}</p>
         <MetadataList
           className="project-meta"
           items={[
-            { label: locale === "en" ? "My role" : "Mi función", value: project.role },
             {
-              label: locale === "en" ? "Built with" : "Tecnologías",
-              value: project.tech.join(" · ")
-            }
+              label: locale === "en" ? "My contribution" : "Mi aportación",
+              value: perspective.contribution
+            },
+            { label: locale === "en" ? "Focus" : "Enfoque", value: perspective.focus }
           ]}
         />
         <Link className="arrow-link" href={route(locale, `/projects/${slug}/`)}>
@@ -323,8 +229,6 @@ export function AboutPage({ locale }: { locale: Locale }) {
           </div>
         </div>
 
-        <CurrentProductsAbout locale={locale} />
-
         <section className="section principles-section" aria-labelledby="principles-title">
           <div className="page-wrap">
             <div className="section-heading" data-reveal>
@@ -342,6 +246,8 @@ export function AboutPage({ locale }: { locale: Locale }) {
             </div>
           </div>
         </section>
+
+        <ProfileDirection locale={locale} />
 
         <section className="section facts-section" aria-labelledby="facts-title">
           <div className="page-wrap facts-layout">
@@ -385,8 +291,8 @@ export function ProjectPage({ locale, slug }: { locale: Locale; slug: ProjectSlu
           system: "From signal to system",
           decisions: "What the work demonstrates",
           tech: "Technology",
-          boundaries: "Evidence boundary",
-          limitations: "Current limitations",
+          boundaries: "About these materials",
+          limitations: "Validation and scope",
           next: "Next step",
           source: "Source availability",
           nextProject: "Next case study"
@@ -398,8 +304,8 @@ export function ProjectPage({ locale, slug }: { locale: Locale; slug: ProjectSlu
           system: "De señal a sistema",
           decisions: "Qué demuestra el trabajo",
           tech: "Tecnología",
-          boundaries: "Límite de evidencia",
-          limitations: "Limitaciones actuales",
+          boundaries: "Sobre estos materiales",
+          limitations: "Validación y alcance",
           next: "Siguiente paso",
           source: "Disponibilidad del código",
           nextProject: "Siguiente caso"
@@ -431,6 +337,16 @@ export function ProjectPage({ locale, slug }: { locale: Locale; slug: ProjectSlu
             <h1>{project.name}</h1>
             <p className="context">{project.context}</p>
             <p className="case-summary">{project.summary}</p>
+            <nav
+              className="case-reading-nav"
+              aria-label={locale === "en" ? "Explore this case" : "Recorrer este caso"}
+            >
+              <a href="#problem-title">{locale === "en" ? "My work" : "Mi trabajo"}</a>
+              <a href="#decisions-title">
+                {locale === "en" ? "Technical decisions" : "Decisiones técnicas"}
+              </a>
+              <a href="#case-learning-title">{locale === "en" ? "Learning" : "Aprendizajes"}</a>
+            </nav>
           </div>
           <div className="case-hero-visual" data-reveal>
             <ProjectPreview slug={slug} locale={locale} caseStudy />
@@ -476,16 +392,13 @@ export function ProjectPage({ locale, slug }: { locale: Locale; slug: ProjectSlu
           </div>
         </section>
 
+        <CaseLearning locale={locale} slug={slug} />
         <section className="section evidence-section" aria-labelledby="evidence-title">
-          <div className="page-wrap evidence-grid">
+          <div className="page-wrap evidence-grid case-scope-grid">
             <article data-reveal>
               <h2 id="evidence-title" className="eyebrow">
-                {labels.boundaries}
+                {labels.limitations}
               </h2>
-              <p>{boundary}</p>
-            </article>
-            <article data-reveal>
-              <h3 className="eyebrow">{labels.limitations}</h3>
               <p>{project.limitation}</p>
             </article>
             <article data-reveal>
@@ -493,10 +406,15 @@ export function ProjectPage({ locale, slug }: { locale: Locale; slug: ProjectSlu
               <p>{project.next}</p>
             </article>
           </div>
-          <div className="page-wrap source-note" data-reveal>
-            <strong>{labels.source}:</strong> {copy[locale].projects.source}.
-          </div>
+          <details className="page-wrap materials-note">
+            <summary>{labels.boundaries}</summary>
+            <p>{boundary}</p>
+            <p>
+              <strong>{labels.source}:</strong> {copy[locale].projects.source}.
+            </p>
+          </details>
         </section>
+        <ContactSection locale={locale} />
 
         <Link className="next-project" href={route(locale, `/projects/${nextSlug}/`)}>
           <span>{labels.nextProject}</span>
@@ -548,7 +466,41 @@ export function ResearchPage({ locale }: { locale: Locale }) {
             </article>
           ))}
         </div>
-        <VideoRescueFindings locale={locale} />
+        <section className="section research-summary" aria-labelledby="research-summary-title">
+          <div className="page-wrap research-summary-layout">
+            <div data-reveal>
+              <p className="eyebrow">
+                {locale === "en" ? "What the study points to" : "Qué orienta el estudio"}
+              </p>
+              <h2 id="research-summary-title">
+                {locale === "en"
+                  ? "Understanding support, trust and control."
+                  : "Entender el apoyo, la confianza y el control."}
+              </h2>
+            </div>
+            <div data-reveal>
+              <p className="rescue-research-status">
+                {locale === "en"
+                  ? "Data collection complete · Fuller analysis ongoing"
+                  : "Recogida de datos completada · Análisis más completo en curso"}
+              </p>
+              <p>
+                {locale === "en"
+                  ? "Preliminary team feedback points to useful information support, requests for assistance across the team and a gap in the assistant’s geographic context. These observations guide the next iteration of the research prototype."
+                  : "Los comentarios preliminares del equipo apuntan a apoyo informativo útil, peticiones de asistencia para todo el equipo y una integración pendiente del contexto geográfico. Estas observaciones orientan la siguiente iteración del prototipo."}
+              </p>
+              <Link
+                className="arrow-link"
+                href={route(locale, "/projects/video-rescue/#rescue-findings-title")}
+              >
+                {locale === "en"
+                  ? "Read the findings and their scope"
+                  : "Leer los hallazgos y su alcance"}{" "}
+                <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+          </div>
+        </section>
         <ContactSection locale={locale} />
       </article>
     </SiteShell>
@@ -572,8 +524,8 @@ export function PrivacyPage({ locale }: { locale: Locale }) {
         </ul>
         <p className="privacy-note" data-reveal>
           {locale === "en"
-            ? "This static site has no analytics, cookies, forms, accounts or external fonts. The Contact area may load LinkedIn’s official public-profile badge only when the profile owner enables it with exact markup from LinkedIn’s badge builder."
-            : "Este sitio estático no utiliza analítica, cookies, formularios, cuentas ni fuentes externas. La sección de Contacto solo puede cargar la insignia oficial de perfil público de LinkedIn cuando el propietario del perfil la habilita con el marcado exacto del generador de insignias de LinkedIn."}
+            ? "This static portfolio has no accounts, forms or first-party analytics. The Contact area may load LinkedIn’s public-profile badge and its external resources. Public materials use labelled demonstration data; research participant data and personal training or calendar records are excluded."
+            : "Este portfolio estático no tiene cuentas, formularios ni analítica propia. Contacto puede cargar la insignia de perfil público de LinkedIn y sus recursos externos. Los materiales identifican los datos de demostración; se excluyen datos de participantes y registros personales de entrenamiento o calendario."}
         </p>
       </article>
     </SiteShell>
@@ -604,15 +556,19 @@ function ContactSection({
                 : "Ver el perfil de Adrián Muñoz Atienza en LinkedIn"
             }
           >
-            {t.linkedin}
+            {locale === "en" ? "Contact me on LinkedIn" : "Contactar por LinkedIn"}
           </ActionLink>
           <ActionLink variant="ghost" href={external.github}>
             {t.github}
           </ActionLink>
-          <a className="light-link" href="/cv/Adrian_Munoz_Atienza_CV_Public_ATS.pdf">
+          <a className="light-link" href="/cv/Adrian_Munoz_Atienza_CV_Public_ATS.pdf" hrefLang="en">
             {t.cv} <span aria-hidden="true">↓</span>
           </a>
-          <a className="light-link" href="/cv/Adrian_Munoz_Atienza_CV_Public_Visual.pdf">
+          <a
+            className="light-link"
+            href="/cv/Adrian_Munoz_Atienza_CV_Public_Visual.pdf"
+            hrefLang="en"
+          >
             {t.visual} <span aria-hidden="true">↗</span>
           </a>
         </div>

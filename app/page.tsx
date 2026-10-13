@@ -8,16 +8,16 @@ export const metadata: Metadata = {
   alternates: { canonical: "/", languages: { en: "/", es: "/es/" } },
   openGraph: {
     url: "/",
-    title: "Human Signals → Useful Systems | Adrián Muñoz Atienza",
+    title: "Useful software, built for people | Adrián Muñoz Atienza",
     description:
       "LockIn for planning and focus, Setline for workout logging, and VIDEO-RESCUE for supervised human-AI coordination. Explore my work in software engineering and human-centered products.",
-    images: ["/og.jpg"]
+    images: ["/social-profile-en.png"]
   },
   twitter: {
-    title: "Human Signals → Useful Systems | Adrián Muñoz Atienza",
+    title: "Useful software, built for people | Adrián Muñoz Atienza",
     description:
       "Explore LockIn, Setline and VIDEO-RESCUE: personal products and supervised human-AI research.",
-    images: ["/og.jpg"]
+    images: ["/social-profile-en.png"]
   }
 };
 

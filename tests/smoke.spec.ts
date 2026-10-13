@@ -92,7 +92,7 @@ test("reduced motion preserves the complete experience", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator("#hero-title")).toBeVisible();
   await expect(page.locator("#work .project-feature")).toHaveCount(3);
-  await expect(page.locator(".specialization-path li")).toHaveCount(4);
+  await expect(page.locator(".strengths-grid article")).toHaveCount(3);
 });
 
 test("unknown paths use the public 404 page", async ({ page }) => {

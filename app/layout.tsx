@@ -9,29 +9,29 @@ export const metadata: Metadata = {
     template: "%s | Adrián Muñoz Atienza"
   },
   description:
-    "Computer Science student at XJTLU building software at the intersection of Software Engineering, Human-Centered AI, Behavioral Technology and Human-AI Interaction.",
+    "Adrián Muñoz Atienza, Computer Science student at XJTLU. Useful Android and web products, supervised human-AI research, and a focus on software engineering internships.",
   alternates: { canonical: "/", languages: { en: "/", es: "/es/" } },
   openGraph: {
     type: "website",
     url: "/",
-    title: "Human Signals → Useful Systems | Adrián Muñoz Atienza",
+    title: "Useful software, built for people | Adrián Muñoz Atienza",
     description:
-      "Computer Science student at XJTLU building software across Software Engineering, Human-Centered AI, Behavioral Technology and Human-AI Interaction.",
+      "Android and web products built with attention to people, data and delivery. Explore LockIn, Setline and supervised VIDEO-RESCUE research.",
     images: [
       {
-        url: "/og.jpg",
+        url: "/social-profile-en.png",
         width: 1200,
         height: 630,
-        alt: "Human Signals to Useful Systems — Adrián Muñoz Atienza"
+        alt: "Adrián Muñoz Atienza — Android, web and human-centered AI research"
       }
     ]
   },
   twitter: {
     card: "summary_large_image",
-    title: "Human Signals → Useful Systems | Adrián Muñoz Atienza",
+    title: "Useful software, built for people | Adrián Muñoz Atienza",
     description:
-      "Computer Science student at XJTLU building software across Software Engineering, Human-Centered AI, Behavioral Technology and Human-AI Interaction.",
-    images: ["/og.jpg"]
+      "Android and web products built with attention to people, data and delivery. Explore LockIn, Setline and supervised VIDEO-RESCUE research.",
+    images: ["/social-profile-en.png"]
   },
   icons: { icon: "/favicon.svg" },
   manifest: "/manifest.webmanifest",

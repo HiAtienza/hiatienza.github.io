@@ -10,14 +10,15 @@ export const metadata: Metadata = {
     url: "/es/about/",
     title: "Sobre mí | Adrián Muñoz Atienza",
     description:
-      "Estudiante de Computer Science que construye una trayectoria en Software Engineering, Human-Centered AI, Behavioral Technology e interacción persona-IA.",
+      "Estudiante de Computer Science en Suzhou. Ingeniería de software, productos útiles y un recorrido de Madrid a XJTLU.",
     locale: "es_ES",
-    images: ["/og.jpg"]
+    images: ["/social-profile-es.png"]
   },
   twitter: {
     title: "Sobre mí | Adrián Muñoz Atienza",
-    description: "Software Engineering con una especialización human-centered en desarrollo.",
-    images: ["/og.jpg"]
+    description:
+      "Construir productos útiles, cuidar la experiencia y aprender entre España y China.",
+    images: ["/social-profile-es.png"]
   }
 };
 

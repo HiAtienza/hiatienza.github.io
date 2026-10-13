@@ -10,12 +10,12 @@ export const metadata: Metadata = {
     title: "Privacidad | Adrián Muñoz Atienza",
     description: "Límites de privacidad y evidencia pública de este portfolio.",
     locale: "es_ES",
-    images: ["/og.jpg"]
+    images: ["/social-profile-es.png"]
   },
   twitter: {
     title: "Privacidad | Adrián Muñoz Atienza",
     description: "Límites de privacidad y evidencia pública de este portfolio.",
-    images: ["/og.jpg"]
+    images: ["/social-profile-es.png"]
   }
 };
 

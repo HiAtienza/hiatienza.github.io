@@ -10,8 +10,8 @@ export const metadata: Metadata = {
     url: "/about/",
     title: "About | Adrián Muñoz Atienza",
     description:
-      "A Computer Science student building toward Software Engineering specialising in Human-Centered AI, Behavioral Technology and Human-AI Interaction.",
-    images: ["/og.jpg"]
+      "Computer Science student in Suzhou. Software engineering, useful products and a path from Madrid to XJTLU.",
+    images: ["/social-profile-en.png"]
   }
 };
 

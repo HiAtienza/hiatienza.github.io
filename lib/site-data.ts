@@ -47,14 +47,18 @@ export const copy = {
       language: "Español"
     },
     hero: {
-      eyebrow: "Computer Science student @ XJTLU",
-      title: "I turn complex signals into software people can understand and act on.",
-      lead: "I design and develop Android products that turn everyday information into clear actions: LockIn for planning and focus, Setline for training with local data. My wider work connects Software Engineering, Human-Centered AI, Behavioral Technology and Human-AI Interaction.",
-      work: "Explore LockIn",
-      about: "About my path",
+      eyebrow: "Computer Science student · XJTLU",
+      title: "I’m Adrián. I build useful software for people.",
+      lead: "I develop Android apps and web products, from the first interaction to local data, testing and delivery. I care about how people use them, and explore human-centered AI through supervised research.",
+      work: "Explore my work",
+      about: "Get to know me",
       cv: "Download CV",
       visual: "View public visual CV",
-      signals: ["Suzhou, China", "Available now", "On-site · Hybrid · Remote"]
+      signals: [
+        "Suzhou · Spain ↔ China",
+        "Year 3 · graduation July 2028",
+        "Seeking engineering internships"
+      ]
     },
     about: {
       label: "About",
@@ -63,8 +67,8 @@ export const copy = {
       side: "Spain ↔ China\nInternational context, practical collaboration and a product mindset."
     },
     projects: {
-      label: "Flagship projects",
-      title: "Everyday friction. Thoughtful software.",
+      label: "Selected work",
+      title: "Three projects. One way of thinking.",
       link: "Read case study",
       source: "Source remains private"
     },
@@ -75,16 +79,16 @@ export const copy = {
       link: "Explore research context"
     },
     process: {
-      label: "How I build",
-      title: "A small loop for turning uncertainty into useful software.",
+      label: "How I work",
+      title: "Understand. Build. Check. Improve.",
       steps: [
-        "Friction Mapping & Needfinding",
-        "Interaction Prototyping",
-        "Robust Engineering & Data Contracts",
-        "Cognitive Load & Heuristic Validation",
-        "Evidence-Driven Refinement"
+        "Understand the need",
+        "Prototype the interaction",
+        "Build the data and logic",
+        "Check clarity and behavior",
+        "Refine with evidence"
       ],
-      body: "I map the friction in a real context, prototype the interaction, and connect it to reliable data contracts. I inspect cognitive load and interaction heuristics, then use technical tests and human feedback to revisit the problem and refine the next iteration."
+      body: "I start with a specific need, build a usable flow, then check the interaction and the data behind it. Tests, device checks and feedback guide the next iteration."
     },
     specialization: {
       label: "Engineering & HCI practice",
@@ -114,7 +118,7 @@ export const copy = {
     },
     skills: {
       label: "Skills",
-      title: "A software-engineering toolkit with a human-centered direction.",
+      title: "Tools I use to build and check products.",
       priorities: [
         "Software Engineering",
         "Human-Centered AI",
@@ -128,21 +132,12 @@ export const copy = {
         "Learning Technology"
       ],
       groups: [
-        [
-          "Engineering foundation",
-          "TypeScript · JavaScript · Java · Python · Kotlin · Git · REST APIs · Authentication"
-        ],
-        [
-          "Web & backend",
-          "React · Next.js · REST APIs · PostgreSQL · SQL · Prisma · SQLite · Authentication"
-        ],
-        [
-          "Android",
-          "Android Development · Jetpack Compose · Preferences DataStore · Accessibility"
-        ],
+        ["Engineering foundation", "TypeScript · JavaScript · Java · Python · Kotlin · Git"],
+        ["Web & backend", "React · Next.js · REST APIs · IndexedDB · SQLite · SQL"],
+        ["Android", "Kotlin · Jetpack Compose · DataStore · Capacitor · Android Java"],
         [
           "Quality",
-          "Automated Testing · Unit Testing · Integration Testing · Browser Testing · Playwright · Technical Documentation"
+          "Unit and integration tests · Playwright · Android device checks · Technical documentation"
         ],
         [
           "Human-centered practice",
@@ -152,7 +147,7 @@ export const copy = {
     },
     journey: {
       label: "Journey",
-      title: "Engineering practice, research context and international experience.",
+      title: "The experience behind my work.",
       items: [
         {
           date: "Jul 2026 – present",
@@ -168,9 +163,14 @@ export const copy = {
         },
         {
           date: "Jul – Sep 2024",
-          title: "Human factors & service communication",
+          title: "Bellperson · Marriott International",
           detail:
             "Marriott International · Bellperson, Madrid. Multicultural service work strengthened active listening, situational awareness and clear communication across the service layer."
+        },
+        {
+          date: "2023 – 2024",
+          title: "Freelance mathematics tutor",
+          detail: "Madrid · adapted explanations and practice to individual learners."
         },
         {
           date: "2025 – 2028",
@@ -186,11 +186,11 @@ export const copy = {
     },
     contact: {
       label: "Contact",
-      title: "Have a problem worth making easier to understand?",
-      body: "I’m available now for Software Engineering, Product Engineering and Human-Centered AI internships or suitable early-career roles. I’m open to on-site, hybrid and compatible remote work across Suzhou, Shanghai, Spain and the European Union.",
+      title: "Let’s talk about what I can help build.",
+      body: "I’m looking for software engineering and product-development internships where I can contribute to Android or web products and keep learning with a team. Based in Suzhou; open to opportunities in Shanghai, Spain, the EU and compatible remote roles.",
       linkedin: "LinkedIn",
       github: "GitHub",
-      cv: "Download public ATS CV",
+      cv: "Download ATS CV",
       visual: "View visual CV"
     },
     footer:
@@ -203,15 +203,15 @@ export const copy = {
       points: [
         "No phone number, home address, private email or identity document.",
         "No private repository, deployment, participant, mission or transcript link.",
-        "No operational rescue, autonomous decision, AI-accuracy, production or validated-impact claim.",
+        "Product releases are identified as internal testing. Research evidence is presented with its documented scope.",
         "Case studies use explanatory illustrations and labelled app captures with fictional demonstration data. No personal calendar events, participant-session captures or private source code are published."
       ]
     },
     researchPage: {
       label: "Research context",
-      title: "Designing coordination support that keeps human judgment in the loop.",
+      title: "How can AI help a team coordinate?",
       intro:
-        "VIDEO-RESCUE is part of supervised XJTLU research into AI-powered transcript coordination for search-and-rescue scenarios. It is a research prototype, not an operational rescue platform.",
+        "In supervised XJTLU research, I help build and study a web prototype that connects live reports, transcripts and AI assistance for small search teams. People remain responsible for the decisions.",
       sections: [
         [
           "Setting",
@@ -241,14 +241,18 @@ export const copy = {
       language: "English"
     },
     hero: {
-      eyebrow: "Estudiante de Computer Science @ XJTLU",
-      title: "Convierto señales complejas en software que las personas pueden entender y usar.",
-      lead: "Diseño y desarrollo productos Android que convierten información cotidiana en acciones claras: LockIn para planificar y enfocarse, Setline para entrenar con datos locales. Mi trabajo conecta ingeniería de software, Human-Centered AI y tecnología del comportamiento.",
-      work: "Conoce LockIn",
-      about: "Conoce mi recorrido",
-      cv: "Descargar CV",
+      eyebrow: "Estudiante de Computer Science · XJTLU",
+      title: "Soy Adrián. Construyo software útil para las personas.",
+      lead: "Desarrollo apps Android y productos web, desde la primera interacción hasta los datos, las pruebas y la entrega. Cuido cómo las personas los usan y exploro la IA centrada en las personas mediante investigación supervisada.",
+      work: "Ver mis proyectos",
+      about: "Conóceme",
+      cv: "CV en inglés",
       visual: "Ver CV visual público",
-      signals: ["Suzhou, China", "Disponible ahora", "Presencial · Híbrido · Remoto"]
+      signals: [
+        "Suzhou · España ↔ China",
+        "3.er curso · graduación julio 2028",
+        "Busco prácticas de ingeniería"
+      ]
     },
     about: {
       label: "Perfil",
@@ -258,8 +262,8 @@ export const copy = {
       side: "España ↔ China\nContexto internacional, colaboración práctica y mentalidad de producto."
     },
     projects: {
-      label: "Proyectos principales",
-      title: "Problemas cotidianos. Software con intención.",
+      label: "Proyectos seleccionados",
+      title: "Tres proyectos. Una forma de trabajar.",
       link: "Leer caso de estudio",
       source: "El código fuente permanece privado"
     },
@@ -271,15 +275,15 @@ export const copy = {
     },
     process: {
       label: "Cómo trabajo",
-      title: "Un ciclo breve para convertir incertidumbre en software útil.",
+      title: "Entender. Construir. Comprobar. Mejorar.",
       steps: [
-        "Mapeo de fricciones y necesidades",
-        "Prototipado de interacciones",
-        "Ingeniería robusta y contratos de datos",
-        "Carga cognitiva y evaluación heurística",
-        "Refinamiento basado en evidencias"
+        "Entender la necesidad",
+        "Prototipar la interacción",
+        "Construir datos y lógica",
+        "Comprobar claridad y comportamiento",
+        "Mejorar con evidencias"
       ],
-      body: "Identifico fricciones en un contexto real, prototipo la interacción y la conecto a contratos de datos fiables. Reviso la carga cognitiva y las heurísticas de interacción; las pruebas técnicas y el feedback humano orientan la siguiente iteración."
+      body: "Parto de una necesidad concreta, construyo un recorrido utilizable y compruebo tanto la interacción como los datos. Las pruebas, la revisión en dispositivos y el feedback orientan la siguiente iteración."
     },
     specialization: {
       label: "Práctica de ingeniería y HCI",
@@ -309,7 +313,7 @@ export const copy = {
     },
     skills: {
       label: "Aptitudes",
-      title: "Una base de ingeniería de software con dirección human-centered.",
+      title: "Herramientas para construir y comprobar productos.",
       priorities: [
         "Software Engineering",
         "Human-Centered AI",
@@ -323,21 +327,12 @@ export const copy = {
         "Learning Technology"
       ],
       groups: [
-        [
-          "Base de ingeniería",
-          "TypeScript · JavaScript · Java · Python · Kotlin · Git · REST APIs · Authentication"
-        ],
-        [
-          "Web y backend",
-          "React · Next.js · REST APIs · PostgreSQL · SQL · Prisma · SQLite · Authentication"
-        ],
-        [
-          "Android",
-          "Android Development · Jetpack Compose · Preferences DataStore · Accessibility"
-        ],
+        ["Base de ingeniería", "TypeScript · JavaScript · Java · Python · Kotlin · Git"],
+        ["Web y backend", "React · Next.js · REST APIs · IndexedDB · SQLite · SQL"],
+        ["Android", "Kotlin · Jetpack Compose · DataStore · Capacitor · Android Java"],
         [
           "Calidad",
-          "Automated Testing · Unit Testing · Integration Testing · Browser Testing · Playwright · Technical Documentation"
+          "Pruebas unitarias e integración · Playwright · Revisión en Android físico · Documentación"
         ],
         [
           "Práctica human-centered",
@@ -347,7 +342,7 @@ export const copy = {
     },
     journey: {
       label: "Trayectoria",
-      title: "Práctica de ingeniería, investigación e experiencia internacional.",
+      title: "La experiencia detrás de mi trabajo.",
       items: [
         {
           date: "Jul 2026 – actualidad",
@@ -363,9 +358,14 @@ export const copy = {
         },
         {
           date: "Jul – Sep 2024",
-          title: "Factores humanos y comunicación de servicio",
+          title: "Botones · Marriott International",
           detail:
             "Marriott International · Botones, Madrid. La atención multicultural reforzó la escucha activa, la comprensión del contexto y la comunicación clara durante el servicio."
+        },
+        {
+          date: "2023 – 2024",
+          title: "Profesor particular de matemáticas",
+          detail: "Madrid · explicaciones y práctica adaptadas a cada estudiante."
         },
         {
           date: "2025 – 2028",
@@ -381,12 +381,12 @@ export const copy = {
     },
     contact: {
       label: "Contacto",
-      title: "¿Tienes un problema que debería ser más fácil de entender?",
-      body: "Estoy disponible ahora para prácticas o puestos junior adecuados en Software Engineering, Product Engineering y Human-Centered AI. Estoy abierto a trabajo presencial, híbrido y remoto compatible en Suzhou, Shanghái, España y la Unión Europea.",
+      title: "Hablemos de lo que puedo ayudar a construir.",
+      body: "Busco prácticas de ingeniería de software y desarrollo de producto para aportar a apps Android o productos web y seguir aprendiendo en equipo. Vivo en Suzhou; estoy abierto a oportunidades en Shanghái, España, la UE y trabajo remoto compatible.",
       linkedin: "LinkedIn",
       github: "GitHub",
-      cv: "Descargar CV ATS público",
-      visual: "Ver CV visual"
+      cv: "CV ATS · inglés",
+      visual: "CV visual · inglés"
     },
     footer:
       "© 2026 Adrián Muñoz Atienza. El código fuente usa licencia MIT; el contenido personal permanece protegido.",
@@ -398,15 +398,15 @@ export const copy = {
       points: [
         "No contiene teléfono, dirección, correo privado ni documento de identidad.",
         "No enlaza repositorios, despliegues, participantes, misiones o transcripciones privadas.",
-        "No afirma despliegue operativo, decisiones autónomas, precisión de IA, producción ni impacto validado.",
+        "Las versiones de producto se identifican como pruebas internas. La evidencia de investigación conserva su alcance documentado.",
         "Los casos utilizan ilustraciones explicativas y capturas identificadas con datos ficticios. No se publican eventos personales, capturas de sesiones de participantes ni código privado."
       ]
     },
     researchPage: {
       label: "Contexto de investigación",
-      title: "Diseñar apoyo a la coordinación que mantiene el juicio humano en el centro.",
+      title: "¿Cómo puede la IA ayudar a un equipo a coordinarse?",
       intro:
-        "VIDEO-RESCUE forma parte de investigación supervisada en XJTLU sobre coordinación de transcripciones asistida por IA para escenarios de búsqueda y rescate. Es un prototipo de investigación, no una plataforma operativa de rescate.",
+        "En investigación supervisada de XJTLU, ayudo a construir y estudiar un prototipo web que conecta informes, transcripciones en directo y apoyo de IA para pequeños equipos de búsqueda. Las personas conservan las decisiones.",
       sections: [
         [
           "Entorno",
@@ -509,9 +509,9 @@ export const projects: Record<Locale, Record<ProjectSlug, Project>> = {
 export const aboutPages = {
   en: {
     label: "About",
-    title: "Software engineering with a human-centered lens.",
+    title: "I like to build, understand and improve.",
     intro:
-      "I’m Adrián, a Computer Science student at XJTLU building web, Android and applied-AI products. My current products are LockIn, for planning, focus and study, and Setline, for recording workouts and understanding progress. My supervised research explores human-AI coordination.",
+      "I’m Adrián Muñoz Atienza, a Computer Science student in Suzhou. I build useful products and care about the experience of the people using them. My current work combines Android apps, web development and supervised human-AI research.",
     storyTitle: "A path shaped between Spain and China.",
     story: [
       "I began my software engineering studies at U-TAD in Madrid before transferring to Xi’an Jiaotong-Liverpool University, where I am now a Year 3 BSc Information and Computing Science student with expected graduation in July 2028.",
@@ -522,42 +522,48 @@ export const aboutPages = {
     dual: [
       {
         label: "Engineering foundation",
-        title: "I make ideas executable.",
-        body: "I work across product architecture, full-stack TypeScript, Android, persistence, authentication and automated testing. I prefer complete vertical slices that make assumptions and limitations visible."
+        title: "I build the complete flow.",
+        body: "I connect the interface to its data, logic and device behavior. In LockIn that means a shared wallpaper preview; in Setline, routines that remain independent of workout history."
       },
       {
-        label: "Human-centered direction",
-        title: "I make systems understandable.",
-        body: "I use HCI thinking, active listening and clear information design to connect implementation decisions with the way people learn, coordinate and act."
+        label: "People and interaction",
+        title: "I look at what people need next.",
+        body: "Tutoring and customer service taught me to adapt explanations and listen. I bring that perspective to interfaces: clear next actions, useful feedback and understandable AI support."
       }
     ],
     principlesTitle: "How I like to work",
     principles: [
       [
         "Start with the person",
-        "Understand the decision, frustration or learning need before choosing the interface."
+        "LockIn starts from a daily need: find the next class, its time and its room."
       ],
-      ["Build the whole path", "Create a small end-to-end workflow before expanding breadth."],
-      ["Keep evidence visible", "Make sources, uncertainty, state and limitations inspectable."],
+      [
+        "Build the whole path",
+        "In Setline, follow a free workout through saving a routine, starting again and restoring a backup."
+      ],
+      [
+        "Keep evidence visible",
+        "In VIDEO-RESCUE, show supporting reports and unknowns so a person can assess a suggestion."
+      ],
       [
         "Learn through testing",
-        "Use technical tests and human feedback to improve the next iteration."
+        "Check geometry, data recovery and device behavior; use findings to improve the next version."
       ]
     ],
-    factsTitle: "A few useful facts",
+    factsTitle: "My current situation",
     facts: [
-      "Spanish native speaker; fluent English.",
+      "Spanish native speaker; professional English.",
       "Based in Suzhou and open to relocation across target regions.",
-      "Available now for internships and full-time early-career roles.",
-      "Interested in product engineering, applied AI and selected HCI opportunities."
+      "Seeking software engineering and product-development internships.",
+      "Year 3 at XJTLU; expected graduation July 2028. Learning Mandarin Chinese."
     ],
     cta: "See how this thinking becomes product work"
   },
   es: {
     label: "Sobre mí",
-    title: "Ingeniería de software con una perspectiva centrada en las personas.",
+    title: "Me gusta construir, entender y mejorar.",
     intro:
-      "Soy Adrián, estudiante de Computer Science en XJTLU. Desarrollo productos web, Android y de IA aplicada. Mis productos actuales son LockIn, para organizar planes, enfoque y estudio, y Setline, para registrar entrenamientos y entender el progreso. Mi investigación supervisada explora la coordinación entre personas e IA.",
+      "Soy Adrián Muñoz Atienza, estudiante de Computer Science en Suzhou. Construyo productos útiles y cuido la experiencia de quienes los usan. Mi trabajo actual combina apps Android, desarrollo web e investigación supervisada sobre interacción con IA.",
     storyTitle: "Un recorrido construido entre España y China.",
     story: [
       "Comencé mis estudios de ingeniería del software en U-TAD, Madrid, antes de trasladarme a Xi’an Jiaotong-Liverpool University, donde actualmente curso tercero del BSc Information and Computing Science y tengo prevista la graduación en julio de 2028.",
@@ -568,40 +574,40 @@ export const aboutPages = {
     dual: [
       {
         label: "Base de ingeniería",
-        title: "Convierto ideas en sistemas ejecutables.",
-        body: "Trabajo con arquitectura de producto, TypeScript full-stack, Android, persistencia, autenticación y pruebas automatizadas. Prefiero crear vertical slices completos que hagan visibles las decisiones y limitaciones."
+        title: "Construyo el recorrido completo.",
+        body: "Conecto la interfaz con sus datos, lógica y comportamiento en el dispositivo. En LockIn eso se concreta en una vista previa compartida; en Setline, en rutinas independientes del historial."
       },
       {
-        label: "Dirección human-centered",
-        title: "Hago comprensibles los sistemas.",
-        body: "Aplico HCI, escucha activa y diseño claro de información para conectar decisiones de implementación con la forma en que las personas aprenden, coordinan y actúan."
+        label: "Personas e interacción",
+        title: "Pienso en lo que la persona necesita después.",
+        body: "La tutoría y la atención al cliente me enseñaron a adaptar explicaciones y escuchar. Llevo esa perspectiva a las interfaces: próximas acciones claras, feedback útil y apoyo de IA comprensible."
       }
     ],
     principlesTitle: "Cómo me gusta trabajar",
     principles: [
       [
         "Empezar por la persona",
-        "Comprender la decisión, frustración o necesidad de aprendizaje antes de elegir la interfaz."
+        "LockIn parte de una necesidad cotidiana: encontrar la próxima clase, su hora y su aula."
       ],
       [
         "Construir el recorrido completo",
-        "Crear un flujo pequeño de extremo a extremo antes de ampliar el alcance."
+        "En Setline, recorrer una sesión libre, guardar una rutina, volver a empezar y restaurar una copia."
       ],
       [
         "Mantener visible la evidencia",
-        "Hacer inspeccionables las fuentes, la incertidumbre, el estado y las limitaciones."
+        "En VIDEO-RESCUE, mostrar informes de apoyo e incógnitas para que una persona valore la sugerencia."
       ],
       [
         "Aprender mediante pruebas",
-        "Usar pruebas técnicas y feedback humano para mejorar la siguiente iteración."
+        "Comprobar geometría, recuperación de datos y comportamiento del móvil; mejorar la siguiente versión con lo observado."
       ]
     ],
-    factsTitle: "Algunos datos útiles",
+    factsTitle: "Mi situación actual",
     facts: [
-      "Español nativo e inglés fluido.",
+      "Español nativo e inglés de uso profesional.",
       "Vivo en Suzhou y estoy abierto a reubicarme en las regiones objetivo.",
-      "Disponible ahora para prácticas y puestos junior a tiempo completo.",
-      "Interesado en product engineering, IA aplicada y oportunidades seleccionadas de HCI."
+      "Busco prácticas de ingeniería de software y desarrollo de producto.",
+      "Curso tercero en XJTLU; graduación prevista en julio de 2028. Estoy aprendiendo chino mandarín."
     ],
     cta: "Ver cómo este enfoque se convierte en producto"
   }

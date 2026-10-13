@@ -27,9 +27,13 @@ export async function generateMetadata({
       title: project.name,
       description: project.summary,
       locale: "es_ES",
-      images: ["/og.jpg"]
+      images: ["/social-profile-es.png"]
     },
-    twitter: { title: project.name, description: project.summary, images: ["/og.jpg"] }
+    twitter: {
+      title: project.name,
+      description: project.summary,
+      images: ["/social-profile-es.png"]
+    }
   };
 }
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {

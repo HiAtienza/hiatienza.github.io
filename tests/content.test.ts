@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { aboutPages, copy, projects, route, slugs, isProjectSlug } from "../lib/site-data";
+import { profileCopy, projectPerspectives } from "../lib/portfolio-profile";
 import { linkedInBadgeIntegrationState, officialLinkedInBadgeMarkup } from "../lib/linkedin-badge";
 import { videoRescueAssets, videoRescueStory } from "../lib/video-rescue-data";
 
@@ -52,17 +53,22 @@ describe("public portfolio content", () => {
       }
     }
   });
-  it("keeps the new positioning and About story aligned across languages", () => {
-    expect(copy.en.hero.title).toMatch(/complex signals/);
-    expect(copy.es.hero.title).toMatch(/señales complejas/);
-    expect(copy.en.hero.lead).toMatch(/Software Engineering/);
-    expect(copy.en.hero.lead).toMatch(/Human-Centered AI/);
-    expect(copy.en.hero.lead).toMatch(/Behavioral Technology/);
-    expect(copy.en.hero.lead).toMatch(/Human-AI Interaction/);
-    expect(copy.en.specialization.intro).toMatch(/actively expand into Human-Centered AI/);
-    expect(copy.es.specialization.intro).toMatch(/amplío activamente/);
+  it("presents a person, a current role and an evidence-supported next step", () => {
+    expect(copy.en.hero.title).toMatch(/Adrián/);
+    expect(copy.es.hero.title).toMatch(/Adrián/);
+    expect(profileCopy.en.goal).toMatch(/internships/);
+    expect(profileCopy.es.goal).toMatch(/prácticas/);
+    expect(aboutPages.en.facts.join(" ")).not.toMatch(/full-time/);
+    expect(aboutPages.es.facts.join(" ")).not.toMatch(/tiempo completo/);
     expect(aboutPages.en.story.join(" ")).toMatch(/July 2028/);
     expect(aboutPages.es.story.join(" ")).toMatch(/julio de 2028/);
+    for (const locale of ["en", "es"] as const) {
+      for (const item of profileCopy[locale].strengths.items)
+        expect(isProjectSlug(item.slug)).toBe(true);
+      expect(projectPerspectives[locale]["video-rescue"].contribution).toMatch(
+        locale === "en" ? /two-student/ : /dos estudiantes/
+      );
+    }
   });
   it("keeps recruiter-facing skills ordered around the approved identity", () => {
     expect(copy.en.skills.priorities.slice(0, 5)).toEqual([

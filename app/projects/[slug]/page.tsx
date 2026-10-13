@@ -26,9 +26,13 @@ export async function generateMetadata({
       url: `/projects/${slug}/`,
       title: project.name,
       description: project.summary,
-      images: ["/og.jpg"]
+      images: ["/social-profile-en.png"]
     },
-    twitter: { title: project.name, description: project.summary, images: ["/og.jpg"] }
+    twitter: {
+      title: project.name,
+      description: project.summary,
+      images: ["/social-profile-en.png"]
+    }
   };
 }
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
