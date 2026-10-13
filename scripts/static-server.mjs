@@ -1,9 +1,10 @@
 import { createReadStream, existsSync, statSync } from "node:fs";
 import { createServer } from "node:http";
-import { extname, join, normalize } from "node:path";
+import { extname, join, resolve, sep } from "node:path";
 
 const [root = "out", portValue = "4173"] = process.argv.slice(2);
 const port = Number(portValue);
+const resolvedRoot = resolve(root);
 const mime = {
   ".html": "text/html; charset=utf-8",
   ".js": "text/javascript; charset=utf-8",
@@ -20,13 +21,26 @@ const mime = {
 };
 createServer((request, response) => {
   const pathname = decodeURIComponent(new URL(request.url || "/", "http://localhost").pathname);
-  const requested = normalize(join(root, pathname));
+  const requested = resolve(resolvedRoot, `.${pathname}`);
+  const insideRoot = requested === resolvedRoot || requested.startsWith(`${resolvedRoot}${sep}`);
+  if (
+    insideRoot &&
+    existsSync(requested) &&
+    statSync(requested).isDirectory() &&
+    !pathname.endsWith("/")
+  ) {
+    response.writeHead(308, {
+      location: `${pathname}/${new URL(request.url || "/", "http://localhost").search}`
+    });
+    response.end();
+    return;
+  }
   const target =
-    requested.startsWith(normalize(root)) && existsSync(requested)
+    insideRoot && existsSync(requested)
       ? statSync(requested).isDirectory()
         ? join(requested, "index.html")
         : requested
-      : join(root, "404.html");
+      : join(resolvedRoot, "404.html");
   response.writeHead(target.endsWith("404.html") ? 404 : 200, {
     "content-type": mime[extname(target)] || "application/octet-stream"
   });

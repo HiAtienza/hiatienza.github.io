@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { MotionObserver } from "@/components/motion-observer";
-import { copy, external, route, type Locale } from "@/lib/site-data";
+import { copy, external, route, type Locale, type NavigationItem } from "@/lib/site-data";
 
 export function SiteShell({
   locale,
@@ -14,12 +14,23 @@ export function SiteShell({
 }) {
   const t = copy[locale];
   const other = locale === "en" ? "es" : "en";
+  const navigation: readonly NavigationItem[] = [
+    { href: route(locale, "/#work"), label: t.nav.work },
+    { href: route(locale, "/about/"), label: t.nav.about },
+    { href: route(locale, "/research/"), label: t.nav.research },
+    { href: route(locale, "/#contact"), label: t.nav.contact }
+  ];
   const navigationLinks = (
     <>
-      <Link href={route(locale, "/#work")}>{t.nav.work}</Link>
-      <Link href={route(locale, "/about/")}>{t.nav.about}</Link>
-      <Link href={route(locale, "/research/")}>{t.nav.research}</Link>
-      <Link href={route(locale, "/#contact")}>{t.nav.contact}</Link>
+      {navigation.map(({ href, label }) => (
+        <Link
+          key={href}
+          href={href}
+          aria-current={href === route(locale, path) ? "page" : undefined}
+        >
+          {label}
+        </Link>
+      ))}
       <a className="nav-cv" href="/cv/Adrian_Munoz_Atienza_CV_Public_ATS.pdf">
         CV
       </a>
@@ -31,10 +42,10 @@ export function SiteShell({
   return (
     <>
       <MotionObserver />
-      <a className="skip-link" href="#main">
+      <a className="skip-link" href="#main" lang={locale}>
         {locale === "en" ? "Skip to content" : "Saltar al contenido"}
       </a>
-      <header className="site-header">
+      <header className="site-header" lang={locale}>
         <div className="nav-wrap">
           <Link className="brand" href={route(locale)}>
             <span>AM</span>
@@ -60,7 +71,7 @@ export function SiteShell({
       <main id="main" lang={locale} tabIndex={-1}>
         {children}
       </main>
-      <footer className="site-footer">
+      <footer className="site-footer" lang={locale}>
         <div>
           <span>© 2026 Adrián Muñoz Atienza</span>
           <span>{t.footer.split(". ")[1]}</span>

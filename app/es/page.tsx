@@ -4,20 +4,20 @@ import { HomePage } from "@/components/pages";
 export const metadata: Metadata = {
   title: { absolute: "Adrián Muñoz Atienza | Software Engineering y Human-Centered AI" },
   description:
-    "Adrián Muñoz Atienza, estudiante de Computer Science en XJTLU. Ahora creando Lock Calendar: tu semana y tu próxima cita en la pantalla de bloqueo de Android.",
+    "Adrián Muñoz Atienza, estudiante de Computer Science en XJTLU. LockIn para planes y enfoque, Setline para entrenamientos sin conexión y VIDEO-RESCUE para investigación supervisada persona-IA.",
   alternates: { canonical: "/es/", languages: { en: "/", es: "/es/" } },
   openGraph: {
     url: "/es/",
     title: "Señales humanas → sistemas útiles | Adrián Muñoz Atienza",
     description:
-      "Ahora creando Lock Calendar: clases y citas cotidianas de un vistazo en la pantalla de bloqueo de Android. Proyectos de ingeniería de software centrados en las personas.",
+      "LockIn para planes y enfoque, Setline para registrar entrenamientos y VIDEO-RESCUE para coordinación supervisada persona-IA. Proyectos de ingeniería de software centrados en las personas.",
     locale: "es_ES",
     images: ["/og.jpg"]
   },
   twitter: {
     title: "Señales humanas → sistemas útiles | Adrián Muñoz Atienza",
     description:
-      "Lock Calendar: tu semana, donde ya miras. Conoce mis proyectos de software centrados en las personas.",
+      "LockIn, Setline y VIDEO-RESCUE: productos personales e investigación supervisada. Conoce mis proyectos de software centrados en las personas.",
     images: ["/og.jpg"]
   }
 };

@@ -1,9 +1,11 @@
 import Link from "next/link";
 import type { CSSProperties } from "react";
+import { ActionLink, MetadataList } from "@/components/ui";
 import { FlowDiagram } from "@/components/diagram";
 import { LinkedInProfileBadge } from "@/components/linkedin-profile-badge";
-import { LockCalendarPreview } from "@/components/lock-calendar-preview";
-import { LockCalendarAbout, LockCalendarStory } from "@/components/lock-calendar-story";
+import { CurrentProductsAbout, LockInStory } from "@/components/lock-in-story";
+import { ProductShowcase } from "@/components/product-capture";
+import { SetlineStory } from "@/components/setline-story";
 import { Portrait } from "@/components/media";
 import { SignalField } from "@/components/signal-field";
 import { SiteShell } from "@/components/site-shell";
@@ -23,12 +25,31 @@ import {
   type ProjectSlug
 } from "@/lib/site-data";
 
-const diagramType: Record<ProjectSlug, "coordination" | "architecture" | "calendar"> = {
-  "lock-calendar": "calendar",
-  "video-rescue": "coordination",
-  cybermastery: "architecture",
-  lifemap: "calendar"
-};
+function ProjectPreview({
+  slug,
+  locale,
+  caseStudy = false
+}: {
+  slug: ProjectSlug;
+  locale: Locale;
+  caseStudy?: boolean;
+}) {
+  switch (slug) {
+    case "lock-in":
+      return <ProductShowcase product="lock-in" locale={locale} eager={caseStudy} />;
+    case "video-rescue":
+      return (
+        <VideoRescueFigure
+          locale={locale}
+          compact={!caseStudy}
+          asset={caseStudy ? "workflow" : "workspace"}
+          eager={caseStudy}
+        />
+      );
+    case "setline":
+      return <ProductShowcase product="setline" locale={locale} eager={caseStudy} />;
+  }
+}
 
 export function HomePage({ locale }: { locale: Locale }) {
   const t = copy[locale];
@@ -42,12 +63,10 @@ export function HomePage({ locale }: { locale: Locale }) {
             <h1 id="hero-title">{t.hero.title}</h1>
             <p className="hero-lead">{t.hero.lead}</p>
             <div className="button-row">
-              <Link className="button" href={route(locale, "/projects/lock-calendar/")}>
-                {t.hero.work}
-              </Link>
-              <Link className="button button-secondary" href={route(locale, "/about/")}>
+              <ActionLink href={route(locale, "/projects/lock-in/")}>{t.hero.work}</ActionLink>
+              <ActionLink variant="secondary" href={route(locale, "/about/")}>
                 {t.hero.about}
-              </Link>
+              </ActionLink>
               <a className="text-link" href="/cv/Adrian_Munoz_Atienza_CV_Public_ATS.pdf">
                 {t.hero.cv} <span aria-hidden="true">↓</span>
               </a>
@@ -64,7 +83,7 @@ export function HomePage({ locale }: { locale: Locale }) {
           <div className="hero-system">
             <SignalField locale={locale} />
             <div className="hero-portrait">
-              <Portrait locale={locale} />
+              <Portrait locale={locale} eager />
               <p>Adrián · Suzhou, China</p>
             </div>
           </div>
@@ -78,8 +97,8 @@ export function HomePage({ locale }: { locale: Locale }) {
             <h2 id="work-title">{t.projects.title}</h2>
             <p>
               {locale === "en"
-                ? "Now focused on Lock Calendar: helping people see what comes next. Alongside it, projects in coordination, learning and intentional time."
-                : "Ahora centrado en Lock Calendar: ayudar a ver qué viene después. Junto a él, proyectos de coordinación, aprendizaje y tiempo intencional."}
+                ? "LockIn makes everyday plans and attention visible. Setline keeps workout logging and progress clear. VIDEO-RESCUE explores human-AI coordination through supervised research."
+                : "LockIn hace visibles los planes y la atención. Setline facilita registrar entrenamientos y entender el progreso. VIDEO-RESCUE explora la coordinación persona-IA en investigación supervisada."}
             </p>
           </div>
         </div>
@@ -208,35 +227,29 @@ function ProjectFeature({ locale, slug }: { locale: Locale; slug: ProjectSlug })
         <p className="context">{project.context}</p>
         <h3>{project.name}</h3>
         <p className="project-problem">{project.problem}</p>
-        {slug === "lock-calendar" && (
+        {slug === "lock-in" && (
           <p className="lock-feature-line">
             {locale === "en"
-              ? "Your classes. Your appointments. Your week at a glance."
-              : "Tus clases. Tus citas. Tu semana de un vistazo."}
+              ? "Your plans. Your focus. Your next useful action."
+              : "Tus planes. Tu enfoque. Tu próxima acción útil."}
           </p>
         )}
-        <dl className="project-meta">
-          <div>
-            <dt>{locale === "en" ? "My role" : "Mi función"}</dt>
-            <dd>{project.role}</dd>
-          </div>
-          <div>
-            <dt>{locale === "en" ? "Built with" : "Tecnologías"}</dt>
-            <dd>{project.tech.join(" · ")}</dd>
-          </div>
-        </dl>
+        <MetadataList
+          className="project-meta"
+          items={[
+            { label: locale === "en" ? "My role" : "Mi función", value: project.role },
+            {
+              label: locale === "en" ? "Built with" : "Tecnologías",
+              value: project.tech.join(" · ")
+            }
+          ]}
+        />
         <Link className="arrow-link" href={route(locale, `/projects/${slug}/`)}>
           {copy[locale].projects.link} <span aria-hidden="true">→</span>
         </Link>
       </div>
       <div className="project-visual">
-        {slug === "lock-calendar" ? (
-          <LockCalendarPreview locale={locale} />
-        ) : slug === "video-rescue" ? (
-          <VideoRescueFigure locale={locale} compact />
-        ) : (
-          <FlowDiagram type={diagramType[slug]} locale={locale} />
-        )}
+        <ProjectPreview slug={slug} locale={locale} />
         <p>{project.status}</p>
       </div>
     </article>
@@ -246,9 +259,9 @@ function ProjectFeature({ locale, slug }: { locale: Locale; slug: ProjectSlug })
 function Journey({ locale }: { locale: Locale }) {
   return (
     <div className="timeline">
-      {copy[locale].journey.items.map(([date, title, detail]) => (
+      {copy[locale].journey.items.map(({ date, title, detail }) => (
         <article key={`${date}-${title}`} data-reveal>
-          <time>{date}</time>
+          <p className="timeline-date">{date}</p>
           <div>
             <h3>{title}</h3>
             <p>{detail}</p>
@@ -272,18 +285,18 @@ export function AboutPage({ locale }: { locale: Locale }) {
             <p className="page-intro">{t.intro}</p>
           </div>
           <div className="about-portrait" data-reveal>
-            <Portrait locale={locale} />
+            <Portrait locale={locale} eager />
             <p aria-hidden="true">
               Spain <span>↔</span> China
             </p>
           </div>
         </header>
 
-        <section className="section story-section">
+        <section className="section story-section" aria-labelledby="story-title">
           <div className="page-wrap story-layout">
             <div data-reveal>
               <p className="eyebrow">01 · {locale === "en" ? "The path" : "El recorrido"}</p>
-              <h2>{t.storyTitle}</h2>
+              <h2 id="story-title">{t.storyTitle}</h2>
             </div>
             <div className="story-copy" data-reveal>
               {t.story.map((paragraph) => (
@@ -293,7 +306,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
           </div>
         </section>
 
-        <section className="section identity-section">
+        <div className="section identity-section">
           <div className="page-wrap identity-grid">
             {t.dual.map((item, index) => (
               <article
@@ -308,15 +321,15 @@ export function AboutPage({ locale }: { locale: Locale }) {
               </article>
             ))}
           </div>
-        </section>
+        </div>
 
-        <LockCalendarAbout locale={locale} />
+        <CurrentProductsAbout locale={locale} />
 
-        <section className="section principles-section">
+        <section className="section principles-section" aria-labelledby="principles-title">
           <div className="page-wrap">
             <div className="section-heading" data-reveal>
               <p className="eyebrow">02 · {locale === "en" ? "Principles" : "Principios"}</p>
-              <h2>{t.principlesTitle}</h2>
+              <h2 id="principles-title">{t.principlesTitle}</h2>
             </div>
             <div className="principles-grid">
               {t.principles.map(([title, body], index) => (
@@ -330,11 +343,11 @@ export function AboutPage({ locale }: { locale: Locale }) {
           </div>
         </section>
 
-        <section className="section facts-section">
+        <section className="section facts-section" aria-labelledby="facts-title">
           <div className="page-wrap facts-layout">
             <div data-reveal>
               <p className="eyebrow">03 · {locale === "en" ? "Now" : "Ahora"}</p>
-              <h2>{t.factsTitle}</h2>
+              <h2 id="facts-title">{t.factsTitle}</h2>
             </div>
             <ul data-reveal>
               {t.facts.map((fact) => (
@@ -343,9 +356,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
             </ul>
           </div>
           <div className="page-wrap about-cta" data-reveal>
-            <Link className="button" href={route(locale, "/#work")}>
-              {t.cta}
-            </Link>
+            <ActionLink href={route(locale, "/#work")}>{t.cta}</ActionLink>
           </div>
         </section>
 
@@ -422,41 +433,32 @@ export function ProjectPage({ locale, slug }: { locale: Locale; slug: ProjectSlu
             <p className="case-summary">{project.summary}</p>
           </div>
           <div className="case-hero-visual" data-reveal>
-            {slug === "lock-calendar" ? (
-              <LockCalendarPreview locale={locale} />
-            ) : slug === "video-rescue" ? (
-              <VideoRescueFigure locale={locale} asset="workflow" eager />
-            ) : (
-              <FlowDiagram type={diagramType[slug]} locale={locale} />
-            )}
+            <ProjectPreview slug={slug} locale={locale} caseStudy />
           </div>
         </header>
 
-        <section className="case-overview">
+        <section className="case-overview" aria-labelledby="problem-title">
           <div className="page-wrap case-overview-grid">
             <article data-reveal>
-              <p className="eyebrow">{labels.problem}</p>
+              <h2 id="problem-title" className="eyebrow">
+                {labels.problem}
+              </h2>
               <p className="case-large-copy">{project.problem}</p>
             </article>
-            <dl className="case-meta" data-reveal>
-              <div>
-                <dt>{labels.role}</dt>
-                <dd>{project.role}</dd>
-              </div>
-              <div>
-                <dt>{locale === "en" ? "Status" : "Estado"}</dt>
-                <dd>{project.status}</dd>
-              </div>
-              <div>
-                <dt>{labels.tech}</dt>
-                <dd>{project.tech.join(" · ")}</dd>
-              </div>
-            </dl>
+            <MetadataList
+              className="case-meta"
+              items={[
+                { label: labels.role, value: project.role },
+                { label: locale === "en" ? "Status" : "Estado", value: project.status },
+                { label: labels.tech, value: project.tech.join(" · ") }
+              ]}
+            />
           </div>
         </section>
 
-        {slug === "lock-calendar" && <LockCalendarStory locale={locale} />}
+        {slug === "lock-in" && <LockInStory locale={locale} />}
         {slug === "video-rescue" && <VideoRescueStory locale={locale} />}
+        {slug === "setline" && <SetlineStory locale={locale} />}
 
         <section className="section page-wrap case-decisions" aria-labelledby="decisions-title">
           <div className="section-heading" data-reveal>
@@ -474,18 +476,20 @@ export function ProjectPage({ locale, slug }: { locale: Locale; slug: ProjectSlu
           </div>
         </section>
 
-        <section className="section evidence-section">
+        <section className="section evidence-section" aria-labelledby="evidence-title">
           <div className="page-wrap evidence-grid">
             <article data-reveal>
-              <p className="eyebrow">{labels.boundaries}</p>
+              <h2 id="evidence-title" className="eyebrow">
+                {labels.boundaries}
+              </h2>
               <p>{boundary}</p>
             </article>
             <article data-reveal>
-              <p className="eyebrow">{labels.limitations}</p>
+              <h3 className="eyebrow">{labels.limitations}</h3>
               <p>{project.limitation}</p>
             </article>
             <article data-reveal>
-              <p className="eyebrow">{labels.next}</p>
+              <h3 className="eyebrow">{labels.next}</h3>
               <p>{project.next}</p>
             </article>
           </div>
@@ -514,7 +518,14 @@ export function ResearchPage({ locale }: { locale: Locale }) {
           <h1>{t.title}</h1>
           <p className="page-intro">{t.intro}</p>
         </header>
-        <section className="research-diagram-band">
+        <section
+          className="research-diagram-band"
+          aria-label={
+            locale === "en"
+              ? "Coordination prototype overview"
+              : "Vista general del prototipo de coordinación"
+          }
+        >
           <div className="page-wrap" data-reveal>
             <VideoRescueFigure locale={locale} />
             <Link
@@ -528,7 +539,7 @@ export function ResearchPage({ locale }: { locale: Locale }) {
             </Link>
           </div>
         </section>
-        <section className="page-wrap research-sections">
+        <div className="page-wrap research-sections">
           {t.sections.map(([heading, body], index) => (
             <article key={heading} data-reveal>
               <span>{String(index + 1).padStart(2, "0")}</span>
@@ -536,7 +547,7 @@ export function ResearchPage({ locale }: { locale: Locale }) {
               <p>{body}</p>
             </article>
           ))}
-        </section>
+        </div>
         <VideoRescueFindings locale={locale} />
         <ContactSection locale={locale} />
       </article>
@@ -584,8 +595,8 @@ function ContactSection({
         <h2 id="contact-title">{t.title}</h2>
         <p>{t.body}</p>
         <div className="button-row">
-          <a
-            className="button button-light"
+          <ActionLink
+            variant="light"
             href={external.linkedin}
             aria-label={
               locale === "en"
@@ -594,10 +605,10 @@ function ContactSection({
             }
           >
             {t.linkedin}
-          </a>
-          <a className="button button-ghost" href={external.github}>
+          </ActionLink>
+          <ActionLink variant="ghost" href={external.github}>
             {t.github}
-          </a>
+          </ActionLink>
           <a className="light-link" href="/cv/Adrian_Munoz_Atienza_CV_Public_ATS.pdf">
             {t.cv} <span aria-hidden="true">↓</span>
           </a>

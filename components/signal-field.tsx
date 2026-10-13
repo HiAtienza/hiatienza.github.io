@@ -127,9 +127,7 @@ export function SignalField({ locale }: { locale: Locale }) {
   }, []);
 
   const nodeLabels =
-    locale === "en"
-      ? ["Plan", "Coordinate", "Learn", "Reflect"]
-      : ["Planificar", "Coordinar", "Aprender", "Reflexionar"];
+    locale === "en" ? ["Plan", "Coordinate", "Train"] : ["Organizar", "Coordinar", "Entrenar"];
   const concepts =
     locale === "en"
       ? ["Behavior", "Learning", "Evidence", "Decisions"]

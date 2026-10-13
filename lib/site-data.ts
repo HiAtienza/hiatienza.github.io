@@ -1,3 +1,5 @@
+import { mobileProjects } from "./mobile-products";
+
 export type Locale = "en" | "es";
 
 export const siteUrl = "https://hiatienza.github.io";
@@ -6,10 +8,10 @@ export const external = {
   linkedin: "https://www.linkedin.com/in/hiatienza/"
 };
 
-export const slugs = ["lock-calendar", "video-rescue", "cybermastery", "lifemap"] as const;
+export const slugs = ["lock-in", "video-rescue", "setline"] as const;
 export type ProjectSlug = (typeof slugs)[number];
 
-type Project = {
+export interface Project {
   slug: ProjectSlug;
   order: string;
   name: string;
@@ -22,7 +24,18 @@ type Project = {
   facts: { title: string; text: string }[];
   limitation: string;
   next: string;
-};
+}
+
+export interface Experience {
+  date: string;
+  title: string;
+  detail: string;
+}
+
+export interface NavigationItem {
+  href: string;
+  label: string;
+}
 
 export const copy = {
   en: {
@@ -36,8 +49,8 @@ export const copy = {
     hero: {
       eyebrow: "Computer Science student @ XJTLU",
       title: "I turn complex signals into software people can understand and act on.",
-      lead: "Currently building Lock Calendar: an Android app that brings your week and next appointment to your lock screen. My wider work connects Software Engineering, Human-Centered AI, Behavioral Technology and Human-AI Interaction.",
-      work: "Explore Lock Calendar",
+      lead: "I design and develop Android products that turn everyday information into clear actions: LockIn for planning and focus, Setline for training with local data. My wider work connects Software Engineering, Human-Centered AI, Behavioral Technology and Human-AI Interaction.",
+      work: "Explore LockIn",
       about: "About my path",
       cv: "Download CV",
       visual: "View public visual CV",
@@ -64,14 +77,20 @@ export const copy = {
     process: {
       label: "How I build",
       title: "A small loop for turning uncertainty into useful software.",
-      steps: ["Understand", "Design", "Build", "Test", "Learn", "Improve"],
-      body: "I start with the real user problem, narrow the scope, select an architecture and build an end-to-end workflow. I test edge cases, make limitations visible, and improve from evidence rather than assumption."
+      steps: [
+        "Friction Mapping & Needfinding",
+        "Interaction Prototyping",
+        "Robust Engineering & Data Contracts",
+        "Cognitive Load & Heuristic Validation",
+        "Evidence-Driven Refinement"
+      ],
+      body: "I map the friction in a real context, prototype the interaction, and connect it to reliable data contracts. I inspect cognitive load and interaction heuristics, then use technical tests and human feedback to revisit the problem and refine the next iteration."
     },
     specialization: {
-      label: "Emerging specialization",
+      label: "Engineering & HCI practice",
       title: "One engineering path, shaped by how people learn and decide.",
       intro:
-        "Software Engineering is my technical backbone. I am building the other layers through projects, supervised research and continued study—not claiming finished expertise.",
+        "My technical backbone is Software Engineering, which I actively expand into Human-Centered AI and Behavioral Technology through research and production prototypes.",
       parts: [
         [
           "Software Engineering",
@@ -79,7 +98,7 @@ export const copy = {
         ],
         [
           "Behavioral Technology",
-          "Frames attention, learning, patterns and reflection as product-design questions, without clinical claims."
+          "Turns attention, learning, patterns and reflection into concrete product-design questions."
         ],
         [
           "Human-Centered AI",
@@ -127,7 +146,7 @@ export const copy = {
         ],
         [
           "Human-centered practice",
-          "Human-Centered AI · Human-AI Interaction · Human-Computer Interaction · User-Centered Design · Learning Technology · Behavioral Technology (emerging specialization)"
+          "Human-Centered AI · Human-AI Interaction · Human-Computer Interaction · User-Centered Design · Learning Technology · Behavioral Technology"
         ]
       ]
     },
@@ -135,32 +154,35 @@ export const copy = {
       label: "Journey",
       title: "Engineering practice, research context and international experience.",
       items: [
-        [
-          "Jul 2026 – present",
-          "Undergraduate Researcher",
-          "XJTLU Summer Undergraduate Research Fellowship · supervised HCI research and VIDEO-RESCUE prototype work."
-        ],
-        [
-          "2026 – present",
-          "Independent product development",
-          "Currently focused on Lock Calendar, alongside CyberMastery and LifeMap across full-stack web and Android."
-        ],
-        [
-          "Jul – Sep 2024",
-          "Bellperson",
-          "Marriott International · seasonal multicultural customer service in Madrid."
-        ],
-        [
-          "2025 – 2028",
-          "BSc Information and Computing Science",
-          "Xi’an Jiaotong-Liverpool University · current Year 3 student."
-        ],
-        [
-          "2022 – 2025",
-          "Previous Software Engineering studies",
-          "U-TAD · English-taught study before transfer to XJTLU; no degree award claimed."
-        ]
-      ]
+        {
+          date: "Jul 2026 – present",
+          title: "Undergraduate Researcher",
+          detail:
+            "XJTLU Summer Undergraduate Research Fellowship · supervised HCI research and VIDEO-RESCUE prototype work."
+        },
+        {
+          date: "2026 – present",
+          title: "Independent product development",
+          detail:
+            "Currently building LockIn and Setline, connecting everyday planning and workout logging with local data and clear interaction design."
+        },
+        {
+          date: "Jul – Sep 2024",
+          title: "Human factors & service communication",
+          detail:
+            "Marriott International · Bellperson, Madrid. Multicultural service work strengthened active listening, situational awareness and clear communication across the service layer."
+        },
+        {
+          date: "2025 – 2028",
+          title: "BSc Information and Computing Science",
+          detail: "Xi’an Jiaotong-Liverpool University · current Year 3 student."
+        },
+        {
+          date: "2022 – 2025",
+          title: "Foundational Coursework in Software Engineering (Transferred to XJTLU)",
+          detail: "U-TAD · English-taught foundational coursework, 2022–2025."
+        }
+      ] satisfies readonly Experience[]
     },
     contact: {
       label: "Contact",
@@ -221,8 +243,8 @@ export const copy = {
     hero: {
       eyebrow: "Estudiante de Computer Science @ XJTLU",
       title: "Convierto señales complejas en software que las personas pueden entender y usar.",
-      lead: "Ahora estoy creando Lock Calendar: una app Android que lleva tu semana y tu próxima cita a la pantalla de bloqueo. Mi trabajo conecta ingeniería de software, Human-Centered AI y tecnología del comportamiento.",
-      work: "Conoce Lock Calendar",
+      lead: "Diseño y desarrollo productos Android que convierten información cotidiana en acciones claras: LockIn para planificar y enfocarse, Setline para entrenar con datos locales. Mi trabajo conecta ingeniería de software, Human-Centered AI y tecnología del comportamiento.",
+      work: "Conoce LockIn",
       about: "Conoce mi recorrido",
       cv: "Descargar CV",
       visual: "Ver CV visual público",
@@ -250,14 +272,20 @@ export const copy = {
     process: {
       label: "Cómo trabajo",
       title: "Un ciclo breve para convertir incertidumbre en software útil.",
-      steps: ["Comprender", "Diseñar", "Construir", "Probar", "Aprender", "Mejorar"],
-      body: "Empiezo por el problema real de la persona usuaria, acoto el alcance, selecciono una arquitectura y construyo un flujo completo. Pruebo casos límite, hago visibles las limitaciones y mejoro a partir de evidencias."
+      steps: [
+        "Mapeo de fricciones y necesidades",
+        "Prototipado de interacciones",
+        "Ingeniería robusta y contratos de datos",
+        "Carga cognitiva y evaluación heurística",
+        "Refinamiento basado en evidencias"
+      ],
+      body: "Identifico fricciones en un contexto real, prototipo la interacción y la conecto a contratos de datos fiables. Reviso la carga cognitiva y las heurísticas de interacción; las pruebas técnicas y el feedback humano orientan la siguiente iteración."
     },
     specialization: {
-      label: "Especialización en desarrollo",
+      label: "Práctica de ingeniería y HCI",
       title: "Una trayectoria de ingeniería guiada por cómo aprendemos y decidimos.",
       intro:
-        "Software Engineering es mi base técnica. Desarrollo las demás capas mediante proyectos, investigación supervisada y estudio continuo, sin presentarlas como una especialización ya consolidada.",
+        "Mi base técnica es la ingeniería de software, que amplío activamente hacia la IA centrada en las personas y la tecnología del comportamiento mediante investigación y prototipos de producto.",
       parts: [
         [
           "Software Engineering",
@@ -265,7 +293,7 @@ export const copy = {
         ],
         [
           "Behavioral Technology",
-          "Plantea la atención, el aprendizaje, los patrones y la reflexión como preguntas de producto, sin afirmaciones clínicas."
+          "Convierte la atención, el aprendizaje, los patrones y la reflexión en preguntas concretas de diseño de producto."
         ],
         [
           "Human-Centered AI",
@@ -313,7 +341,7 @@ export const copy = {
         ],
         [
           "Práctica human-centered",
-          "Human-Centered AI · Interacción persona-IA · Interacción persona-ordenador · Diseño centrado en las personas · Learning Technology · Behavioral Technology (especialización en desarrollo)"
+          "Human-Centered AI · Interacción persona-IA · Interacción persona-ordenador · Diseño centrado en las personas · Learning Technology · Behavioral Technology"
         ]
       ]
     },
@@ -321,32 +349,35 @@ export const copy = {
       label: "Trayectoria",
       title: "Práctica de ingeniería, investigación e experiencia internacional.",
       items: [
-        [
-          "Jul 2026 – actualidad",
-          "Investigador universitario",
-          "XJTLU Summer Undergraduate Research Fellowship · investigación supervisada de HCI y trabajo de prototipo VIDEO-RESCUE."
-        ],
-        [
-          "2026 – actualidad",
-          "Desarrollo de productos independientes",
-          "Ahora centrado en Lock Calendar, junto a CyberMastery y LifeMap en desarrollo web full-stack y Android."
-        ],
-        [
-          "Jul – Sep 2024",
-          "Botones",
-          "Marriott International · atención al cliente multicultural de temporada en Madrid."
-        ],
-        [
-          "2025 – 2028",
-          "BSc Information and Computing Science",
-          "Xi’an Jiaotong-Liverpool University · estudiante actual de tercer curso."
-        ],
-        [
-          "2022 – 2025",
-          "Estudios previos de Ingeniería del Software",
-          "U-TAD · estudios en inglés previos al traslado a XJTLU; no se afirma la obtención de un título."
-        ]
-      ]
+        {
+          date: "Jul 2026 – actualidad",
+          title: "Investigador universitario",
+          detail:
+            "XJTLU Summer Undergraduate Research Fellowship · investigación supervisada de HCI y trabajo de prototipo VIDEO-RESCUE."
+        },
+        {
+          date: "2026 – actualidad",
+          title: "Desarrollo de productos independientes",
+          detail:
+            "Ahora desarrollo LockIn y Setline: organización cotidiana y registro de entrenamientos con datos locales e interacciones claras."
+        },
+        {
+          date: "Jul – Sep 2024",
+          title: "Factores humanos y comunicación de servicio",
+          detail:
+            "Marriott International · Botones, Madrid. La atención multicultural reforzó la escucha activa, la comprensión del contexto y la comunicación clara durante el servicio."
+        },
+        {
+          date: "2025 – 2028",
+          title: "BSc Information and Computing Science",
+          detail: "Xi’an Jiaotong-Liverpool University · estudiante actual de tercer curso."
+        },
+        {
+          date: "2022 – 2025",
+          title: "Formación inicial en Ingeniería del Software (traslado a XJTLU)",
+          detail: "U-TAD · formación inicial impartida en inglés, 2022–2025."
+        }
+      ] satisfies readonly Experience[]
     },
     contact: {
       label: "Contacto",
@@ -400,40 +431,7 @@ export const copy = {
 
 export const projects: Record<Locale, Record<ProjectSlug, Project>> = {
   en: {
-    "lock-calendar": {
-      slug: "lock-calendar",
-      order: "01",
-      name: "Lock Calendar",
-      context: "Current focus · independent Android product",
-      problem:
-        "A timetable screenshot becomes outdated, gets cropped, or disappears behind the lock-screen clock. Your next class or appointment should be easier to see.",
-      role: "Product concept, UX, Android architecture and implementation",
-      tech: ["Kotlin", "Jetpack Compose", "CalendarContract", "Canvas", "Google Calendar API"],
-      status: "Android app in active development · not yet publicly released",
-      summary:
-        "Your week, right where you look. Lock Calendar turns connected calendars into a readable live wallpaper, bringing classes and everyday appointments to your Android lock screen.",
-      facts: [
-        {
-          title: "One place for what comes next",
-          text: "Device calendars and a direct Google Calendar integration feed a weekly view and daily agenda. Calendar sources are explicitly selected; the wallpaper reads your schedule without editing calendar events."
-        },
-        {
-          title: "A layout made for a lock screen",
-          text: "A shared Compose and Canvas layout model powers the in-app preview and live wallpaper. Placement controls let you adjust the agenda around system elements instead of cropping a screenshot."
-        },
-        {
-          title: "Updates with the schedule",
-          text: "Calendar-change notifications, visibility checks and bounded refresh policies keep the display connected to its source while avoiding a continuous rendering loop. Freshness depends on the source and Android lifecycle."
-        },
-        {
-          title: "An app designed around the preview",
-          text: "Calendar selection, layout and background customization, and grouped settings make the result visible before applying it. Synthetic captures document the current app design."
-        }
-      ],
-      limitation:
-        "Android only and still in development. Google authorization and device-calendar flows have implementation and test evidence, but broader Google acceptance and cross-device validation remain ongoing. Some lock-screen clocks still require manual placement; no universal fit or measured productivity improvement is claimed.",
-      next: "Keep validating synchronization and placement across devices, refine the student workflow, and prepare a public release after the remaining acceptance checks."
-    },
+    ...mobileProjects.en,
     "video-rescue": {
       slug: "video-rescue",
       order: "02",
@@ -467,111 +465,10 @@ export const projects: Record<Locale, Record<ProjectSlug, Project>> = {
       limitation:
         "No field deployment, operational safety claim, rescue-outcome claim or validated AI-accuracy claim is made. The assistant does not directly access map data, building names or distances; a human-visible map does not establish AI navigation.",
       next: "Complete fuller analysis and explore team-wide assistance and geographic-context integration as future work, guided by the preliminary feedback."
-    },
-    cybermastery: {
-      slug: "cybermastery",
-      order: "03",
-      name: "CyberMastery",
-      context: "Independent product development · full-stack learning product",
-      problem:
-        "Learners need a structured way to move from guided explanation to independent practice, evidence and rechecking without turning progress into an opaque score.",
-      role: "Full-stack product and learning-domain implementation",
-      tech: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Playwright"],
-      status: "Working HTTP Fundamentals vertical slice using static protocol simulations",
-      summary:
-        "A full-stack cybersecurity-learning prototype built around one authenticated HTTP Fundamentals lifecycle.",
-      facts: [
-        {
-          title: "Learning flow",
-          text: "Guided learning leads into independent assessment, structured skill evidence, retention rechecks and transfer activities."
-        },
-        {
-          title: "Mastery model",
-          text: "Deterministic scoring and evidence history make the learning-domain logic inspectable rather than purely UI-driven."
-        },
-        {
-          title: "Architecture",
-          text: "The learning domain is separated from UI, persistence and authentication within a documented modular-monolith boundary."
-        },
-        {
-          title: "Verification",
-          text: "The audited source includes unit, integration and browser test coverage; volatile counts and CI status are intentionally excluded."
-        }
-      ],
-      limitation:
-        "The repository is private, the scope is one HTTP Fundamentals slice, and no validated learning-outcome or production claim is made.",
-      next: "Expand only after safely evaluating the current vertical slice and defining a public-safe artifact."
-    },
-    lifemap: {
-      slug: "lifemap",
-      order: "04",
-      name: "LifeMap",
-      context: "Independent Android product development",
-      problem:
-        "Long-term goals are easy to defer when time is invisible; a calm, private visual can make a horizon more tangible without collecting personal data.",
-      role: "Android product, rendering and local-first implementation",
-      tech: ["Kotlin", "Jetpack Compose", "Preferences DataStore", "Android"],
-      status: "Active local-first Android prototype",
-      summary:
-        "A local-first Android prototype for visualising life, years and goals as time grids.",
-      facts: [
-        {
-          title: "Core interaction",
-          text: "A shared calendar render model turns time and goals into a simple visual grid across the app experience."
-        },
-        {
-          title: "Local-first privacy",
-          text: "Preferences persist on-device through Preferences DataStore; the product does not depend on an account or remote service."
-        },
-        {
-          title: "Accessible and responsive",
-          text: "Responsive layouts and accessibility descriptions support different device contexts and non-visual interpretation."
-        },
-        {
-          title: "Ambient surface",
-          text: "An event-driven live wallpaper reuses the product concept without claiming a public-store release."
-        }
-      ],
-      limitation:
-        "LifeMap is a prototype in active development, not a Play Store release or validated behaviour-change product.",
-      next: "Continue device-level validation, refine accessibility and test the product concept with appropriate user feedback."
     }
   },
   es: {
-    "lock-calendar": {
-      slug: "lock-calendar",
-      order: "01",
-      name: "Lock Calendar",
-      context: "Mi foco actual · producto Android independiente",
-      problem:
-        "Una captura del horario se queda desactualizada, se recorta o queda tapada por el reloj de la pantalla de bloqueo. Ver tu próxima clase o cita debería ser más fácil.",
-      role: "Concepto de producto, UX, arquitectura Android e implementación",
-      tech: ["Kotlin", "Jetpack Compose", "CalendarContract", "Canvas", "Google Calendar API"],
-      status: "App Android en desarrollo activo · todavía sin lanzamiento público",
-      summary:
-        "Tu semana, donde ya miras. Lock Calendar convierte tus calendarios conectados en un fondo de pantalla dinámico y legible, con tus clases y citas cotidianas en la pantalla de bloqueo de Android.",
-      facts: [
-        {
-          title: "Lo siguiente, en un mismo lugar",
-          text: "Los calendarios del teléfono y una integración directa con Google Calendar alimentan la vista semanal y la agenda diaria. Tú eliges la fuente y los calendarios; el fondo lee tu horario sin editar sus eventos."
-        },
-        {
-          title: "Un diseño para la pantalla de bloqueo",
-          text: "Un modelo de diseño compartido entre Compose y Canvas alimenta la vista previa y el fondo dinámico. Puedes ajustar la posición de la agenda alrededor de los elementos del sistema en lugar de recortar una captura."
-        },
-        {
-          title: "El horario cambia; la agenda se actualiza",
-          text: "Las notificaciones de cambios, las comprobaciones al volver a mostrar la pantalla y las políticas de refresco mantienen la conexión con la fuente sin renderizar continuamente. La actualización depende de la fuente y del ciclo de vida de Android."
-        },
-        {
-          title: "Una app construida alrededor de la vista previa",
-          text: "La selección de calendarios, la personalización del diseño y el fondo, y los ajustes agrupados permiten ver el resultado antes de aplicarlo. Las capturas sintéticas muestran el diseño actual de la app."
-        }
-      ],
-      limitation:
-        "Solo Android y todavía en desarrollo. La autorización de Google y los calendarios del dispositivo tienen evidencia de implementación y pruebas; continúa la validación más amplia de Google y de distintos dispositivos. Algunos relojes requieren ajustar la posición manualmente. No se garantiza un encaje universal ni una mejora de productividad medida.",
-      next: "Seguir validando sincronización y posición en distintos dispositivos, mejorar el flujo para estudiantes y preparar el lanzamiento público tras las comprobaciones pendientes."
-    },
+    ...mobileProjects.es,
     "video-rescue": {
       slug: "video-rescue",
       order: "02",
@@ -605,74 +502,6 @@ export const projects: Record<Locale, Record<ProjectSlug, Project>> = {
       limitation:
         "No se afirma despliegue de campo, seguridad operativa, mejora de resultados de rescate ni precisión validada de IA. El asistente no accede directamente a datos del mapa, nombres de edificios ni distancias; un mapa visible para personas no demuestra navegación con IA.",
       next: "Completar el análisis más amplio y explorar asistencia para todo el equipo e integración de contexto geográfico como trabajo futuro, a partir de los comentarios preliminares."
-    },
-    cybermastery: {
-      slug: "cybermastery",
-      order: "03",
-      name: "CyberMastery",
-      context: "Desarrollo independiente · producto de aprendizaje full-stack",
-      problem:
-        "Las personas que aprenden necesitan una forma estructurada de pasar de explicaciones guiadas a práctica independiente, evidencias y revisiones sin convertir el progreso en una puntuación opaca.",
-      role: "Implementación full-stack de producto y dominio de aprendizaje",
-      tech: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Playwright"],
-      status: "Slice funcional de HTTP Fundamentals con simulaciones estáticas de protocolos",
-      summary:
-        "Un prototipo full-stack de aprendizaje de ciberseguridad construido alrededor de un ciclo autenticado de HTTP Fundamentals.",
-      facts: [
-        {
-          title: "Flujo de aprendizaje",
-          text: "El aprendizaje guiado conduce a evaluación independiente, evidencias estructuradas de habilidades, revalidaciones de retención y actividades de transferencia."
-        },
-        {
-          title: "Modelo de dominio",
-          text: "La puntuación determinista y el historial de evidencias hacen que la lógica del dominio de aprendizaje sea interpretable y no dependa solo de la interfaz."
-        },
-        {
-          title: "Arquitectura",
-          text: "El dominio de aprendizaje se separa de la interfaz, la persistencia y la autenticación dentro de un límite modular-monolítico documentado."
-        },
-        {
-          title: "Verificación",
-          text: "El código auditado incluye cobertura de pruebas unitarias, de integración y de navegador; se excluyen deliberadamente recuentos variables y estado de CI."
-        }
-      ],
-      limitation:
-        "El repositorio es privado, el alcance actual es un slice de HTTP Fundamentals y no se afirma resultado de aprendizaje validado ni producción.",
-      next: "Ampliar solo después de evaluar de forma segura el slice actual y definir un artefacto público seguro."
-    },
-    lifemap: {
-      slug: "lifemap",
-      order: "04",
-      name: "LifeMap",
-      context: "Desarrollo independiente de producto Android",
-      problem:
-        "Es fácil posponer objetivos a largo plazo cuando el tiempo es invisible; una visualización tranquila y privada puede hacer más tangible el horizonte sin recopilar datos personales.",
-      role: "Producto Android, renderizado e implementación local-first",
-      tech: ["Kotlin", "Jetpack Compose", "Preferences DataStore", "Android"],
-      status: "Prototipo Android local-first en desarrollo activo",
-      summary:
-        "Un prototipo Android local-first para visualizar la vida, los años y los objetivos como cuadrículas temporales.",
-      facts: [
-        {
-          title: "Interacción principal",
-          text: "Un modelo compartido de renderizado de calendario convierte tiempo y objetivos en una cuadrícula visual sencilla en toda la experiencia."
-        },
-        {
-          title: "Privacidad local-first",
-          text: "Las preferencias persisten en el dispositivo con Preferences DataStore; el producto no depende de una cuenta ni de un servicio remoto."
-        },
-        {
-          title: "Accesible y adaptable",
-          text: "Los diseños adaptables y las descripciones de accesibilidad ayudan en distintos dispositivos y facilitan la interpretación no visual."
-        },
-        {
-          title: "Superficie ambiental",
-          text: "Un fondo de pantalla dinámico basado en eventos reutiliza el concepto del producto sin afirmar un lanzamiento público."
-        }
-      ],
-      limitation:
-        "LifeMap es un prototipo en desarrollo activo, no un lanzamiento en Play Store ni un producto con cambio de comportamiento validado.",
-      next: "Continuar la validación en dispositivos, mejorar accesibilidad y probar el concepto de producto con comentarios de personas usuarias apropiados."
     }
   }
 };
@@ -680,15 +509,15 @@ export const projects: Record<Locale, Record<ProjectSlug, Project>> = {
 export const aboutPages = {
   en: {
     label: "About",
-    title: "Building as a software engineer. Human-centered by intent.",
+    title: "Software engineering with a human-centered lens.",
     intro:
-      "I’m Adrián, a Computer Science student at XJTLU developing as a Software Engineer. Right now, my main product focus is Lock Calendar: making everyday schedules easier to see from an Android lock screen. I also build across web and applied AI.",
+      "I’m Adrián, a Computer Science student at XJTLU building web, Android and applied-AI products. My current products are LockIn, for planning, focus and study, and Setline, for recording workouts and understanding progress. My supervised research explores human-AI coordination.",
     storyTitle: "A path shaped between Spain and China.",
     story: [
       "I began my software engineering studies at U-TAD in Madrid before transferring to Xi’an Jiaotong-Liverpool University, where I am now a Year 3 BSc Information and Computing Science student with expected graduation in July 2028.",
       "Moving between countries and working in tutoring, multicultural customer service and supervised research taught me to treat communication as part of engineering. A system is not useful simply because it works; people also need to understand what it is doing, trust its boundaries and know what to do next.",
-      "Lock Calendar began with something I kept seeing at university: students taking screenshots of class timetables and struggling to make them fit behind the lock-screen clock. I wanted a cleaner, connected calendar that could keep up with real life, rather than a static image.",
-      "That idea connects my current work: visible everyday schedules, coordination support for complex transcripts, structured cybersecurity learning and calm tools for visualising time and goals."
+      "LockIn began with my own need to find university class times and rooms without moving between apps. I wanted a connected calendar that stayed useful throughout the day, and developed it into a modular planning, focus and study panel.",
+      "That idea connects my current work: LockIn makes plans and attention visible; Setline makes workout records easier to capture and review; VIDEO-RESCUE explores coordination support for complex transcripts within supervised research."
     ],
     dual: [
       {
@@ -726,15 +555,15 @@ export const aboutPages = {
   },
   es: {
     label: "Sobre mí",
-    title: "Desarrollándome como ingeniero de software. Centrado en las personas por intención.",
+    title: "Ingeniería de software con una perspectiva centrada en las personas.",
     intro:
-      "Soy Adrián, estudiante de Computer Science en XJTLU, y me desarrollo como ingeniero de software. Ahora mi foco principal es Lock Calendar: hacer más fácil consultar el día a día desde la pantalla de bloqueo de Android. También desarrollo productos web y de IA aplicada.",
+      "Soy Adrián, estudiante de Computer Science en XJTLU. Desarrollo productos web, Android y de IA aplicada. Mis productos actuales son LockIn, para organizar planes, enfoque y estudio, y Setline, para registrar entrenamientos y entender el progreso. Mi investigación supervisada explora la coordinación entre personas e IA.",
     storyTitle: "Un recorrido construido entre España y China.",
     story: [
       "Comencé mis estudios de ingeniería del software en U-TAD, Madrid, antes de trasladarme a Xi’an Jiaotong-Liverpool University, donde actualmente curso tercero del BSc Information and Computing Science y tengo prevista la graduación en julio de 2028.",
       "Vivir entre países y trabajar en tutoría, atención al cliente multicultural e investigación supervisada me enseñó que la comunicación forma parte de la ingeniería. Un sistema no es útil solo porque funcione: las personas también necesitan entender qué hace, confiar en sus límites y saber cuál es el siguiente paso.",
-      "Lock Calendar nació de algo que veía continuamente en la universidad: estudiantes haciendo capturas del horario de clases y tratando de encajarlas detrás del reloj de la pantalla de bloqueo. Quería una agenda más limpia y conectada que siguiera el ritmo del día a día, en lugar de una imagen estática.",
-      "Esa idea conecta mi trabajo actual: horarios cotidianos visibles, apoyo a la coordinación de transcripciones complejas, aprendizaje estructurado de ciberseguridad y herramientas tranquilas para visualizar tiempo y objetivos."
+      "LockIn nació de mi necesidad de consultar horarios y aulas de la universidad sin recorrer varias aplicaciones. Quería un calendario conectado que siguiera siendo útil durante el día y lo desarrollé hasta convertirlo en un panel modular de planificación, enfoque y estudio.",
+      "Esa idea conecta mi trabajo actual: LockIn hace visibles los planes y la atención; Setline facilita registrar y revisar entrenamientos; VIDEO-RESCUE explora el apoyo a la coordinación de transcripciones complejas en investigación supervisada."
     ],
     dual: [
       {
@@ -778,8 +607,17 @@ export const aboutPages = {
   }
 } as const;
 
-export function route(locale: Locale, path = "") {
-  const normalized = path ? (path.startsWith("/") ? path : `/${path}`) : "/";
-  if (locale === "en") return normalized;
-  return normalized === "/" ? "/es/" : `/es${normalized}`;
+export function isProjectSlug(value: string): value is ProjectSlug {
+  return slugs.some((slug) => slug === value);
+}
+
+/** Internal page URLs follow the exported directory/index.html structure. */
+export function route(locale: Locale, path = "/"): string {
+  const suffixIndex = path.search(/[?#]/);
+  const pathname = suffixIndex === -1 ? path : path.slice(0, suffixIndex);
+  const suffix = suffixIndex === -1 ? "" : path.slice(suffixIndex);
+  const rooted = pathname ? (pathname.startsWith("/") ? pathname : `/${pathname}`) : "/";
+  const normalized = rooted.endsWith("/") ? rooted : `${rooted}/`;
+  const localized = locale === "en" ? normalized : `/es${normalized}`;
+  return `${localized}${suffix}`;
 }

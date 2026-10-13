@@ -1,0 +1,114 @@
+[
+  {
+    "product": "lock-in",
+    "source_file": "01-home.png",
+    "output": "images/lock-in/home.webp",
+    "width": 1080,
+    "height": 1920,
+    "processing": "WebP conversion and proportional resize only; no content edits"
+  },
+  {
+    "product": "lock-in",
+    "source_file": "02-week-and-modules.png",
+    "output": "images/lock-in/modules.webp",
+    "width": 1080,
+    "height": 1920,
+    "processing": "WebP conversion and proportional resize only; no content edits"
+  },
+  {
+    "product": "lock-in",
+    "source_file": "03-first-use.png",
+    "output": "images/lock-in/setup.webp",
+    "width": 1080,
+    "height": 1920,
+    "processing": "WebP conversion and proportional resize only; no content edits"
+  },
+  {
+    "product": "lock-in",
+    "source_file": "04-planner-preview.png",
+    "output": "images/lock-in/planner-preview.webp",
+    "width": 1080,
+    "height": 1908,
+    "processing": "WebP conversion and proportional resize only; no content edits"
+  },
+  {
+    "product": "lock-in",
+    "source_file": "05-student-calendar.png",
+    "output": "images/lock-in/with-calendar.webp",
+    "width": 1080,
+    "height": 2376,
+    "processing": "WebP conversion and proportional resize only; no content edits"
+  },
+  {
+    "product": "lock-in",
+    "source_file": "06-no-calendar.png",
+    "output": "images/lock-in/without-calendar.webp",
+    "width": 1080,
+    "height": 2376,
+    "processing": "WebP conversion and proportional resize only; no content edits"
+  },
+  {
+    "product": "lock-in",
+    "source_file": "09-locked-study.png",
+    "output": "images/lock-in/locked-study.webp",
+    "width": 1080,
+    "height": 2376,
+    "processing": "WebP conversion and proportional resize only; no content edits"
+  },
+  {
+    "product": "lock-in",
+    "source_file": "10-locked-habits-timer.png",
+    "output": "images/lock-in/locked-focus.webp",
+    "width": 1080,
+    "height": 2376,
+    "processing": "WebP conversion and proportional resize only; no content edits"
+  },
+  {
+    "product": "lock-in",
+    "source_file": "11-capacity-warning.png",
+    "output": "images/lock-in/capacity.webp",
+    "width": 1080,
+    "height": 537,
+    "processing": "WebP conversion and proportional resize only; no content edits"
+  },
+  {
+    "product": "setline",
+    "source_file": "rutina-guardada.png",
+    "output": "images/setline/routine.webp",
+    "width": 390,
+    "height": 844,
+    "processing": "WebP conversion and proportional resize only; no content edits"
+  },
+  {
+    "product": "setline",
+    "source_file": "rutina-editor.png",
+    "output": "images/setline/routine-editor.webp",
+    "width": 390,
+    "height": 1509,
+    "processing": "WebP conversion and proportional resize only; no content edits"
+  },
+  {
+    "product": "setline",
+    "source_file": "teclado-peso.png",
+    "output": "images/setline/numeric-entry.webp",
+    "width": 390,
+    "height": 844,
+    "processing": "WebP conversion and proportional resize only; no content edits"
+  },
+  {
+    "product": "setline",
+    "source_file": "progreso-fuerza.png",
+    "output": "images/setline/progress.webp",
+    "width": 390,
+    "height": 844,
+    "processing": "WebP conversion and proportional resize only; no content edits"
+  },
+  {
+    "product": "setline",
+    "source_file": "resumen-a-plantilla.png",
+    "output": "images/setline/session-template.webp",
+    "width": 1080,
+    "height": 2376,
+    "processing": "WebP conversion and proportional resize only; no content edits"
+  }
+]

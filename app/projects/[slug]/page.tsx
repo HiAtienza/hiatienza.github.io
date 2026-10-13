@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ProjectPage } from "@/components/pages";
-import { projects, slugs, type ProjectSlug } from "@/lib/site-data";
+import { isProjectSlug, projects, slugs } from "@/lib/site-data";
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return slugs.map((slug) => ({ slug }));
 }
@@ -11,8 +13,8 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  if (!slugs.includes(slug as ProjectSlug)) return {};
-  const project = projects.en[slug as ProjectSlug];
+  if (!isProjectSlug(slug)) return {};
+  const project = projects.en[slug];
   return {
     title: project.name,
     description: project.summary,
@@ -31,6 +33,6 @@ export async function generateMetadata({
 }
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  if (!slugs.includes(slug as ProjectSlug)) notFound();
-  return <ProjectPage locale="en" slug={slug as ProjectSlug} />;
+  if (!isProjectSlug(slug)) notFound();
+  return <ProjectPage locale="en" slug={slug} />;
 }

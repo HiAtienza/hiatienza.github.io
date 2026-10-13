@@ -6,14 +6,12 @@ const pages = [
   "/es/",
   "/about/",
   "/es/about/",
-  "/projects/lock-calendar/",
-  "/es/projects/lock-calendar/",
+  "/projects/lock-in/",
+  "/es/projects/lock-in/",
   "/projects/video-rescue/",
-  "/projects/cybermastery/",
-  "/projects/lifemap/",
+  "/projects/setline/",
   "/es/projects/video-rescue/",
-  "/es/projects/cybermastery/",
-  "/es/projects/lifemap/",
+  "/es/projects/setline/",
   "/research/",
   "/es/research/",
   "/privacy/",
@@ -50,10 +48,9 @@ test("core navigation is keyboard reachable and public pages have no automated a
 test("project hierarchy, language switching and public CV links work", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator(".project-feature h3")).toHaveText([
-    "Lock Calendar",
+    "LockIn",
     "VIDEO-RESCUE",
-    "CyberMastery",
-    "LifeMap"
+    "Setline"
   ]);
 
   const desktopLanguageLink = page.locator(".desktop-nav .language-link");
@@ -94,7 +91,7 @@ test("reduced motion preserves the complete experience", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
   await expect(page.locator("#hero-title")).toBeVisible();
-  await expect(page.locator("#work .project-feature")).toHaveCount(4);
+  await expect(page.locator("#work .project-feature")).toHaveCount(3);
   await expect(page.locator(".specialization-path li")).toHaveCount(4);
 });
 
@@ -148,13 +145,11 @@ test("VIDEO-RESCUE visuals load, retain evidence boundaries and are accessible",
   }
 });
 
-test("Lock Calendar explains its concept with accessible example controls at 375px", async ({
-  page
-}) => {
+test("LockIn explains its concept with accessible example controls at 375px", async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 812 });
   for (const locale of ["en", "es"] as const) {
-    await page.goto(locale === "en" ? "/projects/lock-calendar/" : "/es/projects/lock-calendar/");
-    await expect(page.getByRole("heading", { name: "Lock Calendar", exact: true })).toBeVisible();
+    await page.goto(locale === "en" ? "/projects/lock-in/" : "/es/projects/lock-in/");
+    await expect(page.getByRole("heading", { name: "LockIn", exact: true })).toBeVisible();
     const monday = page.getByRole("button", {
       name: locale === "en" ? "Mon 10" : "Lun 10",
       exact: true
@@ -177,7 +172,7 @@ test("Lock Calendar explains its concept with accessible example controls at 375
       })
       .click();
     await expect(page.locator(".lock-faq details[open]")).toContainText(
-      locale === "en" ? "active Android development" : "desarrollo activo"
+      locale === "en" ? "Google Play internal testing" : "pruebas internas"
     );
     expect(
       await page.locator(".lock-week").evaluate((week) => week.scrollWidth <= week.clientWidth)
@@ -186,4 +181,134 @@ test("Lock Calendar explains its concept with accessible example controls at 375
       await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)
     ).toBeTruthy();
   }
+});
+
+test("day picker supports arrows, boundary keys and reduced motion with usable targets", async ({
+  page
+}) => {
+  await page.setViewportSize({ width: 320, height: 812 });
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/projects/lock-in/");
+  const monday = page.getByRole("button", { name: "Mon 10", exact: true });
+  await monday.focus();
+  await page.keyboard.press("ArrowLeft");
+  const friday = page.getByRole("button", { name: "Fri 14", exact: true });
+  await expect(friday).toBeFocused();
+  await expect(friday).toHaveAttribute("aria-pressed", "true");
+  await expect(page.locator(".lock-clock")).toContainText("Friday, August 14");
+  await page.keyboard.press("Home");
+  await expect(monday).toBeFocused();
+  await page.keyboard.press("End");
+  await expect(friday).toBeFocused();
+  for (const button of await page.locator(".lock-week button").all()) {
+    const box = await button.boundingBox();
+    expect(box?.width).toBeGreaterThanOrEqual(44);
+    expect(box?.height).toBeGreaterThanOrEqual(44);
+  }
+  expect(
+    await page.locator(".lock-agenda ul").evaluate((el) => getComputedStyle(el).animationName)
+  ).toBe("none");
+});
+
+test("static routes survive direct loads and reloads; all pages pass WCAG AA scans", async ({
+  page
+}) => {
+  for (const path of pages) {
+    const response = await page.goto(path);
+    expect(response?.status()).toBe(200);
+    const reload = await page.reload();
+    expect(reload?.status()).toBe(200);
+    await expect(page.locator("main")).toHaveCount(1);
+    await expect(page.locator("h1")).toHaveCount(1);
+    const scan = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+      .analyze();
+    expect(scan.violations, path).toEqual([]);
+  }
+  const unknown = await page.goto("/projects/unknown-project/");
+  expect(unknown?.status()).toBe(404);
+});
+
+test("LockIn fits narrow screens without overflow", async ({ page }) => {
+  for (const width of [320, 375]) {
+    await page.setViewportSize({ width, height: 812 });
+    for (const path of ["/", "/es/", "/projects/lock-in/", "/es/projects/lock-in/"]) {
+      await page.goto(path);
+      expect(
+        await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),
+        `${width}px ${path}`
+      ).toBeTruthy();
+      expect(
+        await page
+          .locator(".lock-week")
+          .evaluateAll((elements) =>
+            elements.every((element) => element.scrollWidth <= element.clientWidth)
+          ),
+        `${width}px ${path}`
+      ).toBeTruthy();
+    }
+  }
+});
+
+test("current captures load and Setline explains its platform boundaries", async ({ page }) => {
+  for (const locale of ["en", "es"] as const) {
+    await page.goto(locale === "en" ? "/projects/setline/" : "/es/projects/setline/");
+    await expect(page.getByRole("heading", { name: "Setline", exact: true })).toBeVisible();
+    await expect(page.locator(".product-capture")).toHaveCount(5);
+    await expect(page.locator(".setline-example")).toContainText("91 kg");
+    for (const image of await page.locator(".product-capture img").all()) {
+      await image.scrollIntoViewIfNeeded();
+      await expect
+        .poll(() => image.evaluate((el) => (el as HTMLImageElement).naturalWidth))
+        .toBeGreaterThan(0);
+      expect(
+        (await page.request.get((await image.locator("..").getAttribute("href"))!)).ok()
+      ).toBeTruthy();
+    }
+    await page
+      .getByText(
+        locale === "en"
+          ? "How do calendars and rest alerts work?"
+          : "¿Cómo funcionan calendarios y alertas de descanso?",
+        { exact: true }
+      )
+      .click();
+    await expect(page.locator("details[open]")).toContainText(
+      locale === "en" ? "only on the web" : "solo está disponible en web"
+    );
+    await page.goto(locale === "en" ? "/projects/lock-in/" : "/es/projects/lock-in/");
+    await expect(page.locator(".product-capture")).toHaveCount(8);
+    for (const image of await page.locator(".product-capture img").all()) {
+      await image.scrollIntoViewIfNeeded();
+      await expect
+        .poll(() => image.evaluate((el) => (el as HTMLImageElement).naturalWidth))
+        .toBeGreaterThan(0);
+    }
+  }
+});
+
+test("retired routes return 404 and old calendar bookmarks reach LockIn", async ({ page }) => {
+  for (const prefix of ["", "/es"]) {
+    for (const slug of ["cybermastery", "lifemap"]) {
+      const response = await page.goto(`${prefix}/projects/${slug}/`);
+      expect(response?.status()).toBe(404);
+    }
+    await page.goto(`${prefix}/projects/lock-calendar/`);
+    await expect(page).toHaveURL(new RegExp(`${prefix}/projects/lock-in/$`));
+    await expect(page.getByRole("heading", { name: "LockIn", exact: true })).toBeVisible();
+  }
+});
+
+test("old bookmarks retain a working static link without JavaScript", async ({ browser }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false });
+  const page = await context.newPage();
+  for (const prefix of ["", "/es"]) {
+    const response = await page.goto(`http://127.0.0.1:4173${prefix}/projects/lock-calendar/`);
+    expect(response?.status()).toBe(200);
+    const link = page.getByRole("link", { name: prefix ? "Conoce LockIn" : "Explore LockIn" });
+    await expect(link).toHaveAttribute("href", `${prefix}/projects/lock-in/`);
+    await link.click();
+    await expect(page.getByRole("heading", { name: "LockIn", exact: true })).toBeVisible();
+  }
+  await context.close();
 });

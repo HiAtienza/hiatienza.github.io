@@ -1,0 +1,1372 @@
+diff --git a/README.md b/README.md
+--- a/README.md
++++ b/README.md
+@@ -1,6 +1,6 @@
+ # Adrián Muñoz Atienza portfolio
+ 
+-Public bilingual portfolio for a Computer Science student developing as a Software Engineer, focused on Human-Centered AI, Behavioral Technology and Human-AI Interaction.
++Public bilingual portfolio for a Computer Science student building software with an HCI perspective, focused on Human-Centered AI, Behavioral Technology and Human-AI Interaction.
+ 
+ The current design uses the original concept **Human Signals → Useful Systems**: an editorial portfolio with restrained creative-coding interactions that connect Adrián's work in coordination, learning and intentional decision-making.
+ 
+@@ -49,3 +49,11 @@
+ ## Licences and attribution
+ 
+ Source code is licensed under the [MIT License](LICENSE). Personal content, copy and identity assets are governed by [CONTENT_LICENSE.md](CONTENT_LICENSE.md) and are not licensed for reuse. Approved profile and banner assets are adapted from the owner-provided materials only; no third-party stock media is used.
++
++## Static routing and interface previews
++
++`next.config.ts` exports directory routes with `trailingSlash: true`. Each project slug is generated in both languages, and `dynamicParams: false` keeps unknown slugs outside the static route set. Internal page links use `route()` to preserve the locale, trailing slash, query and fragment. The user-site repository serves at the domain root, so `basePath` and `assetPrefix` are deliberately omitted. Adding `/hiatienza.github.io` as a prefix would break root-domain navigation and public assets.
++
++Deploy the complete `out/` artifact, including `_next/` and `.nojekyll`. Nested case studies must have their own `index.html`; an SPA fallback cannot substitute for these exported pages. The link check validates route folders, image sources and fragments. Browser tests exercise direct loads, reloads, unknown slugs, both locales, and interactive preview states against a static server.
++
++Lock Calendar supports native buttons plus arrow/Home/End shortcuts, consistent sample dates, reduced motion and live agenda announcements. Its illustration uses fictional sample events. The CyberMastery and LifeMap representations remain unchanged at the owner's request.
+diff --git a/next.config.ts b/next.config.ts
+--- a/next.config.ts
++++ b/next.config.ts
+@@ -2,6 +2,7 @@
+ 
+ const nextConfig: NextConfig = {
+   agentRules: false,
++  // User-site Pages deploys at the domain root: no repository basePath or assetPrefix.
+   output: "export",
+   trailingSlash: true,
+   images: { unoptimized: true },
+diff --git a/lib/site-data.ts b/lib/site-data.ts
+--- a/lib/site-data.ts
++++ b/lib/site-data.ts
+@@ -9,7 +9,7 @@
+ export const slugs = ["lock-calendar", "video-rescue", "cybermastery", "lifemap"] as const;
+ export type ProjectSlug = (typeof slugs)[number];
+ 
+-type Project = {
++export interface Project {
+   slug: ProjectSlug;
+   order: string;
+   name: string;
+@@ -22,7 +22,18 @@
+   facts: { title: string; text: string }[];
+   limitation: string;
+   next: string;
+-};
++}
++
++export interface Experience {
++  date: string;
++  title: string;
++  detail: string;
++}
++
++export interface NavigationItem {
++  href: string;
++  label: string;
++}
+ 
+ export const copy = {
+   en: {
+@@ -64,14 +75,20 @@
+     process: {
+       label: "How I build",
+       title: "A small loop for turning uncertainty into useful software.",
+-      steps: ["Understand", "Design", "Build", "Test", "Learn", "Improve"],
+-      body: "I start with the real user problem, narrow the scope, select an architecture and build an end-to-end workflow. I test edge cases, make limitations visible, and improve from evidence rather than assumption."
++      steps: [
++        "Friction Mapping & Needfinding",
++        "Interaction Prototyping",
++        "Robust Engineering & Data Contracts",
++        "Cognitive Load & Heuristic Validation",
++        "Evidence-Driven Refinement"
++      ],
++      body: "I map the friction in a real context, prototype the interaction, and connect it to reliable data contracts. I inspect cognitive load and interaction heuristics, then use technical tests and human feedback to revisit the problem and refine the next iteration."
+     },
+     specialization: {
+-      label: "Emerging specialization",
++      label: "Engineering & HCI practice",
+       title: "One engineering path, shaped by how people learn and decide.",
+       intro:
+-        "Software Engineering is my technical backbone. I am building the other layers through projects, supervised research and continued study—not claiming finished expertise.",
++        "My technical backbone is Software Engineering, which I actively expand into Human-Centered AI and Behavioral Technology through research and production prototypes.",
+       parts: [
+         [
+           "Software Engineering",
+@@ -79,7 +96,7 @@
+         ],
+         [
+           "Behavioral Technology",
+-          "Frames attention, learning, patterns and reflection as product-design questions, without clinical claims."
++          "Turns attention, learning, patterns and reflection into concrete product-design questions."
+         ],
+         [
+           "Human-Centered AI",
+@@ -127,7 +144,7 @@
+         ],
+         [
+           "Human-centered practice",
+-          "Human-Centered AI · Human-AI Interaction · Human-Computer Interaction · User-Centered Design · Learning Technology · Behavioral Technology (emerging specialization)"
++          "Human-Centered AI · Human-AI Interaction · Human-Computer Interaction · User-Centered Design · Learning Technology · Behavioral Technology"
+         ]
+       ]
+     },
+@@ -135,32 +152,35 @@
+       label: "Journey",
+       title: "Engineering practice, research context and international experience.",
+       items: [
+-        [
+-          "Jul 2026 – present",
+-          "Undergraduate Researcher",
+-          "XJTLU Summer Undergraduate Research Fellowship · supervised HCI research and VIDEO-RESCUE prototype work."
+-        ],
+-        [
+-          "2026 – present",
+-          "Independent product development",
+-          "Currently focused on Lock Calendar, alongside CyberMastery and LifeMap across full-stack web and Android."
+-        ],
+-        [
+-          "Jul – Sep 2024",
+-          "Bellperson",
+-          "Marriott International · seasonal multicultural customer service in Madrid."
+-        ],
+-        [
+-          "2025 – 2028",
+-          "BSc Information and Computing Science",
+-          "Xi’an Jiaotong-Liverpool University · current Year 3 student."
+-        ],
+-        [
+-          "2022 – 2025",
+-          "Previous Software Engineering studies",
+-          "U-TAD · English-taught study before transfer to XJTLU; no degree award claimed."
+-        ]
+-      ]
++        {
++          date: "Jul 2026 – present",
++          title: "Undergraduate Researcher",
++          detail:
++            "XJTLU Summer Undergraduate Research Fellowship · supervised HCI research and VIDEO-RESCUE prototype work."
++        },
++        {
++          date: "2026 – present",
++          title: "Independent product development",
++          detail:
++            "Currently focused on Lock Calendar, alongside CyberMastery and LifeMap across full-stack web and Android."
++        },
++        {
++          date: "Jul – Sep 2024",
++          title: "Human factors & service communication",
++          detail:
++            "Marriott International · Bellperson, Madrid. Multicultural service work strengthened active listening, situational awareness and clear communication across the service layer."
++        },
++        {
++          date: "2025 – 2028",
++          title: "BSc Information and Computing Science",
++          detail: "Xi’an Jiaotong-Liverpool University · current Year 3 student."
++        },
++        {
++          date: "2022 – 2025",
++          title: "Foundational Coursework in Software Engineering (Transferred to XJTLU)",
++          detail: "U-TAD · English-taught foundational coursework, 2022–2025."
++        }
++      ] satisfies readonly Experience[]
+     },
+     contact: {
+       label: "Contact",
+@@ -250,14 +270,20 @@
+     process: {
+       label: "Cómo trabajo",
+       title: "Un ciclo breve para convertir incertidumbre en software útil.",
+-      steps: ["Comprender", "Diseñar", "Construir", "Probar", "Aprender", "Mejorar"],
+-      body: "Empiezo por el problema real de la persona usuaria, acoto el alcance, selecciono una arquitectura y construyo un flujo completo. Pruebo casos límite, hago visibles las limitaciones y mejoro a partir de evidencias."
++      steps: [
++        "Mapeo de fricciones y necesidades",
++        "Prototipado de interacciones",
++        "Ingeniería robusta y contratos de datos",
++        "Carga cognitiva y evaluación heurística",
++        "Refinamiento basado en evidencias"
++      ],
++      body: "Identifico fricciones en un contexto real, prototipo la interacción y la conecto a contratos de datos fiables. Reviso la carga cognitiva y las heurísticas de interacción; las pruebas técnicas y el feedback humano orientan la siguiente iteración."
+     },
+     specialization: {
+-      label: "Especialización en desarrollo",
++      label: "Práctica de ingeniería y HCI",
+       title: "Una trayectoria de ingeniería guiada por cómo aprendemos y decidimos.",
+       intro:
+-        "Software Engineering es mi base técnica. Desarrollo las demás capas mediante proyectos, investigación supervisada y estudio continuo, sin presentarlas como una especialización ya consolidada.",
++        "Mi base técnica es la ingeniería de software, que amplío activamente hacia la IA centrada en las personas y la tecnología del comportamiento mediante investigación y prototipos de producto.",
+       parts: [
+         [
+           "Software Engineering",
+@@ -265,7 +291,7 @@
+         ],
+         [
+           "Behavioral Technology",
+-          "Plantea la atención, el aprendizaje, los patrones y la reflexión como preguntas de producto, sin afirmaciones clínicas."
++          "Convierte la atención, el aprendizaje, los patrones y la reflexión en preguntas concretas de diseño de producto."
+         ],
+         [
+           "Human-Centered AI",
+@@ -313,7 +339,7 @@
+         ],
+         [
+           "Práctica human-centered",
+-          "Human-Centered AI · Interacción persona-IA · Interacción persona-ordenador · Diseño centrado en las personas · Learning Technology · Behavioral Technology (especialización en desarrollo)"
++          "Human-Centered AI · Interacción persona-IA · Interacción persona-ordenador · Diseño centrado en las personas · Learning Technology · Behavioral Technology"
+         ]
+       ]
+     },
+@@ -321,32 +347,35 @@
+       label: "Trayectoria",
+       title: "Práctica de ingeniería, investigación e experiencia internacional.",
+       items: [
+-        [
+-          "Jul 2026 – actualidad",
+-          "Investigador universitario",
+-          "XJTLU Summer Undergraduate Research Fellowship · investigación supervisada de HCI y trabajo de prototipo VIDEO-RESCUE."
+-        ],
+-        [
+-          "2026 – actualidad",
+-          "Desarrollo de productos independientes",
+-          "Ahora centrado en Lock Calendar, junto a CyberMastery y LifeMap en desarrollo web full-stack y Android."
+-        ],
+-        [
+-          "Jul – Sep 2024",
+-          "Botones",
+-          "Marriott International · atención al cliente multicultural de temporada en Madrid."
+-        ],
+-        [
+-          "2025 – 2028",
+-          "BSc Information and Computing Science",
+-          "Xi’an Jiaotong-Liverpool University · estudiante actual de tercer curso."
+-        ],
+-        [
+-          "2022 – 2025",
+-          "Estudios previos de Ingeniería del Software",
+-          "U-TAD · estudios en inglés previos al traslado a XJTLU; no se afirma la obtención de un título."
+-        ]
+-      ]
++        {
++          date: "Jul 2026 – actualidad",
++          title: "Investigador universitario",
++          detail:
++            "XJTLU Summer Undergraduate Research Fellowship · investigación supervisada de HCI y trabajo de prototipo VIDEO-RESCUE."
++        },
++        {
++          date: "2026 – actualidad",
++          title: "Desarrollo de productos independientes",
++          detail:
++            "Ahora centrado en Lock Calendar, junto a CyberMastery y LifeMap en desarrollo web full-stack y Android."
++        },
++        {
++          date: "Jul – Sep 2024",
++          title: "Factores humanos y comunicación de servicio",
++          detail:
++            "Marriott International · Botones, Madrid. La atención multicultural reforzó la escucha activa, la comprensión del contexto y la comunicación clara durante el servicio."
++        },
++        {
++          date: "2025 – 2028",
++          title: "BSc Information and Computing Science",
++          detail: "Xi’an Jiaotong-Liverpool University · estudiante actual de tercer curso."
++        },
++        {
++          date: "2022 – 2025",
++          title: "Formación inicial en Ingeniería del Software (traslado a XJTLU)",
++          detail: "U-TAD · formación inicial impartida en inglés, 2022–2025."
++        }
++      ] satisfies readonly Experience[]
+     },
+     contact: {
+       label: "Contacto",
+@@ -680,9 +709,9 @@
+ export const aboutPages = {
+   en: {
+     label: "About",
+-    title: "Building as a software engineer. Human-centered by intent.",
++    title: "Software engineering with a human-centered lens.",
+     intro:
+-      "I’m Adrián, a Computer Science student at XJTLU developing as a Software Engineer. Right now, my main product focus is Lock Calendar: making everyday schedules easier to see from an Android lock screen. I also build across web and applied AI.",
++      "I’m Adrián, a Computer Science student at XJTLU building web, Android and applied-AI products. Right now, my main product focus is Lock Calendar: making everyday schedules easier to see from an Android lock screen. I also build across web and applied AI.",
+     storyTitle: "A path shaped between Spain and China.",
+     story: [
+       "I began my software engineering studies at U-TAD in Madrid before transferring to Xi’an Jiaotong-Liverpool University, where I am now a Year 3 BSc Information and Computing Science student with expected graduation in July 2028.",
+@@ -726,9 +755,9 @@
+   },
+   es: {
+     label: "Sobre mí",
+-    title: "Desarrollándome como ingeniero de software. Centrado en las personas por intención.",
++    title: "Ingeniería de software con una perspectiva centrada en las personas.",
+     intro:
+-      "Soy Adrián, estudiante de Computer Science en XJTLU, y me desarrollo como ingeniero de software. Ahora mi foco principal es Lock Calendar: hacer más fácil consultar el día a día desde la pantalla de bloqueo de Android. También desarrollo productos web y de IA aplicada.",
++      "Soy Adrián, estudiante de Computer Science en XJTLU. Desarrollo productos web, Android y de IA aplicada. Ahora mi foco principal es Lock Calendar: hacer más fácil consultar el día a día desde la pantalla de bloqueo de Android. También desarrollo productos web y de IA aplicada.",
+     storyTitle: "Un recorrido construido entre España y China.",
+     story: [
+       "Comencé mis estudios de ingeniería del software en U-TAD, Madrid, antes de trasladarme a Xi’an Jiaotong-Liverpool University, donde actualmente curso tercero del BSc Information and Computing Science y tengo prevista la graduación en julio de 2028.",
+@@ -778,8 +807,17 @@
+   }
+ } as const;
+ 
+-export function route(locale: Locale, path = "") {
+-  const normalized = path ? (path.startsWith("/") ? path : `/${path}`) : "/";
+-  if (locale === "en") return normalized;
+-  return normalized === "/" ? "/es/" : `/es${normalized}`;
++export function isProjectSlug(value: string): value is ProjectSlug {
++  return slugs.some((slug) => slug === value);
+ }
++
++/** Internal page URLs follow the exported directory/index.html structure. */
++export function route(locale: Locale, path = "/"): string {
++  const suffixIndex = path.search(/[?#]/);
++  const pathname = suffixIndex === -1 ? path : path.slice(0, suffixIndex);
++  const suffix = suffixIndex === -1 ? "" : path.slice(suffixIndex);
++  const rooted = pathname ? (pathname.startsWith("/") ? pathname : `/${pathname}`) : "/";
++  const normalized = rooted.endsWith("/") ? rooted : `${rooted}/`;
++  const localized = locale === "en" ? normalized : `/es${normalized}`;
++  return `${localized}${suffix}`;
++}
+diff --git a/components/pages.tsx b/components/pages.tsx
+--- a/components/pages.tsx
++++ b/components/pages.tsx
+@@ -1,5 +1,6 @@
+ import Link from "next/link";
+ import type { CSSProperties } from "react";
++import { ActionLink, MetadataList } from "@/components/ui";
+ import { FlowDiagram } from "@/components/diagram";
+ import { LinkedInProfileBadge } from "@/components/linkedin-profile-badge";
+ import { LockCalendarPreview } from "@/components/lock-calendar-preview";
+@@ -23,12 +24,33 @@
+   type ProjectSlug
+ } from "@/lib/site-data";
+ 
+-const diagramType: Record<ProjectSlug, "coordination" | "architecture" | "calendar"> = {
+-  "lock-calendar": "calendar",
+-  "video-rescue": "coordination",
+-  cybermastery: "architecture",
+-  lifemap: "calendar"
+-};
++function ProjectPreview({
++  slug,
++  locale,
++  caseStudy = false
++}: {
++  slug: ProjectSlug;
++  locale: Locale;
++  caseStudy?: boolean;
++}) {
++  switch (slug) {
++    case "lock-calendar":
++      return <LockCalendarPreview locale={locale} />;
++    case "video-rescue":
++      return (
++        <VideoRescueFigure
++          locale={locale}
++          compact={!caseStudy}
++          asset={caseStudy ? "workflow" : "workspace"}
++          eager={caseStudy}
++        />
++      );
++    case "cybermastery":
++      return <FlowDiagram type="architecture" locale={locale} />;
++    case "lifemap":
++      return <FlowDiagram type="calendar" locale={locale} />;
++  }
++}
+ 
+ export function HomePage({ locale }: { locale: Locale }) {
+   const t = copy[locale];
+@@ -42,12 +64,12 @@
+             <h1 id="hero-title">{t.hero.title}</h1>
+             <p className="hero-lead">{t.hero.lead}</p>
+             <div className="button-row">
+-              <Link className="button" href={route(locale, "/projects/lock-calendar/")}>
++              <ActionLink href={route(locale, "/projects/lock-calendar/")}>
+                 {t.hero.work}
+-              </Link>
+-              <Link className="button button-secondary" href={route(locale, "/about/")}>
++              </ActionLink>
++              <ActionLink variant="secondary" href={route(locale, "/about/")}>
+                 {t.hero.about}
+-              </Link>
++              </ActionLink>
+               <a className="text-link" href="/cv/Adrian_Munoz_Atienza_CV_Public_ATS.pdf">
+                 {t.hero.cv} <span aria-hidden="true">↓</span>
+               </a>
+@@ -64,7 +86,7 @@
+           <div className="hero-system">
+             <SignalField locale={locale} />
+             <div className="hero-portrait">
+-              <Portrait locale={locale} />
++              <Portrait locale={locale} eager />
+               <p>Adrián · Suzhou, China</p>
+             </div>
+           </div>
+@@ -215,28 +237,22 @@
+               : "Tus clases. Tus citas. Tu semana de un vistazo."}
+           </p>
+         )}
+-        <dl className="project-meta">
+-          <div>
+-            <dt>{locale === "en" ? "My role" : "Mi función"}</dt>
+-            <dd>{project.role}</dd>
+-          </div>
+-          <div>
+-            <dt>{locale === "en" ? "Built with" : "Tecnologías"}</dt>
+-            <dd>{project.tech.join(" · ")}</dd>
+-          </div>
+-        </dl>
++        <MetadataList
++          className="project-meta"
++          items={[
++            { label: locale === "en" ? "My role" : "Mi función", value: project.role },
++            {
++              label: locale === "en" ? "Built with" : "Tecnologías",
++              value: project.tech.join(" · ")
++            }
++          ]}
++        />
+         <Link className="arrow-link" href={route(locale, `/projects/${slug}/`)}>
+           {copy[locale].projects.link} <span aria-hidden="true">→</span>
+         </Link>
+       </div>
+       <div className="project-visual">
+-        {slug === "lock-calendar" ? (
+-          <LockCalendarPreview locale={locale} />
+-        ) : slug === "video-rescue" ? (
+-          <VideoRescueFigure locale={locale} compact />
+-        ) : (
+-          <FlowDiagram type={diagramType[slug]} locale={locale} />
+-        )}
++        <ProjectPreview slug={slug} locale={locale} />
+         <p>{project.status}</p>
+       </div>
+     </article>
+@@ -246,9 +262,9 @@
+ function Journey({ locale }: { locale: Locale }) {
+   return (
+     <div className="timeline">
+-      {copy[locale].journey.items.map(([date, title, detail]) => (
++      {copy[locale].journey.items.map(({ date, title, detail }) => (
+         <article key={`${date}-${title}`} data-reveal>
+-          <time>{date}</time>
++          <p className="timeline-date">{date}</p>
+           <div>
+             <h3>{title}</h3>
+             <p>{detail}</p>
+@@ -272,18 +288,18 @@
+             <p className="page-intro">{t.intro}</p>
+           </div>
+           <div className="about-portrait" data-reveal>
+-            <Portrait locale={locale} />
++            <Portrait locale={locale} eager />
+             <p aria-hidden="true">
+               Spain <span>↔</span> China
+             </p>
+           </div>
+         </header>
+ 
+-        <section className="section story-section">
++        <section className="section story-section" aria-labelledby="story-title">
+           <div className="page-wrap story-layout">
+             <div data-reveal>
+               <p className="eyebrow">01 · {locale === "en" ? "The path" : "El recorrido"}</p>
+-              <h2>{t.storyTitle}</h2>
++              <h2 id="story-title">{t.storyTitle}</h2>
+             </div>
+             <div className="story-copy" data-reveal>
+               {t.story.map((paragraph) => (
+@@ -293,7 +309,7 @@
+           </div>
+         </section>
+ 
+-        <section className="section identity-section">
++        <div className="section identity-section">
+           <div className="page-wrap identity-grid">
+             {t.dual.map((item, index) => (
+               <article
+@@ -308,15 +324,15 @@
+               </article>
+             ))}
+           </div>
+-        </section>
++        </div>
+ 
+         <LockCalendarAbout locale={locale} />
+ 
+-        <section className="section principles-section">
++        <section className="section principles-section" aria-labelledby="principles-title">
+           <div className="page-wrap">
+             <div className="section-heading" data-reveal>
+               <p className="eyebrow">02 · {locale === "en" ? "Principles" : "Principios"}</p>
+-              <h2>{t.principlesTitle}</h2>
++              <h2 id="principles-title">{t.principlesTitle}</h2>
+             </div>
+             <div className="principles-grid">
+               {t.principles.map(([title, body], index) => (
+@@ -330,11 +346,11 @@
+           </div>
+         </section>
+ 
+-        <section className="section facts-section">
++        <section className="section facts-section" aria-labelledby="facts-title">
+           <div className="page-wrap facts-layout">
+             <div data-reveal>
+               <p className="eyebrow">03 · {locale === "en" ? "Now" : "Ahora"}</p>
+-              <h2>{t.factsTitle}</h2>
++              <h2 id="facts-title">{t.factsTitle}</h2>
+             </div>
+             <ul data-reveal>
+               {t.facts.map((fact) => (
+@@ -343,9 +359,7 @@
+             </ul>
+           </div>
+           <div className="page-wrap about-cta" data-reveal>
+-            <Link className="button" href={route(locale, "/#work")}>
+-              {t.cta}
+-            </Link>
++            <ActionLink href={route(locale, "/#work")}>{t.cta}</ActionLink>
+           </div>
+         </section>
+ 
+@@ -422,36 +436,26 @@
+             <p className="case-summary">{project.summary}</p>
+           </div>
+           <div className="case-hero-visual" data-reveal>
+-            {slug === "lock-calendar" ? (
+-              <LockCalendarPreview locale={locale} />
+-            ) : slug === "video-rescue" ? (
+-              <VideoRescueFigure locale={locale} asset="workflow" eager />
+-            ) : (
+-              <FlowDiagram type={diagramType[slug]} locale={locale} />
+-            )}
++            <ProjectPreview slug={slug} locale={locale} caseStudy />
+           </div>
+         </header>
+ 
+-        <section className="case-overview">
++        <section className="case-overview" aria-labelledby="problem-title">
+           <div className="page-wrap case-overview-grid">
+             <article data-reveal>
+-              <p className="eyebrow">{labels.problem}</p>
++              <h2 id="problem-title" className="eyebrow">
++                {labels.problem}
++              </h2>
+               <p className="case-large-copy">{project.problem}</p>
+             </article>
+-            <dl className="case-meta" data-reveal>
+-              <div>
+-                <dt>{labels.role}</dt>
+-                <dd>{project.role}</dd>
+-              </div>
+-              <div>
+-                <dt>{locale === "en" ? "Status" : "Estado"}</dt>
+-                <dd>{project.status}</dd>
+-              </div>
+-              <div>
+-                <dt>{labels.tech}</dt>
+-                <dd>{project.tech.join(" · ")}</dd>
+-              </div>
+-            </dl>
++            <MetadataList
++              className="case-meta"
++              items={[
++                { label: labels.role, value: project.role },
++                { label: locale === "en" ? "Status" : "Estado", value: project.status },
++                { label: labels.tech, value: project.tech.join(" · ") }
++              ]}
++            />
+           </div>
+         </section>
+ 
+@@ -474,18 +478,20 @@
+           </div>
+         </section>
+ 
+-        <section className="section evidence-section">
++        <section className="section evidence-section" aria-labelledby="evidence-title">
+           <div className="page-wrap evidence-grid">
+             <article data-reveal>
+-              <p className="eyebrow">{labels.boundaries}</p>
++              <h2 id="evidence-title" className="eyebrow">
++                {labels.boundaries}
++              </h2>
+               <p>{boundary}</p>
+             </article>
+             <article data-reveal>
+-              <p className="eyebrow">{labels.limitations}</p>
++              <h3 className="eyebrow">{labels.limitations}</h3>
+               <p>{project.limitation}</p>
+             </article>
+             <article data-reveal>
+-              <p className="eyebrow">{labels.next}</p>
++              <h3 className="eyebrow">{labels.next}</h3>
+               <p>{project.next}</p>
+             </article>
+           </div>
+@@ -514,7 +520,14 @@
+           <h1>{t.title}</h1>
+           <p className="page-intro">{t.intro}</p>
+         </header>
+-        <section className="research-diagram-band">
++        <section
++          className="research-diagram-band"
++          aria-label={
++            locale === "en"
++              ? "Coordination prototype overview"
++              : "Vista general del prototipo de coordinación"
++          }
++        >
+           <div className="page-wrap" data-reveal>
+             <VideoRescueFigure locale={locale} />
+             <Link
+@@ -528,7 +541,7 @@
+             </Link>
+           </div>
+         </section>
+-        <section className="page-wrap research-sections">
++        <div className="page-wrap research-sections">
+           {t.sections.map(([heading, body], index) => (
+             <article key={heading} data-reveal>
+               <span>{String(index + 1).padStart(2, "0")}</span>
+@@ -536,7 +549,7 @@
+               <p>{body}</p>
+             </article>
+           ))}
+-        </section>
++        </div>
+         <VideoRescueFindings locale={locale} />
+         <ContactSection locale={locale} />
+       </article>
+@@ -584,8 +597,8 @@
+         <h2 id="contact-title">{t.title}</h2>
+         <p>{t.body}</p>
+         <div className="button-row">
+-          <a
+-            className="button button-light"
++          <ActionLink
++            variant="light"
+             href={external.linkedin}
+             aria-label={
+               locale === "en"
+@@ -594,10 +607,10 @@
+             }
+           >
+             {t.linkedin}
+-          </a>
+-          <a className="button button-ghost" href={external.github}>
++          </ActionLink>
++          <ActionLink variant="ghost" href={external.github}>
+             {t.github}
+-          </a>
++          </ActionLink>
+           <a className="light-link" href="/cv/Adrian_Munoz_Atienza_CV_Public_ATS.pdf">
+             {t.cv} <span aria-hidden="true">↓</span>
+           </a>
+diff --git a/components/site-shell.tsx b/components/site-shell.tsx
+--- a/components/site-shell.tsx
++++ b/components/site-shell.tsx
+@@ -1,7 +1,7 @@
+ import Link from "next/link";
+ import type { ReactNode } from "react";
+ import { MotionObserver } from "@/components/motion-observer";
+-import { copy, external, route, type Locale } from "@/lib/site-data";
++import { copy, external, route, type Locale, type NavigationItem } from "@/lib/site-data";
+ 
+ export function SiteShell({
+   locale,
+@@ -14,12 +14,23 @@
+ }) {
+   const t = copy[locale];
+   const other = locale === "en" ? "es" : "en";
++  const navigation: readonly NavigationItem[] = [
++    { href: route(locale, "/#work"), label: t.nav.work },
++    { href: route(locale, "/about/"), label: t.nav.about },
++    { href: route(locale, "/research/"), label: t.nav.research },
++    { href: route(locale, "/#contact"), label: t.nav.contact }
++  ];
+   const navigationLinks = (
+     <>
+-      <Link href={route(locale, "/#work")}>{t.nav.work}</Link>
+-      <Link href={route(locale, "/about/")}>{t.nav.about}</Link>
+-      <Link href={route(locale, "/research/")}>{t.nav.research}</Link>
+-      <Link href={route(locale, "/#contact")}>{t.nav.contact}</Link>
++      {navigation.map(({ href, label }) => (
++        <Link
++          key={href}
++          href={href}
++          aria-current={href === route(locale, path) ? "page" : undefined}
++        >
++          {label}
++        </Link>
++      ))}
+       <a className="nav-cv" href="/cv/Adrian_Munoz_Atienza_CV_Public_ATS.pdf">
+         CV
+       </a>
+@@ -31,10 +42,10 @@
+   return (
+     <>
+       <MotionObserver />
+-      <a className="skip-link" href="#main">
++      <a className="skip-link" href="#main" lang={locale}>
+         {locale === "en" ? "Skip to content" : "Saltar al contenido"}
+       </a>
+-      <header className="site-header">
++      <header className="site-header" lang={locale}>
+         <div className="nav-wrap">
+           <Link className="brand" href={route(locale)}>
+             <span>AM</span>
+@@ -60,7 +71,7 @@
+       <main id="main" lang={locale} tabIndex={-1}>
+         {children}
+       </main>
+-      <footer className="site-footer">
++      <footer className="site-footer" lang={locale}>
+         <div>
+           <span>© 2026 Adrián Muñoz Atienza</span>
+           <span>{t.footer.split(". ")[1]}</span>
+diff --git a/components/lock-calendar-preview.tsx b/components/lock-calendar-preview.tsx
+--- a/components/lock-calendar-preview.tsx
++++ b/components/lock-calendar-preview.tsx
+@@ -1,9 +1,15 @@
+ "use client";
+ 
+-import { useState } from "react";
++import { useId, useRef, useState, type KeyboardEvent } from "react";
+ import type { Locale } from "@/lib/site-data";
+ 
+-const sampleWeek = {
++interface SampleDay {
++  day: string;
++  date: string;
++  events: readonly (readonly [time: string, title: string, place: string])[];
++}
++
++const sampleWeek: Record<Locale, readonly SampleDay[]> = {
+   en: [
+     {
+       day: "Mon",
+@@ -93,11 +99,33 @@
+ };
+ 
+ export function LockCalendarPreview({ locale }: { locale: Locale }) {
++  const id = useId();
++  const dayButtons = useRef<(HTMLButtonElement | null)[]>([]);
+   const [selectedDay, setSelectedDay] = useState(2);
+   const [light, setLight] = useState(false);
+   const week = sampleWeek[locale];
+   const selected = week[selectedDay];
+   const en = locale === "en";
++
++  const fullDays = en
++    ? ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
++    : ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
++  const selectWithKeyboard = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
++    const next =
++      event.key === "ArrowRight"
++        ? (index + 1) % week.length
++        : event.key === "ArrowLeft"
++          ? (index - 1 + week.length) % week.length
++          : event.key === "Home"
++            ? 0
++            : event.key === "End"
++              ? week.length - 1
++              : null;
++    if (next === null) return;
++    event.preventDefault();
++    setSelectedDay(next);
++    dayButtons.current[next]?.focus();
++  };
+ 
+   return (
+     <figure className={`lock-preview ${light ? "lock-preview-light" : ""}`}>
+@@ -107,7 +135,11 @@
+           <span>● ● ▰</span>
+         </div>
+         <div className="lock-clock" aria-hidden="true">
+-          <span>{en ? "Wednesday, August 12" : "Miércoles, 12 de agosto"}</span>
++          <span>
++            {en
++              ? `${fullDays[selectedDay]}, August ${selected.date}`
++              : `${fullDays[selectedDay]}, ${selected.date} de agosto`}
++          </span>
+           <strong>09:41</strong>
+         </div>
+         <div
+@@ -118,6 +150,11 @@
+           {week.map((day, index) => (
+             <button
+               type="button"
++              ref={(button) => {
++                dayButtons.current[index] = button;
++              }}
++              onKeyDown={(event) => selectWithKeyboard(event, index)}
++              aria-controls={`${id}-agenda`}
+               key={day.day}
+               aria-pressed={selectedDay === index}
+               onClick={() => setSelectedDay(index)}
+@@ -136,14 +173,14 @@
+             </button>
+           ))}
+         </div>
+-        <div className="lock-agenda" aria-live="polite" aria-atomic="true">
++        <div id={`${id}-agenda`} className="lock-agenda" aria-live="polite" aria-atomic="true">
+           <p className="lock-agenda-label">
+             {en ? "Example agenda" : "Agenda de ejemplo"} · {selected.day} {selected.date}
+           </p>
+-          <ul>
++          <ul key={selectedDay}>
+             {selected.events.map(([time, title, place]) => (
+               <li key={title}>
+-                <time>{time}</time>
++                <time dateTime={time}>{time}</time>
+                 <div>
+                   <strong>{title}</strong>
+                   <span>{place}</span>
+@@ -165,8 +202,8 @@
+       </div>
+       <figcaption>
+         {en
+-          ? "Interactive illustration · sample events, not a device capture. The website day selector explains the concept; it is not a lock-screen control."
+-          : "Ilustración interactiva · eventos ficticios, no una captura del dispositivo. El selector de días de la web explica el concepto; no es un control de la pantalla de bloqueo."}
++          ? "Interactive web illustration · sample events. Select a day to explore the agenda; use arrow keys, Home or End from the day picker."
++          : "Ilustración web interactiva · eventos ficticios. Elige un día para explorar la agenda; usa las flechas, Inicio o Fin desde el selector."}
+       </figcaption>
+     </figure>
+   );
+diff --git a/components/media.tsx b/components/media.tsx
+--- a/components/media.tsx
++++ b/components/media.tsx
+@@ -4,17 +4,30 @@
+       <source media="(min-width: 900px)" srcSet="/images/hero-1584.webp" type="image/webp" />
+       <source srcSet="/images/hero-1200.avif" type="image/avif" />
+       <source srcSet="/images/hero-1200.webp" type="image/webp" />
+-      <img src="/images/hero-1200.jpg" alt="" width="1200" height="300" />
++      <img src="/images/hero-1200.jpg" decoding="async" alt="" width="1200" height="300" />
+     </picture>
+   );
+ }
+ 
+-export function Portrait({ locale = "en" }: { locale?: "en" | "es" }) {
++export function Portrait({
++  locale = "en",
++  eager = false
++}: {
++  locale?: "en" | "es";
++  eager?: boolean;
++}) {
+   return (
+     <picture className="portrait">
+       <source srcSet="/images/profile-800.avif" type="image/avif" />
+-      <source srcSet="/images/profile-800.webp" type="image/webp" />
++      <source
++        srcSet="/images/profile-400.webp 400w, /images/profile-800.webp 800w"
++        sizes="(max-width: 780px) 80vw, 420px"
++        type="image/webp"
++      />
+       <img
++        loading={eager ? "eager" : "lazy"}
++        decoding="async"
++        fetchPriority={eager ? "high" : "auto"}
+         src="/images/profile-800.jpg"
+         alt={
+           locale === "en" ? "Portrait of Adrián Muñoz Atienza" : "Retrato de Adrián Muñoz Atienza"
+diff --git a/components/ui.tsx b/components/ui.tsx
+new file mode 100644
+--- /dev/null
++++ b/components/ui.tsx
+@@ -0,0 +1,40 @@
++import Link from "next/link";
++import type { ComponentPropsWithoutRef, ReactNode } from "react";
++
++type ActionLinkProps = ComponentPropsWithoutRef<"a"> & {
++  href: string;
++  variant?: "primary" | "secondary" | "light" | "ghost";
++};
++
++export function ActionLink({ variant = "primary", className = "", ...props }: ActionLinkProps) {
++  const classes = `button ${variant === "primary" ? "" : `button-${variant}`} ${className}`;
++  return props.href.startsWith("/") && !/\.[a-z0-9]+(?:[?#]|$)/i.test(props.href) ? (
++    <Link {...props} className={classes} />
++  ) : (
++    <a {...props} className={classes} />
++  );
++}
++
++export interface MetadataItem {
++  label: string;
++  value: string;
++}
++
++export function MetadataList({
++  items,
++  className
++}: {
++  items: readonly MetadataItem[];
++  className: string;
++}) {
++  return (
++    <dl className={className}>
++      {items.map(({ label, value }) => (
++        <div key={label}>
++          <dt>{label}</dt>
++          <dd>{value}</dd>
++        </div>
++      ))}
++    </dl>
++  );
++}
+diff --git a/app/globals.css b/app/globals.css
+--- a/app/globals.css
++++ b/app/globals.css
+@@ -6,7 +6,7 @@
+   --coral: #e4865a;
+   --coral-ink: #9f4729;
+   --green: #6c8976;
+-  --muted: #66717d;
++  --muted: #5f6a76;
+   --canvas: #f5f1e8;
+   --paper: #fffdf8;
+   --line: #cfd5d7;
+@@ -47,8 +47,9 @@
+ }
+ a:focus-visible,
+ button:focus-visible,
+-summary:focus-visible {
+-  outline: 3px solid var(--coral);
++summary:focus-visible,
++select:focus-visible {
++  outline: 3px solid var(--blue);
+   outline-offset: 4px;
+ }
+ h1,
+@@ -788,7 +789,7 @@
+ .process-path {
+   position: relative;
+   display: grid;
+-  grid-template-columns: repeat(6, 1fr);
++  grid-template-columns: repeat(5, minmax(0, 1fr));
+   gap: 0;
+   margin: 0;
+   padding: 0;
+@@ -999,7 +1000,7 @@
+   padding-block: 1.45rem;
+   border-bottom: 1px solid var(--line);
+ }
+-.timeline time {
++.timeline .timeline-date {
+   color: var(--blue);
+   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+   font-size: 0.73rem;
+@@ -2241,3 +2242,81 @@
+     transform: none;
+   }
+ }
++
++.process-path li {
++  padding-inline: 12px;
++}
++.process-path strong {
++  max-width: 22ch;
++  font-size: 0.9rem;
++  line-height: 1.5;
++}
++.timeline-date {
++  margin: 0;
++  color: var(--muted);
++  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
++  font-size: 0.75rem;
++}
++.lock-week button {
++  min-width: 44px;
++  min-height: 44px;
++  touch-action: manipulation;
++  transition:
++    background-color 180ms ease,
++    border-color 180ms ease;
++}
++.lock-week button:hover {
++  background: #fff5f229;
++}
++.lock-week button:focus-visible {
++  outline-color: #fff5f2;
++  outline-offset: 1px;
++}
++.lock-preview-light .lock-week button:hover {
++  background: #571f301a;
++}
++.lock-preview-light .lock-week button:focus-visible {
++  outline-color: #571f30;
++}
++.lock-agenda ul {
++  animation: agenda-enter 180ms ease-out;
++}
++@keyframes agenda-enter {
++  from {
++    opacity: 0.4;
++    transform: translateY(4px);
++  }
++  to {
++    opacity: 1;
++    transform: translateY(0);
++  }
++}
++@media (prefers-reduced-motion: reduce) {
++  .lock-agenda ul {
++    animation: none;
++  }
++  .lock-week button {
++    transition: none;
++  }
++}
++
++@media (max-width: 360px) {
++  .project-lock-calendar .project-visual,
++  .case-lock-calendar .case-hero-visual {
++    padding-inline: 0;
++  }
++  .project-lock-calendar .project-visual > p {
++    padding-inline: 16px;
++  }
++}
++
++.contact-section a:focus-visible,
++.research-story a:focus-visible,
++.site-footer a:focus-visible {
++  outline-color: var(--cyan);
++}
++
++.next-project:focus-visible {
++  outline-color: var(--ink);
++  outline-offset: -6px;
++}
+diff --git a/app/projects/[slug]/page.tsx b/app/projects/[slug]/page.tsx
+--- a/app/projects/[slug]/page.tsx
++++ b/app/projects/[slug]/page.tsx
+@@ -1,7 +1,9 @@
+ import type { Metadata } from "next";
+ import { notFound } from "next/navigation";
+ import { ProjectPage } from "@/components/pages";
+-import { projects, slugs, type ProjectSlug } from "@/lib/site-data";
++import { isProjectSlug, projects, slugs } from "@/lib/site-data";
++export const dynamicParams = false;
++
+ export function generateStaticParams() {
+   return slugs.map((slug) => ({ slug }));
+ }
+@@ -11,8 +13,8 @@
+   params: Promise<{ slug: string }>;
+ }): Promise<Metadata> {
+   const { slug } = await params;
+-  if (!slugs.includes(slug as ProjectSlug)) return {};
+-  const project = projects.en[slug as ProjectSlug];
++  if (!isProjectSlug(slug)) return {};
++  const project = projects.en[slug];
+   return {
+     title: project.name,
+     description: project.summary,
+@@ -31,6 +33,6 @@
+ }
+ export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
+   const { slug } = await params;
+-  if (!slugs.includes(slug as ProjectSlug)) notFound();
+-  return <ProjectPage locale="en" slug={slug as ProjectSlug} />;
++  if (!isProjectSlug(slug)) notFound();
++  return <ProjectPage locale="en" slug={slug} />;
+ }
+diff --git a/app/es/projects/[slug]/page.tsx b/app/es/projects/[slug]/page.tsx
+--- a/app/es/projects/[slug]/page.tsx
++++ b/app/es/projects/[slug]/page.tsx
+@@ -1,7 +1,9 @@
+ import type { Metadata } from "next";
+ import { notFound } from "next/navigation";
+ import { ProjectPage } from "@/components/pages";
+-import { projects, slugs, type ProjectSlug } from "@/lib/site-data";
++import { isProjectSlug, projects, slugs } from "@/lib/site-data";
++export const dynamicParams = false;
++
+ export function generateStaticParams() {
+   return slugs.map((slug) => ({ slug }));
+ }
+@@ -11,8 +13,8 @@
+   params: Promise<{ slug: string }>;
+ }): Promise<Metadata> {
+   const { slug } = await params;
+-  if (!slugs.includes(slug as ProjectSlug)) return {};
+-  const project = projects.es[slug as ProjectSlug];
++  if (!isProjectSlug(slug)) return {};
++  const project = projects.es[slug];
+   return {
+     title: project.name,
+     description: project.summary,
+@@ -32,6 +34,6 @@
+ }
+ export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
+   const { slug } = await params;
+-  if (!slugs.includes(slug as ProjectSlug)) notFound();
+-  return <ProjectPage locale="es" slug={slug as ProjectSlug} />;
++  if (!isProjectSlug(slug)) notFound();
++  return <ProjectPage locale="es" slug={slug} />;
+ }
+diff --git a/scripts/check-links.mjs b/scripts/check-links.mjs
+--- a/scripts/check-links.mjs
++++ b/scripts/check-links.mjs
+@@ -1,28 +1,62 @@
+ import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
+-import { join, normalize } from "node:path";
+-const root = "out";
++import { join, resolve } from "node:path";
++
++const root = resolve("out");
++const origin = "https://hiatienza.github.io";
+ const htmlFiles = [];
++const failures = new Set();
++const idCache = new Map();
++
+ function visit(directory) {
+   for (const item of readdirSync(directory)) {
+     const file = join(directory, item);
+-    statSync(file).isDirectory() ? visit(file) : file.endsWith(".html") && htmlFiles.push(file);
++    if (statSync(file).isDirectory()) visit(file);
++    else if (file.endsWith(".html")) htmlFiles.push(file);
+   }
+ }
+-function localTarget(href) {
+-  const path = href.split("#")[0].split("?")[0];
+-  if (!path || !path.startsWith("/")) return null;
+-  return normalize(join(root, path.endsWith("/") ? `${path}index.html` : path));
+-}
+-visit(root);
+-const failures = [];
+-for (const file of htmlFiles) {
+-  for (const match of readFileSync(file, "utf8").matchAll(/(?:href|src)="([^"]+)"/g)) {
+-    const target = localTarget(match[1]);
+-    if (target && !existsSync(target)) failures.push(`${file}: ${match[1]}`);
++
++function check(value, from, base, checkFragment = false) {
++  const url = new URL(value.replaceAll("&amp;", "&"), base);
++  if (url.origin !== origin) return;
++  const pathname = decodeURIComponent(url.pathname);
++  const target = join(root, pathname.endsWith("/") ? `${pathname}index.html` : pathname);
++  if (!existsSync(target) || !statSync(target).isFile()) {
++    failures.add(`${from}: missing exported file for ${value}`);
++    return;
++  }
++  if (checkFragment && url.hash && target.endsWith(".html")) {
++    if (!idCache.has(target)) {
++      idCache.set(
++        target,
++        new Set(
++          [...readFileSync(target, "utf8").matchAll(/\bid="([^"]+)"/g)].map((match) => match[1])
++        )
++      );
++    }
++    if (!idCache.get(target).has(decodeURIComponent(url.hash.slice(1)))) {
++      failures.add(`${from}: missing fragment ${value}`);
++    }
+   }
+ }
+-if (failures.length) {
+-  console.error(failures.join("\n"));
++
++visit(root);
++if (!existsSync(join(root, ".nojekyll"))) failures.add("Export is missing .nojekyll");
++for (const file of htmlFiles) {
++  const path = file.slice(root.length).replace(/index\.html$/, "");
++  const base = new URL(path, origin);
++  const html = readFileSync(file, "utf8");
++  for (const match of html.matchAll(/\b(href|src)="([^"]+)"/g)) {
++    check(match[2], file, base, match[1] === "href");
++  }
++  for (const match of html.matchAll(/\bsrc[Ss]et="([^"]+)"/g)) {
++    for (const candidate of match[1].split(","))
++      check(candidate.trim().split(/\s+/)[0], file, base);
++  }
++}
++if (failures.size) {
++  console.error([...failures].join("\n"));
+   process.exit(1);
+ }
+-console.log(`Checked ${htmlFiles.length} HTML files; all internal links and assets resolve.`);
++console.log(
++  `Checked ${htmlFiles.length} HTML files; page links, fragments and responsive assets resolve.`
++);
+diff --git a/scripts/static-server.mjs b/scripts/static-server.mjs
+--- a/scripts/static-server.mjs
++++ b/scripts/static-server.mjs
+@@ -1,9 +1,10 @@
+ import { createReadStream, existsSync, statSync } from "node:fs";
+ import { createServer } from "node:http";
+-import { extname, join, normalize } from "node:path";
++import { extname, join, resolve, sep } from "node:path";
+ 
+ const [root = "out", portValue = "4173"] = process.argv.slice(2);
+ const port = Number(portValue);
++const resolvedRoot = resolve(root);
+ const mime = {
+   ".html": "text/html; charset=utf-8",
+   ".js": "text/javascript; charset=utf-8",
+@@ -20,13 +21,26 @@
+ };
+ createServer((request, response) => {
+   const pathname = decodeURIComponent(new URL(request.url || "/", "http://localhost").pathname);
+-  const requested = normalize(join(root, pathname));
++  const requested = resolve(resolvedRoot, `.${pathname}`);
++  const insideRoot = requested === resolvedRoot || requested.startsWith(`${resolvedRoot}${sep}`);
++  if (
++    insideRoot &&
++    existsSync(requested) &&
++    statSync(requested).isDirectory() &&
++    !pathname.endsWith("/")
++  ) {
++    response.writeHead(308, {
++      location: `${pathname}/${new URL(request.url || "/", "http://localhost").search}`
++    });
++    response.end();
++    return;
++  }
+   const target =
+-    requested.startsWith(normalize(root)) && existsSync(requested)
++    insideRoot && existsSync(requested)
+       ? statSync(requested).isDirectory()
+         ? join(requested, "index.html")
+         : requested
+-      : join(root, "404.html");
++      : join(resolvedRoot, "404.html");
+   response.writeHead(target.endsWith("404.html") ? 404 : 200, {
+     "content-type": mime[extname(target)] || "application/octet-stream"
+   });
+diff --git a/tests/content.test.ts b/tests/content.test.ts
+--- a/tests/content.test.ts
++++ b/tests/content.test.ts
+@@ -49,8 +49,8 @@
+     expect(copy.en.hero.lead).toMatch(/Human-Centered AI/);
+     expect(copy.en.hero.lead).toMatch(/Behavioral Technology/);
+     expect(copy.en.hero.lead).toMatch(/Human-AI Interaction/);
+-    expect(copy.en.specialization.intro).toMatch(/not claiming finished expertise/);
+-    expect(copy.es.specialization.intro).toMatch(/especialización ya consolidada/);
++    expect(copy.en.specialization.intro).toMatch(/actively expand into Human-Centered AI/);
++    expect(copy.es.specialization.intro).toMatch(/amplío activamente/);
+     expect(aboutPages.en.story.join(" ")).toMatch(/July 2028/);
+     expect(aboutPages.es.story.join(" ")).toMatch(/julio de 2028/);
+   });
+@@ -67,6 +67,9 @@
+     expect(route("en", "/about/")).toBe("/about/");
+     expect(route("es", "/about/")).toBe("/es/about/");
+     expect(route("es", "/projects/cybermastery/")).toBe("/es/projects/cybermastery/");
++    expect(route("en", "projects/lock-calendar")).toBe("/projects/lock-calendar/");
++    expect(route("es", "/about?view=cv#journey")).toBe("/es/about/?view=cv#journey");
++    expect(route("es", "/#work")).toBe("/es/#work");
+   });
+   it("uses the supplied official LinkedIn public-profile badge markup", () => {
+     expect(linkedInBadgeIntegrationState).toBe("OFFICIAL_MARKUP_CONFIGURED");
+diff --git a/tests/smoke.spec.ts b/tests/smoke.spec.ts
+--- a/tests/smoke.spec.ts
++++ b/tests/smoke.spec.ts
+@@ -187,3 +187,70 @@
+     ).toBeTruthy();
+   }
+ });
++
++test("day picker supports arrows, boundary keys and reduced motion with usable targets", async ({
++  page
++}) => {
++  await page.setViewportSize({ width: 320, height: 812 });
++  await page.emulateMedia({ reducedMotion: "reduce" });
++  await page.goto("/projects/lock-calendar/");
++  const monday = page.getByRole("button", { name: "Mon 10", exact: true });
++  await monday.focus();
++  await page.keyboard.press("ArrowLeft");
++  const friday = page.getByRole("button", { name: "Fri 14", exact: true });
++  await expect(friday).toBeFocused();
++  await expect(friday).toHaveAttribute("aria-pressed", "true");
++  await expect(page.locator(".lock-clock")).toContainText("Friday, August 14");
++  await page.keyboard.press("Home");
++  await expect(monday).toBeFocused();
++  await page.keyboard.press("End");
++  await expect(friday).toBeFocused();
++  for (const button of await page.locator(".lock-week button").all()) {
++    const box = await button.boundingBox();
++    expect(box?.width).toBeGreaterThanOrEqual(44);
++    expect(box?.height).toBeGreaterThanOrEqual(44);
++  }
++  expect(
++    await page.locator(".lock-agenda ul").evaluate((el) => getComputedStyle(el).animationName)
++  ).toBe("none");
++});
++
++test("static routes survive direct loads and reloads; all pages pass WCAG AA scans", async ({
++  page
++}) => {
++  for (const path of pages) {
++    const response = await page.goto(path);
++    expect(response?.status()).toBe(200);
++    const reload = await page.reload();
++    expect(reload?.status()).toBe(200);
++    await expect(page.locator("main")).toHaveCount(1);
++    await expect(page.locator("h1")).toHaveCount(1);
++    const scan = await new AxeBuilder({ page })
++      .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
++      .analyze();
++    expect(scan.violations, path).toEqual([]);
++  }
++  const unknown = await page.goto("/projects/unknown-project/");
++  expect(unknown?.status()).toBe(404);
++});
++
++test("Lock Calendar fits narrow screens without overflow", async ({ page }) => {
++  for (const width of [320, 375]) {
++    await page.setViewportSize({ width, height: 812 });
++    for (const path of ["/", "/es/", "/projects/lock-calendar/", "/es/projects/lock-calendar/"]) {
++      await page.goto(path);
++      expect(
++        await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),
++        `${width}px ${path}`
++      ).toBeTruthy();
++      expect(
++        await page
++          .locator(".lock-week")
++          .evaluateAll((elements) =>
++            elements.every((element) => element.scrollWidth <= element.clientWidth)
++          ),
++        `${width}px ${path}`
++      ).toBeTruthy();
++    }
++  }
++});
+diff --git a/eslint.config.mjs b/eslint.config.mjs
+--- a/eslint.config.mjs
++++ b/eslint.config.mjs
+@@ -3,10 +3,11 @@
+ 
+ export default defineConfig([
+   ...nextVitals,
++  { files: ["**/*.ts", "**/*.tsx"], rules: { "@typescript-eslint/no-explicit-any": "error" } },
+   globalIgnores([
+     ".next/**",
+     "out/**",
+-    "node_modules.partial-install-20260903/**",
++    "node_modules.partial-install-*/**",
+     "playwright-report/**",
+     "test-results/**"
+   ])
+diff --git a/tsconfig.json b/tsconfig.json
+--- a/tsconfig.json
++++ b/tsconfig.json
+@@ -29,5 +29,5 @@
+     ".next/types/**/*.ts",
+     ".next/dev/types/**/*.ts"
+   ],
+-  "exclude": ["node_modules", "node_modules.partial-install-20260903", "out"]
++  "exclude": ["node_modules", "node_modules.partial-install-*/**", "out"]
+ }
+diff --git a/.prettierignore b/.prettierignore
+new file mode 100644
+--- /dev/null
++++ b/.prettierignore
+@@ -0,0 +1,8 @@
++node_modules/
++node_modules.partial-install-*/
++.next/
++out/
++playwright-report/
++test-results/
++coverage/
++*.tsbuildinfo
+diff --git a/public/.nojekyll b/public/.nojekyll
+new file mode 100644
+index 0000000..e69de29

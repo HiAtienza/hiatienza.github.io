@@ -1,9 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useRef, useState, type KeyboardEvent } from "react";
 import type { Locale } from "@/lib/site-data";
 
-const sampleWeek = {
+interface SampleDay {
+  day: string;
+  date: string;
+  events: readonly (readonly [time: string, title: string, place: string])[];
+}
+
+const sampleWeek: Record<Locale, readonly SampleDay[]> = {
   en: [
     {
       day: "Mon",
@@ -92,12 +98,34 @@ const sampleWeek = {
   ]
 };
 
-export function LockCalendarPreview({ locale }: { locale: Locale }) {
+export function LockInPreview({ locale }: { locale: Locale }) {
+  const id = useId();
+  const dayButtons = useRef<(HTMLButtonElement | null)[]>([]);
   const [selectedDay, setSelectedDay] = useState(2);
   const [light, setLight] = useState(false);
   const week = sampleWeek[locale];
   const selected = week[selectedDay];
   const en = locale === "en";
+
+  const fullDays = en
+    ? ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+    : ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
+  const selectWithKeyboard = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
+    const next =
+      event.key === "ArrowRight"
+        ? (index + 1) % week.length
+        : event.key === "ArrowLeft"
+          ? (index - 1 + week.length) % week.length
+          : event.key === "Home"
+            ? 0
+            : event.key === "End"
+              ? week.length - 1
+              : null;
+    if (next === null) return;
+    event.preventDefault();
+    setSelectedDay(next);
+    dayButtons.current[next]?.focus();
+  };
 
   return (
     <figure className={`lock-preview ${light ? "lock-preview-light" : ""}`}>
@@ -107,7 +135,11 @@ export function LockCalendarPreview({ locale }: { locale: Locale }) {
           <span>● ● ▰</span>
         </div>
         <div className="lock-clock" aria-hidden="true">
-          <span>{en ? "Wednesday, August 12" : "Miércoles, 12 de agosto"}</span>
+          <span>
+            {en
+              ? `${fullDays[selectedDay]}, August ${selected.date}`
+              : `${fullDays[selectedDay]}, ${selected.date} de agosto`}
+          </span>
           <strong>09:41</strong>
         </div>
         <div
@@ -118,6 +150,11 @@ export function LockCalendarPreview({ locale }: { locale: Locale }) {
           {week.map((day, index) => (
             <button
               type="button"
+              ref={(button) => {
+                dayButtons.current[index] = button;
+              }}
+              onKeyDown={(event) => selectWithKeyboard(event, index)}
+              aria-controls={`${id}-agenda`}
               key={day.day}
               aria-pressed={selectedDay === index}
               onClick={() => setSelectedDay(index)}
@@ -136,14 +173,14 @@ export function LockCalendarPreview({ locale }: { locale: Locale }) {
             </button>
           ))}
         </div>
-        <div className="lock-agenda" aria-live="polite" aria-atomic="true">
+        <div id={`${id}-agenda`} className="lock-agenda" aria-live="polite" aria-atomic="true">
           <p className="lock-agenda-label">
             {en ? "Example agenda" : "Agenda de ejemplo"} · {selected.day} {selected.date}
           </p>
-          <ul>
+          <ul key={selectedDay}>
             {selected.events.map(([time, title, place]) => (
               <li key={title}>
-                <time>{time}</time>
+                <time dateTime={time}>{time}</time>
                 <div>
                   <strong>{title}</strong>
                   <span>{place}</span>
@@ -165,8 +202,8 @@ export function LockCalendarPreview({ locale }: { locale: Locale }) {
       </div>
       <figcaption>
         {en
-          ? "Interactive illustration · sample events, not a device capture. The website day selector explains the concept; it is not a lock-screen control."
-          : "Ilustración interactiva · eventos ficticios, no una captura del dispositivo. El selector de días de la web explica el concepto; no es un control de la pantalla de bloqueo."}
+          ? "Interactive web illustration · sample events. Select a day to explore the agenda; use arrow keys, Home or End from the day picker."
+          : "Ilustración web interactiva · eventos ficticios. Elige un día para explorar la agenda; usa las flechas, Inicio o Fin desde el selector."}
       </figcaption>
     </figure>
   );

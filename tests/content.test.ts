@@ -1,23 +1,33 @@
 import { describe, expect, it } from "vitest";
-import { aboutPages, copy, projects, route, slugs } from "../lib/site-data";
+import { aboutPages, copy, projects, route, slugs, isProjectSlug } from "../lib/site-data";
 import { linkedInBadgeIntegrationState, officialLinkedInBadgeMarkup } from "../lib/linkedin-badge";
 import { videoRescueAssets, videoRescueStory } from "../lib/video-rescue-data";
 
 describe("public portfolio content", () => {
   it("keeps the agreed flagship-project order in both languages", () => {
-    expect(slugs).toEqual(["lock-calendar", "video-rescue", "cybermastery", "lifemap"]);
+    expect(slugs).toEqual(["lock-in", "video-rescue", "setline"]);
     for (const locale of ["en", "es"] as const)
       expect(slugs.map((slug) => projects[locale][slug].name)).toEqual([
-        "Lock Calendar",
+        "LockIn",
         "VIDEO-RESCUE",
-        "CyberMastery",
-        "LifeMap"
+        "Setline"
       ]);
   });
   it("keeps high-risk product claims bounded", () => {
     expect(projects.en["video-rescue"].limitation).toMatch(/No field deployment/);
-    expect(projects.en.cybermastery.limitation).toMatch(/private/);
-    expect(projects.en.lifemap.limitation).toMatch(/not a Play Store release/);
+    expect(projects.en["lock-in"].limitation).toMatch(/emulator captures/);
+    expect(projects.en["lock-in"].facts.at(-1)?.text).toMatch(
+      /does not grade or change Anki reviews/
+    );
+    expect(projects.en.setline.limitation).toMatch(/estimate, not a measured maximum/);
+    expect(projects.en.setline.limitation).toMatch(/Google Calendar connection is web-only/);
+  });
+  it("removes the retired project content and rejects its slugs", () => {
+    for (const slug of ["cybermastery", "lifemap", "lock-calendar"])
+      expect(isProjectSlug(slug)).toBe(false);
+    expect(JSON.stringify({ copy, projects, aboutPages })).not.toMatch(
+      /CyberMastery|LifeMap|Lock Calendar/i
+    );
   });
   it("publishes complete English and Spanish navigation", () => {
     for (const locale of ["en", "es"] as const)
@@ -49,8 +59,8 @@ describe("public portfolio content", () => {
     expect(copy.en.hero.lead).toMatch(/Human-Centered AI/);
     expect(copy.en.hero.lead).toMatch(/Behavioral Technology/);
     expect(copy.en.hero.lead).toMatch(/Human-AI Interaction/);
-    expect(copy.en.specialization.intro).toMatch(/not claiming finished expertise/);
-    expect(copy.es.specialization.intro).toMatch(/especialización ya consolidada/);
+    expect(copy.en.specialization.intro).toMatch(/actively expand into Human-Centered AI/);
+    expect(copy.es.specialization.intro).toMatch(/amplío activamente/);
     expect(aboutPages.en.story.join(" ")).toMatch(/July 2028/);
     expect(aboutPages.es.story.join(" ")).toMatch(/julio de 2028/);
   });
@@ -66,7 +76,10 @@ describe("public portfolio content", () => {
   it("maps equivalent English and Spanish routes", () => {
     expect(route("en", "/about/")).toBe("/about/");
     expect(route("es", "/about/")).toBe("/es/about/");
-    expect(route("es", "/projects/cybermastery/")).toBe("/es/projects/cybermastery/");
+    expect(route("es", "/projects/setline/")).toBe("/es/projects/setline/");
+    expect(route("en", "projects/lock-in")).toBe("/projects/lock-in/");
+    expect(route("es", "/about?view=cv#journey")).toBe("/es/about/?view=cv#journey");
+    expect(route("es", "/#work")).toBe("/es/#work");
   });
   it("uses the supplied official LinkedIn public-profile badge markup", () => {
     expect(linkedInBadgeIntegrationState).toBe("OFFICIAL_MARKUP_CONFIGURED");

@@ -1,0 +1,3583 @@
+--- a/README.md
++++ b/README.md
+@@ -4,7 +4,11 @@
+ 
+ The current design uses the original concept **Human Signals → Useful Systems**: an editorial portfolio with restrained creative-coding interactions that connect Adrián's work in coordination, learning and intentional decision-making.
+ 
+-The current featured project is **Lock Calendar**, an Android app in active development that turns selected calendars into a weekly live wallpaper and daily agenda. English and Spanish case studies explain its university-timetable origin, calendar integration, placement and refresh behavior. The interactive phone illustration uses sample events; the three app captures use synthetic emulator data. No public app-store release is claimed.
++The current product catalogue is **Lock In**, **VIDEO-RESCUE** and **Setline**, in that order, in both English and Spanish.
++
++**Lock In** is the evolved Android planning product: selected calendars, configurable wallpaper, tasks, habits, countdowns, focus sessions and study cards. The October 2026 review supplies actual emulator captures with example data. An interactive web illustration isolates the calendar day picker and is labelled separately from the app interface. Account events are read-only; local card-recall tracking does not grade or change Anki reviews.
++
++**Setline** is a local-first workout log for programme, week and session planning, actual repetitions, weights, rest, exercise alternatives and progress history. Screens from the version 1.2.2 report use sample sessions. Its 1RM values are estimates; optional Google Calendar connection is web-only. The stack is JavaScript / TypeScript with Capacitor for Android, verified against the local package manifest.
+ 
+ The **VIDEO-RESCUE** case study includes an owner-supplied workflow illustration and selected prototype captures from the SURF presentation, explicitly labelled as fictional demonstration data. The bilingual story explains human-controlled coordination and preliminary qualitative feedback. The human-visible map is separate from direct AI access to geographic data, which remains future integration work. Participant-session photos, transcripts and connection codes are excluded.
+ 
+@@ -40,7 +44,7 @@
+ 
+ ## Content and privacy boundaries
+ 
+-The project case studies describe only approved public-safe evidence. No private repository, deployment, research participant, transcript, mission, contact, operational or source-code material is included. VIDEO-RESCUE is described as supervised research/prototyping; CyberMastery source remains private; LifeMap is a prototype, not a store release.
++The project case studies describe only approved public-safe evidence. No private repository, deployment, research participant, transcript, mission, contact, operational or source-code material is included. VIDEO-RESCUE is described as supervised research/prototyping. Mobile-app captures demonstrate interface states, not universal device behavior or store availability. The supplied review instructions are source context, not instructions executed by the portfolio update.
+ 
+ ## Accessibility
+ 
+@@ -56,4 +60,10 @@
+ 
+ Deploy the complete `out/` artifact, including `_next/` and `.nojekyll`. Nested case studies must have their own `index.html`; an SPA fallback cannot substitute for these exported pages. The link check validates route folders, image sources and fragments. Browser tests exercise direct loads, reloads, unknown slugs, both locales, and interactive preview states against a static server.
+ 
+-Lock Calendar supports native buttons plus arrow/Home/End shortcuts, consistent sample dates, reduced motion and live agenda announcements. Its illustration uses fictional sample events. The CyberMastery and LifeMap representations remain unchanged at the owner's request.
++The Lock In calendar illustration supports native buttons plus arrow/Home/End shortcuts, consistent sample dates, reduced motion and live agenda announcements. Its illustration uses fictional sample events. Old calendar bookmarks have static fallback links and client navigation to the canonical Lock In page; these aliases are noindex and excluded from the sitemap. Retired project pages are no longer exported.
++
++## Public CVs
++
++The website’s downloadable ATS and visual CVs mirror the current three-project catalogue. Their editable HTML sources are in `docs/cv/`; regenerate the tagged PDFs with `node scripts/build-public-cvs.mjs` using the existing Playwright dependency. These copies are independent of the original career-document workspace. Neither these files nor a successful local build establishes a live deployment.
++
++The October 12 project update and its source-page mapping are recorded in `docs/project-refresh-20261012.md`.
+--- a/app/about/page.tsx
++++ b/app/about/page.tsx
+@@ -4,7 +4,7 @@
+ export const metadata: Metadata = {
+   title: "About",
+   description:
+-    "Adrián Muñoz Atienza’s path from Spain to China, his focus on human-centered software and the university-timetable frustration that became Lock Calendar.",
++    "Adrián Muñoz Atienza’s path from Spain to China, his focus on human-centered software and the university-timetable frustration that became Lock In.",
+   alternates: { canonical: "/about/", languages: { en: "/about/", es: "/es/about/" } },
+   openGraph: {
+     url: "/about/",
+--- a/app/es/about/page.tsx
++++ b/app/es/about/page.tsx
+@@ -4,7 +4,7 @@
+ export const metadata: Metadata = {
+   title: "Sobre mí",
+   description:
+-    "El recorrido de Adrián Muñoz Atienza entre España y China, su enfoque de software centrado en las personas y el horario universitario que dio origen a Lock Calendar.",
++    "El recorrido de Adrián Muñoz Atienza entre España y China, su enfoque de software centrado en las personas y el horario universitario que dio origen a Lock In.",
+   alternates: { canonical: "/es/about/", languages: { en: "/about/", es: "/es/about/" } },
+   openGraph: {
+     url: "/es/about/",
+--- a/app/es/page.tsx
++++ b/app/es/page.tsx
+@@ -4,20 +4,20 @@
+ export const metadata: Metadata = {
+   title: { absolute: "Adrián Muñoz Atienza | Software Engineering y Human-Centered AI" },
+   description:
+-    "Adrián Muñoz Atienza, estudiante de Computer Science en XJTLU. Ahora creando Lock Calendar: tu semana y tu próxima cita en la pantalla de bloqueo de Android.",
++    "Adrián Muñoz Atienza, estudiante de Computer Science en XJTLU. Lock In para planes y enfoque, Setline para entrenamientos sin conexión y VIDEO-RESCUE para investigación supervisada persona-IA.",
+   alternates: { canonical: "/es/", languages: { en: "/", es: "/es/" } },
+   openGraph: {
+     url: "/es/",
+     title: "Señales humanas → sistemas útiles | Adrián Muñoz Atienza",
+     description:
+-      "Ahora creando Lock Calendar: clases y citas cotidianas de un vistazo en la pantalla de bloqueo de Android. Proyectos de ingeniería de software centrados en las personas.",
++      "Lock In para planes y enfoque, Setline para registrar entrenamientos y VIDEO-RESCUE para coordinación supervisada persona-IA. Proyectos de ingeniería de software centrados en las personas.",
+     locale: "es_ES",
+     images: ["/og.jpg"]
+   },
+   twitter: {
+     title: "Señales humanas → sistemas útiles | Adrián Muñoz Atienza",
+     description:
+-      "Lock Calendar: tu semana, donde ya miras. Conoce mis proyectos de software centrados en las personas.",
++      "Lock In, Setline y VIDEO-RESCUE: productos personales e investigación supervisada. Conoce mis proyectos de software centrados en las personas.",
+     images: ["/og.jpg"]
+   }
+ };
+--- /dev/null
++++ b/app/es/projects/lock-calendar/page.tsx
+@@ -0,0 +1,11 @@
++import type { Metadata } from "next";
++import { LegacyProject } from "@/components/legacy-project";
++
++export const metadata: Metadata = {
++  title: "Lock In",
++  robots: { index: false, follow: true },
++  alternates: { canonical: "/es/projects/lock-in/" }
++};
++export default function Page() {
++  return <LegacyProject locale="es" />;
++}
+--- a/app/globals.css
++++ b/app/globals.css
+@@ -585,12 +585,6 @@
+   pointer-events: none;
+   background: radial-gradient(circle at 82% 18%, rgba(119, 212, 233, 0.27), transparent 33%);
+ }
+-.project-cybermastery .project-visual::before {
+-  background: radial-gradient(circle at 80% 20%, rgba(108, 137, 118, 0.25), transparent 34%);
+-}
+-.project-lifemap .project-visual::before {
+-  background: radial-gradient(circle at 80% 20%, rgba(228, 134, 90, 0.24), transparent 34%);
+-}
+ .project-visual > p {
+   position: relative;
+   margin: 0.9rem 0 0;
+@@ -636,9 +630,6 @@
+ .diagram-coordination .diagram-track {
+   grid-template-columns: repeat(5, minmax(68px, 1fr));
+ }
+-.diagram-architecture .diagram-track {
+-  grid-template-columns: repeat(6, minmax(58px, 1fr));
+-}
+ .diagram-step {
+   position: relative;
+   display: grid;
+@@ -1214,7 +1205,6 @@
+ .case-hero > * {
+   min-width: 0;
+ }
+-.case-cybermastery .case-hero h1,
+ .case-video-rescue .case-hero h1 {
+   font-size: clamp(3rem, 5.4vw, 5.6rem);
+ }
+@@ -1904,50 +1894,50 @@
+   min-width: 0;
+ }
+ .signal-route .signal-node-1 {
+-  border-color: #753249;
+-  color: #571f30;
++  border-color: #285986;
++  color: #163e6c;
+ }
+ .signal-route .signal-node-1 span,
+ .signal-route .signal-node-1 small {
+-  color: #753249;
+-}
+-.project-lock-calendar .project-visual,
+-.case-lock-calendar .case-hero-visual {
++  color: #285986;
++}
++.project-lock-in .project-visual,
++.case-lock-in .case-hero-visual {
+   padding: clamp(1rem, 3vw, 2rem);
+-  border-color: #d5c4c8;
+-  background: #f2e9e6;
+-}
+-.project-lock-calendar .project-visual::before {
+-  background: radial-gradient(ellipse at 70% 25%, #d8aeb533, transparent 65%);
+-}
+-.project-lock-calendar .project-copy h3,
+-.case-lock-calendar .case-hero h1 {
+-  color: #571f30;
+-}
+-.case-lock-calendar .case-hero h1 {
++  border-color: #c5d6e6;
++  background: #edf3f8;
++}
++.project-lock-in .project-visual::before {
++  background: radial-gradient(ellipse at 70% 25%, #63b6e033, transparent 65%);
++}
++.project-lock-in .project-copy h3,
++.case-lock-in .case-hero h1 {
++  color: #163e6c;
++}
++.case-lock-in .case-hero h1 {
+   font-size: clamp(3rem, 5.5vw, 5.6rem);
+ }
+ .lock-feature-line {
+-  color: #571f30;
++  color: #163e6c;
+   font-weight: 650;
+ }
+ .lock-preview {
+   position: relative;
+   width: 100%;
+   margin: 0;
+-  color: #fff5f2;
++  color: #f3fbff;
+ }
+ .lock-device {
+   position: relative;
+   width: min(100%, 320px);
+   margin-inline: auto;
+   padding: 18px 14px;
+-  border: 6px solid #211a1d;
++  border: 6px solid #152335;
+   border-radius: 38px;
+   background:
+-    radial-gradient(ellipse at 95% 10%, #8d3e50, transparent 65%),
+-    radial-gradient(ellipse at 5% 75%, #6d2339, transparent 62%), #220e17;
+-  box-shadow: 0 24px 50px #571f3026;
++    radial-gradient(ellipse at 95% 10%, #234976, transparent 65%),
++    radial-gradient(ellipse at 5% 75%, #163754, transparent 62%), #0b1729;
++  box-shadow: 0 24px 50px #163e6c26;
+ }
+ .lock-system,
+ .lock-bottom {
+@@ -1995,8 +1985,8 @@
+   font-size: 0.9rem;
+ }
+ .lock-week button[aria-pressed="true"] {
+-  border-color: #f4cad4;
+-  background: #fff5f21f;
++  border-color: #9bdaf1;
++  background: #f3fbff1f;
+ }
+ .lock-week-events {
+   display: grid;
+@@ -2010,8 +2000,8 @@
+   min-height: 45px;
+   padding: 4px;
+   border-radius: 5px;
+-  background: #f2c4ce;
+-  color: #34101d;
++  background: #b1ddf1;
++  color: #123049;
+   font-size: 0.52rem;
+   font-style: normal;
+   font-weight: 650;
+@@ -2020,7 +2010,7 @@
+   text-align: left;
+ }
+ .lock-week-events i:nth-child(2) {
+-  background: #e4dce7;
++  background: #dbe5f6;
+ }
+ .lock-week-events small {
+   display: block;
+@@ -2055,7 +2045,7 @@
+   display: flex;
+   gap: 10px;
+   padding-left: 10px;
+-  border-left: 3px solid #f2c4ce;
++  border-left: 3px solid #b1ddf1;
+   line-height: 1.35;
+ }
+ .lock-agenda time {
+@@ -2083,45 +2073,45 @@
+   align-items: center;
+   gap: 12px;
+   margin-block: 20px 12px;
+-  color: #571f30;
++  color: #163e6c;
+   font-size: 0.75rem;
+ }
+ .lock-preview-controls button {
+   min-height: 44px;
+   padding: 8px 15px;
+-  border: 1px solid #571f30;
++  border: 1px solid #163e6c;
+   border-radius: 24px;
+-  background: #fffaf8;
+-  color: #571f30;
++  background: #f7fbff;
++  color: #163e6c;
+   font: inherit;
+   cursor: pointer;
+ }
+ .lock-preview-controls button[aria-pressed="true"] {
+-  background: #571f30;
+-  color: #fffaf8;
++  background: #163e6c;
++  color: #f7fbff;
+ }
+ .lock-preview figcaption {
+   max-width: 42ch;
+   margin-inline: auto;
+-  color: #62454e;
++  color: #38506a;
+   font-size: 0.65rem;
+   line-height: 1.5;
+   text-align: center;
+ }
+ .lock-preview-light .lock-device {
+-  background: radial-gradient(ellipse at 0 10%, #ead0d6, transparent 75%), #fcf0e9;
+-  color: #461b2b;
++  background: radial-gradient(ellipse at 0 10%, #d7e8f5, transparent 75%), #f3f8fc;
++  color: #163e6c;
+ }
+ .lock-preview-light .lock-week button[aria-pressed="true"] {
+-  border-color: #571f30;
+-  background: #571f3010;
++  border-color: #163e6c;
++  background: #163e6c10;
+ }
+ .lock-preview-light .lock-agenda li {
+-  border-color: #753249;
++  border-color: #285986;
+ }
+ .lock-about {
+-  border-block: 1px solid #d5c4c8;
+-  background: #f2e9e6;
++  border-block: 1px solid #c5d6e6;
++  background: #edf3f8;
+ }
+ .lock-about-layout {
+   display: grid;
+@@ -2132,7 +2122,7 @@
+ .lock-origin h2,
+ .lock-gallery h2,
+ .lock-faq h2 {
+-  color: #571f30;
++  color: #163e6c;
+ }
+ .lock-origin h2 {
+   max-width: 850px;
+@@ -2145,10 +2135,10 @@
+ }
+ .lock-origin-steps article {
+   padding-top: 1.5rem;
+-  border-top: 1px solid #d5c4c8;
++  border-top: 1px solid #c5d6e6;
+ }
+ .lock-origin-steps article > span {
+-  color: #753249;
++  color: #285986;
+   font-family: ui-monospace, monospace;
+   font-size: 0.8rem;
+ }
+@@ -2160,40 +2150,10 @@
+   color: var(--ink-soft);
+ }
+ .lock-gallery {
+-  background: #f2e9e6;
+-}
+-.lock-captures {
+-  display: grid;
+-  grid-template-columns: repeat(3, minmax(0, 1fr));
+-  gap: 2rem;
+-  margin-top: 3rem;
+-}
+-.lock-captures figure {
+-  min-width: 0;
+-  margin: 0;
+-}
+-.lock-captures figure > div {
+-  overflow: hidden;
+-  border: 1px solid #d5c4c8;
+-  border-radius: 24px;
+-  background: #fafafa;
+-}
+-.lock-captures img {
+-  display: block;
+-  width: 100%;
+-  height: auto;
+-}
+-.lock-captures figcaption {
+-  padding-top: 1.5rem;
+-}
+-.lock-captures h3 {
+-  font-size: 1.2rem;
+-}
+-.lock-captures p {
+-  font-size: 0.88rem;
++  background: #edf3f8;
+ }
+ .lock-faq details {
+-  border-bottom: 1px solid #d5c4c8;
++  border-bottom: 1px solid #c5d6e6;
+ }
+ .lock-faq summary {
+   padding-block: 1.5rem;
+@@ -2207,13 +2167,8 @@
+ }
+ @media (max-width: 780px) {
+   .lock-about-layout,
+-  .lock-origin-steps,
+-  .lock-captures {
++  .lock-origin-steps {
+     grid-template-columns: minmax(0, 1fr);
+-  }
+-  .lock-captures figure {
+-    max-width: 360px;
+-    margin-inline: auto;
+   }
+ }
+ @media (max-width: 1040px) {
+@@ -2266,17 +2221,17 @@
+     border-color 180ms ease;
+ }
+ .lock-week button:hover {
+-  background: #fff5f229;
++  background: #f3fbff29;
+ }
+ .lock-week button:focus-visible {
+-  outline-color: #fff5f2;
++  outline-color: #f3fbff;
+   outline-offset: 1px;
+ }
+ .lock-preview-light .lock-week button:hover {
+-  background: #571f301a;
++  background: #163e6c1a;
+ }
+ .lock-preview-light .lock-week button:focus-visible {
+-  outline-color: #571f30;
++  outline-color: #163e6c;
+ }
+ .lock-agenda ul {
+   animation: agenda-enter 180ms ease-out;
+@@ -2301,11 +2256,11 @@
+ }
+ 
+ @media (max-width: 360px) {
+-  .project-lock-calendar .project-visual,
+-  .case-lock-calendar .case-hero-visual {
++  .project-lock-in .project-visual,
++  .case-lock-in .case-hero-visual {
+     padding-inline: 0;
+   }
+-  .project-lock-calendar .project-visual > p {
++  .project-lock-in .project-visual > p {
+     padding-inline: 16px;
+   }
+ }
+@@ -2320,3 +2275,138 @@
+   outline-color: var(--ink);
+   outline-offset: -6px;
+ }
++
++.product-capture {
++  width: min(100%, 320px);
++  min-width: 0;
++  margin: 0 auto;
++}
++.product-capture > a {
++  display: block;
++  overflow: hidden;
++  border: 1px solid var(--line);
++  border-radius: 24px;
++  background: #080a09;
++  box-shadow: var(--shadow);
++}
++.product-capture > a:focus-visible {
++  outline: 3px solid var(--blue);
++  outline-offset: 5px;
++}
++.product-capture img {
++  display: block;
++  width: 100%;
++  height: auto;
++}
++.product-capture figcaption {
++  padding-top: 1.25rem;
++  color: var(--ink-soft);
++  font-size: 0.88rem;
++  line-height: 1.5;
++}
++.product-capture figcaption strong {
++  color: var(--ink);
++  font-size: 1.1rem;
++}
++.product-capture figcaption p {
++  margin: 0.5rem 0 0;
++}
++.product-capture-compact {
++  width: min(100%, 280px);
++}
++.product-capture-compact figcaption {
++  font-size: 0.75rem;
++}
++.product-capture-compact figcaption strong {
++  font-size: 0.95rem;
++}
++.product-gallery {
++  border-block: 1px solid var(--line);
++  background: var(--canvas);
++}
++.case-lock-in .product-gallery {
++  background: #edf3f8;
++}
++.product-captures {
++  display: grid;
++  grid-template-columns: repeat(3, minmax(0, 1fr));
++  gap: 2rem;
++  margin-top: 3rem;
++}
++.lock-demo-layout,
++.setline-record {
++  display: grid;
++  grid-template-columns: 1fr 1fr;
++  align-items: center;
++  gap: clamp(2rem, 7vw, 6rem);
++}
++.lock-demo-layout > div > p,
++.setline-record > div > p {
++  color: var(--ink-soft);
++}
++.lock-demo-layout .lock-preview {
++  padding: 1.5rem;
++  border-radius: 24px;
++  background: #edf3f8;
++}
++.setline-example {
++  margin: 0;
++  padding: 2rem;
++  border: 1px solid #c3cebd;
++  border-top: 4px solid #526626;
++  border-radius: 16px;
++  background: #f2f5e9;
++}
++.setline-example div + div {
++  margin-top: 1.5rem;
++}
++.setline-example dt {
++  margin-bottom: 0.35rem;
++  color: #43552b;
++  font-size: 0.8rem;
++}
++.setline-example dd {
++  margin: 0;
++  color: #263615;
++  font-size: clamp(1rem, 2vw, 1.5rem);
++  font-weight: 650;
++}
++.project-setline .project-visual,
++.case-setline .case-hero-visual {
++  padding: clamp(1rem, 3vw, 2rem);
++  border-color: #c3cebd;
++  background: #f2f5e9;
++}
++.project-setline .project-visual::before {
++  background: radial-gradient(ellipse at 70% 25%, #bbcf7544, transparent 65%);
++}
++.project-setline .project-copy h3 {
++  color: #43552b;
++}
++.signal-route .signal-node-3 {
++  border-color: #66793f;
++  color: #43552b;
++}
++.signal-route .signal-node-3 span,
++.signal-route .signal-node-3 small {
++  color: #43552b;
++}
++.legacy-project {
++  padding-block: 5rem;
++  min-height: 60vh;
++}
++@media (max-width: 780px) {
++  .product-captures,
++  .lock-demo-layout,
++  .setline-record {
++    grid-template-columns: minmax(0, 1fr);
++  }
++  .product-captures {
++    gap: 3rem;
++  }
++}
++@media (max-width: 360px) {
++  .lock-demo-layout .lock-preview {
++    padding-inline: 0;
++  }
++}
+--- a/app/page.tsx
++++ b/app/page.tsx
+@@ -4,19 +4,19 @@
+ export const metadata: Metadata = {
+   title: { absolute: "Adrián Muñoz Atienza | Software Engineering & Human-Centered AI" },
+   description:
+-    "Adrián Muñoz Atienza, Computer Science student at XJTLU. Currently building Lock Calendar, an Android app that brings your week and next appointment to your lock screen.",
++    "Adrián Muñoz Atienza, Computer Science student at XJTLU. Building Lock In for planning and focus, Setline for offline workout logging, and supervised human-AI research through VIDEO-RESCUE.",
+   alternates: { canonical: "/", languages: { en: "/", es: "/es/" } },
+   openGraph: {
+     url: "/",
+     title: "Human Signals → Useful Systems | Adrián Muñoz Atienza",
+     description:
+-      "Currently building Lock Calendar: classes and everyday appointments at a glance on your Android lock screen. Explore my work in software engineering and human-centered products.",
++      "Lock In for planning and focus, Setline for workout logging, and VIDEO-RESCUE for supervised human-AI coordination. Explore my work in software engineering and human-centered products.",
+     images: ["/og.jpg"]
+   },
+   twitter: {
+     title: "Human Signals → Useful Systems | Adrián Muñoz Atienza",
+     description:
+-      "Currently building Lock Calendar: your week and next appointment at a glance on your Android lock screen.",
++      "Explore Lock In, Setline and VIDEO-RESCUE: personal products and supervised human-AI research.",
+     images: ["/og.jpg"]
+   }
+ };
+--- /dev/null
++++ b/app/projects/lock-calendar/page.tsx
+@@ -0,0 +1,11 @@
++import type { Metadata } from "next";
++import { LegacyProject } from "@/components/legacy-project";
++
++export const metadata: Metadata = {
++  title: "Lock In",
++  robots: { index: false, follow: true },
++  alternates: { canonical: "/projects/lock-in/" }
++};
++export default function Page() {
++  return <LegacyProject locale="en" />;
++}
+--- a/app/sitemap.ts
++++ b/app/sitemap.ts
+@@ -15,20 +15,20 @@
+   return [
+     ...pages.map((page) => ({
+       url: `${siteUrl}/${page}`,
+-      lastModified: new Date("2026-10-02"),
++      lastModified: new Date("2026-10-12"),
+       changeFrequency: "monthly" as const,
+       priority: page === "" ? 1 : 0.7
+     })),
+     ...slugs.flatMap((slug) => [
+       {
+         url: `${siteUrl}/projects/${slug}/`,
+-        lastModified: new Date("2026-10-02"),
++        lastModified: new Date("2026-10-12"),
+         changeFrequency: "monthly" as const,
+         priority: 0.8
+       },
+       {
+         url: `${siteUrl}/es/projects/${slug}/`,
+-        lastModified: new Date("2026-10-02"),
++        lastModified: new Date("2026-10-12"),
+         changeFrequency: "monthly" as const,
+         priority: 0.8
+       }
+--- a/components/diagram.tsx
++++ b/components/diagram.tsx
+@@ -1,6 +1,6 @@
+ import type { Locale } from "@/lib/site-data";
+ 
+-type DiagramType = "coordination" | "architecture" | "calendar";
++type DiagramType = "coordination";
+ 
+ const diagramCopy: Record<
+   Locale,
+@@ -11,16 +11,6 @@
+       caption: "Signal → accountable decision support",
+       labels: ["Signal / audio", "Transcript", "Evidence", "Interpretation", "Human decision"],
+       alt: "Audio signals become transcript segments, linked evidence, interpretation and a human decision."
+-    },
+-    architecture: {
+-      caption: "Route → retained learning",
+-      labels: ["Route", "Learn", "Attempt", "Evidence", "Mastery", "Retention"],
+-      alt: "A learning route moves through study, an attempt, evidence, mastery and retention."
+-    },
+-    calendar: {
+-      caption: "Signals → intentional time",
+-      labels: ["Time", "Signal", "Pattern", "Reflection", "Plan"],
+-      alt: "Time becomes a signal, pattern, reflection and intentional plan."
+     }
+   },
+   es: {
+@@ -28,16 +18,6 @@
+       caption: "Señal → apoyo responsable a la decisión",
+       labels: ["Señal / audio", "Transcripción", "Evidencia", "Interpretación", "Decisión humana"],
+       alt: "Las señales de audio se convierten en transcripción, evidencia vinculada, interpretación y una decisión humana."
+-    },
+-    architecture: {
+-      caption: "Ruta → aprendizaje retenido",
+-      labels: ["Ruta", "Aprender", "Intento", "Evidencia", "Dominio", "Retención"],
+-      alt: "Una ruta de aprendizaje avanza por estudio, intento, evidencia, dominio y retención."
+-    },
+-    calendar: {
+-      caption: "Señales → tiempo intencional",
+-      labels: ["Tiempo", "Señal", "Patrón", "Reflexión", "Plan"],
+-      alt: "El tiempo se convierte en señal, patrón, reflexión y plan intencional."
+     }
+   }
+ };
+--- /dev/null
++++ b/components/legacy-project.tsx
+@@ -0,0 +1,32 @@
++"use client";
++
++import { useEffect } from "react";
++import { useRouter } from "next/navigation";
++import { ActionLink } from "@/components/ui";
++import { SiteShell } from "@/components/site-shell";
++import { route, type Locale } from "@/lib/site-data";
++
++// A static export needs a real fallback link for old bookmarks without JavaScript.
++export function LegacyProject({ locale }: { locale: Locale }) {
++  const router = useRouter();
++  const destination = route(locale, "/projects/lock-in/");
++  useEffect(() => {
++    router.replace(destination);
++  }, [router, destination]);
++  return (
++    <SiteShell locale={locale} path="/projects/lock-in/">
++      <section className="page-wrap legacy-project" aria-labelledby="legacy-title">
++        <p className="eyebrow">{locale === "en" ? "Project updated" : "Proyecto actualizado"}</p>
++        <h1 id="legacy-title">Lock In</h1>
++        <p>
++          {locale === "en"
++            ? "The updated project has a new home."
++            : "El proyecto actualizado tiene una nueva página."}
++        </p>
++        <ActionLink href={destination}>
++          {locale === "en" ? "Explore Lock In" : "Conoce Lock In"}
++        </ActionLink>
++      </section>
++    </SiteShell>
++  );
++}
+--- a/components/lock-calendar-preview.tsx
++++ /dev/null
+@@ -1,210 +0,0 @@
+-"use client";
+-
+-import { useId, useRef, useState, type KeyboardEvent } from "react";
+-import type { Locale } from "@/lib/site-data";
+-
+-interface SampleDay {
+-  day: string;
+-  date: string;
+-  events: readonly (readonly [time: string, title: string, place: string])[];
+-}
+-
+-const sampleWeek: Record<Locale, readonly SampleDay[]> = {
+-  en: [
+-    {
+-      day: "Mon",
+-      date: "10",
+-      events: [
+-        ["09:00", "Algorithms", "Room A201"],
+-        ["14:00", "Study group", "Library"]
+-      ]
+-    },
+-    {
+-      day: "Tue",
+-      date: "11",
+-      events: [
+-        ["10:00", "HCI seminar", "Room B104"],
+-        ["15:30", "Project time", "Campus"]
+-      ]
+-    },
+-    {
+-      day: "Wed",
+-      date: "12",
+-      events: [
+-        ["10:00", "Software design", "Room A302"],
+-        ["13:00", "Lunch break", "One hour to reset"],
+-        ["15:00", "Doctor’s appointment", "Personal calendar"]
+-      ]
+-    },
+-    {
+-      day: "Thu",
+-      date: "13",
+-      events: [
+-        ["09:00", "Databases", "Room B206"],
+-        ["14:00", "Lab session", "Computer lab"]
+-      ]
+-    },
+-    {
+-      day: "Fri",
+-      date: "14",
+-      events: [
+-        ["10:00", "Team review", "Room A108"],
+-        ["16:00", "Gym", "Personal calendar"]
+-      ]
+-    }
+-  ],
+-  es: [
+-    {
+-      day: "Lun",
+-      date: "10",
+-      events: [
+-        ["09:00", "Algoritmos", "Aula A201"],
+-        ["14:00", "Grupo de estudio", "Biblioteca"]
+-      ]
+-    },
+-    {
+-      day: "Mar",
+-      date: "11",
+-      events: [
+-        ["10:00", "Seminario HCI", "Aula B104"],
+-        ["15:30", "Tiempo de proyecto", "Campus"]
+-      ]
+-    },
+-    {
+-      day: "Mié",
+-      date: "12",
+-      events: [
+-        ["10:00", "Diseño de software", "Aula A302"],
+-        ["13:00", "Pausa para comer", "Una hora para desconectar"],
+-        ["15:00", "Cita médica", "Calendario personal"]
+-      ]
+-    },
+-    {
+-      day: "Jue",
+-      date: "13",
+-      events: [
+-        ["09:00", "Bases de datos", "Aula B206"],
+-        ["14:00", "Prácticas", "Laboratorio"]
+-      ]
+-    },
+-    {
+-      day: "Vie",
+-      date: "14",
+-      events: [
+-        ["10:00", "Revisión de equipo", "Aula A108"],
+-        ["16:00", "Gimnasio", "Calendario personal"]
+-      ]
+-    }
+-  ]
+-};
+-
+-export function LockCalendarPreview({ locale }: { locale: Locale }) {
+-  const id = useId();
+-  const dayButtons = useRef<(HTMLButtonElement | null)[]>([]);
+-  const [selectedDay, setSelectedDay] = useState(2);
+-  const [light, setLight] = useState(false);
+-  const week = sampleWeek[locale];
+-  const selected = week[selectedDay];
+-  const en = locale === "en";
+-
+-  const fullDays = en
+-    ? ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+-    : ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
+-  const selectWithKeyboard = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
+-    const next =
+-      event.key === "ArrowRight"
+-        ? (index + 1) % week.length
+-        : event.key === "ArrowLeft"
+-          ? (index - 1 + week.length) % week.length
+-          : event.key === "Home"
+-            ? 0
+-            : event.key === "End"
+-              ? week.length - 1
+-              : null;
+-    if (next === null) return;
+-    event.preventDefault();
+-    setSelectedDay(next);
+-    dayButtons.current[next]?.focus();
+-  };
+-
+-  return (
+-    <figure className={`lock-preview ${light ? "lock-preview-light" : ""}`}>
+-      <div className="lock-device">
+-        <div className="lock-system" aria-hidden="true">
+-          <span>⌁</span>
+-          <span>● ● ▰</span>
+-        </div>
+-        <div className="lock-clock" aria-hidden="true">
+-          <span>
+-            {en
+-              ? `${fullDays[selectedDay]}, August ${selected.date}`
+-              : `${fullDays[selectedDay]}, ${selected.date} de agosto`}
+-          </span>
+-          <strong>09:41</strong>
+-        </div>
+-        <div
+-          className="lock-week"
+-          role="group"
+-          aria-label={en ? "Choose an example day" : "Elige un día de ejemplo"}
+-        >
+-          {week.map((day, index) => (
+-            <button
+-              type="button"
+-              ref={(button) => {
+-                dayButtons.current[index] = button;
+-              }}
+-              onKeyDown={(event) => selectWithKeyboard(event, index)}
+-              aria-controls={`${id}-agenda`}
+-              key={day.day}
+-              aria-pressed={selectedDay === index}
+-              onClick={() => setSelectedDay(index)}
+-              aria-label={`${day.day} ${day.date}`}
+-            >
+-              <span>{day.day}</span>
+-              <strong>{day.date}</strong>
+-              <span className="lock-week-events" aria-hidden="true">
+-                {day.events.map(([time, title]) => (
+-                  <i key={title}>
+-                    <small>{time}</small>
+-                    <b>{title}</b>
+-                  </i>
+-                ))}
+-              </span>
+-            </button>
+-          ))}
+-        </div>
+-        <div id={`${id}-agenda`} className="lock-agenda" aria-live="polite" aria-atomic="true">
+-          <p className="lock-agenda-label">
+-            {en ? "Example agenda" : "Agenda de ejemplo"} · {selected.day} {selected.date}
+-          </p>
+-          <ul key={selectedDay}>
+-            {selected.events.map(([time, title, place]) => (
+-              <li key={title}>
+-                <time dateTime={time}>{time}</time>
+-                <div>
+-                  <strong>{title}</strong>
+-                  <span>{place}</span>
+-                </div>
+-              </li>
+-            ))}
+-          </ul>
+-        </div>
+-        <div className="lock-bottom" aria-hidden="true">
+-          <span>⌑</span>
+-          <span>◉</span>
+-        </div>
+-      </div>
+-      <div className="lock-preview-controls">
+-        <span>{en ? "Try a day above" : "Prueba un día arriba"} ↑</span>
+-        <button type="button" onClick={() => setLight(!light)} aria-pressed={light}>
+-          {en ? "Light theme" : "Tema claro"}
+-        </button>
+-      </div>
+-      <figcaption>
+-        {en
+-          ? "Interactive web illustration · sample events. Select a day to explore the agenda; use arrow keys, Home or End from the day picker."
+-          : "Ilustración web interactiva · eventos ficticios. Elige un día para explorar la agenda; usa las flechas, Inicio o Fin desde el selector."}
+-      </figcaption>
+-    </figure>
+-  );
+-}
+--- a/components/lock-calendar-story.tsx
++++ /dev/null
+@@ -1,201 +0,0 @@
+-import Image from "next/image";
+-import Link from "next/link";
+-import { route, type Locale } from "@/lib/site-data";
+-
+-export function LockCalendarAbout({ locale }: { locale: Locale }) {
+-  const en = locale === "en";
+-  return (
+-    <section className="section lock-about" aria-labelledby="lock-about-title">
+-      <div className="page-wrap lock-about-layout">
+-        <div data-reveal>
+-          <p className="eyebrow">{en ? "What I’m building now" : "Lo que estoy creando ahora"}</p>
+-          <h2 id="lock-about-title">
+-            {en
+-              ? "A small frustration became Lock Calendar."
+-              : "Una pequeña frustración se convirtió en Lock Calendar."}
+-          </h2>
+-        </div>
+-        <div data-reveal>
+-          <p>
+-            {en
+-              ? "At university, a screenshot of the class timetable was often the quickest way to keep the week close. But the image could crop badly, sit under the clock, or become outdated after a change. I started building a calendar that belongs on that screen."
+-              : "En la universidad, una captura del horario era la forma más rápida de tener la semana a mano. Pero la imagen se recortaba, quedaba bajo el reloj o se desactualizaba cuando cambiaba una clase. Empecé a crear un calendario pensado para esa pantalla."}
+-          </p>
+-          <p>
+-            {en
+-              ? "The idea extends beyond classes: see an appointment, notice a gap in the day, and know what comes next without opening another app."
+-              : "La idea va más allá de las clases: ver una cita, encontrar un hueco en el día y saber qué viene después sin abrir otra app."}
+-          </p>
+-          <Link className="arrow-link" href={route(locale, "/projects/lock-calendar/")}>
+-            {en ? "Explore Lock Calendar" : "Conoce Lock Calendar"}{" "}
+-            <span aria-hidden="true">→</span>
+-          </Link>
+-        </div>
+-      </div>
+-    </section>
+-  );
+-}
+-
+-export function LockCalendarStory({ locale }: { locale: Locale }) {
+-  const en = locale === "en";
+-  const steps = en
+-    ? [
+-        [
+-          "It started with a screenshot",
+-          "Students at my university kept their class timetables as wallpaper. It worked until the image was cropped, the clock covered a class, or the schedule changed."
+-        ],
+-        [
+-          "From an image to a connected view",
+-          "Lock Calendar renders a weekly schedule and daily agenda from a selected calendar source. Classes, medical appointments and personal plans can live in that view instead of separate screenshots."
+-        ],
+-        [
+-          "Designed for the glance",
+-          "The aim is to make the next commitment and the shape of the day easier to see. Layout, contrast, spacing and placement matter as much as calendar integration."
+-        ]
+-      ]
+-    : [
+-        [
+-          "Todo empezó con una captura",
+-          "En mi universidad usábamos el horario de clases como fondo. Funcionaba hasta que la imagen se recortaba, el reloj tapaba una clase o cambiaba el horario."
+-        ],
+-        [
+-          "De imagen estática a agenda conectada",
+-          "Lock Calendar dibuja la semana y la agenda diaria a partir de la fuente de calendario que eliges. Las clases, las citas médicas y los planes personales pueden aparecer en esa vista sin rehacer capturas."
+-        ],
+-        [
+-          "Pensado para una mirada rápida",
+-          "La intención es facilitar ver el próximo compromiso y cómo se distribuye el día. El diseño, el contraste, el espacio y la posición importan tanto como la conexión al calendario."
+-        ]
+-      ];
+-  const captures = [
+-    [
+-      "home",
+-      en ? "See the result first" : "Ver el resultado primero",
+-      en
+-        ? "Weekly view and daily agenda in the app preview."
+-        : "La semana y la agenda diaria en la vista previa de la app."
+-    ],
+-    [
+-      "customize",
+-      en ? "Make the layout yours" : "Un diseño a tu medida",
+-      en
+-        ? "Layout choices include a student-oriented view."
+-        : "Diseños disponibles, incluida una vista para estudiantes."
+-    ],
+-    [
+-      "settings",
+-      en ? "Keep settings clear" : "Ajustes fáciles de encontrar",
+-      en
+-        ? "Preferences, calendar access and help, grouped together."
+-        : "Preferencias, acceso al calendario y ayuda, agrupados."
+-    ]
+-  ];
+-  const faqs = en
+-    ? [
+-        [
+-          "Which calendars does it use?",
+-          "The app supports calendars exposed by Android’s calendar provider and a direct Google Calendar connection. You choose a source and its calendars. A phone calendar must be available through the standard Android provider; some manufacturer apps store events separately."
+-        ],
+-        [
+-          "What happens when a class or appointment changes?",
+-          "The live wallpaper can refresh as changes reach the selected source, with additional checks when it becomes visible and bounded refresh policies. It does not promise a fixed refresh every few seconds. Permissions, network synchronization, battery restrictions and device behavior can affect freshness."
+-        ],
+-        [
+-          "Will it fit around every lock-screen clock?",
+-          "The app offers layout, preview and placement controls. Android does not expose every manufacturer’s clock bounds, so some devices need manual adjustment. Fit and freshness are still being validated across devices."
+-        ],
+-        [
+-          "Can I download it now?",
+-          "Lock Calendar is in active Android development. There is no public store release linked here yet. This page shows the concept and current design; it is not an installation or Google sign-in page."
+-        ]
+-      ]
+-    : [
+-        [
+-          "¿Qué calendarios utiliza?",
+-          "La app admite calendarios disponibles a través del proveedor estándar de Android y una conexión directa a Google Calendar. Tú eliges la fuente y sus calendarios. Algunas apps de fabricantes guardan sus eventos por separado y no los exponen a Android."
+-        ],
+-        [
+-          "¿Qué pasa cuando cambia una clase o una cita?",
+-          "El fondo dinámico puede actualizarse cuando el cambio llega a la fuente elegida, con comprobaciones adicionales al volver a mostrar la pantalla y políticas de refresco. No promete actualizarse cada pocos segundos. Los permisos, la sincronización, el ahorro de batería y el dispositivo pueden afectar a la actualización."
+-        ],
+-        [
+-          "¿Encaja con cualquier reloj de bloqueo?",
+-          "Puedes personalizar el diseño, comprobar la vista previa y ajustar la posición. Android no facilita la posición de todos los relojes de los fabricantes, por lo que algunos dispositivos requieren ajuste manual. Continúa la validación en distintos teléfonos."
+-        ],
+-        [
+-          "¿Ya puedo descargarla?",
+-          "Lock Calendar es una app Android en desarrollo activo. Todavía no hay un lanzamiento público en la tienda enlazado aquí. Esta página muestra el concepto y el diseño actual; no es una página de instalación ni de inicio de sesión de Google."
+-        ]
+-      ];
+-  return (
+-    <>
+-      <section className="section lock-origin" aria-labelledby="lock-origin-title">
+-        <div className="page-wrap">
+-          <p className="eyebrow">{en ? "The origin" : "El origen"}</p>
+-          <h2 id="lock-origin-title">
+-            {en
+-              ? "A class timetable. A crowded lock screen. A better way."
+-              : "Un horario de clases. Una pantalla llena. Una forma mejor."}
+-          </h2>
+-          <div className="lock-origin-steps">
+-            {steps.map(([title, text], index) => (
+-              <article key={title} data-reveal>
+-                <span>{String(index + 1).padStart(2, "0")}</span>
+-                <h3>{title}</h3>
+-                <p>{text}</p>
+-              </article>
+-            ))}
+-          </div>
+-        </div>
+-      </section>
+-      <section className="section lock-gallery" aria-labelledby="lock-gallery-title">
+-        <div className="page-wrap">
+-          <div className="section-heading">
+-            <p className="eyebrow">{en ? "Inside the app" : "Dentro de la app"}</p>
+-            <div>
+-              <h2 id="lock-gallery-title">
+-                {en ? "Preview. Personalize. Apply." : "Ver. Personalizar. Aplicar."}
+-              </h2>
+-              <p>
+-                {en
+-                  ? "Synthetic emulator captures from the current redesign. Example events only; these show the app interface, not a physical lock screen."
+-                  : "Capturas sintéticas del emulador del rediseño actual. Solo eventos ficticios; muestran la interfaz de la app, no una pantalla de bloqueo física."}
+-              </p>
+-            </div>
+-          </div>
+-          <div className="lock-captures">
+-            {captures.map(([name, title, caption]) => (
+-              <figure key={name} data-reveal>
+-                <div>
+-                  <Image
+-                    src={`/images/lock-calendar/${name}.webp`}
+-                    alt={`${title}. ${caption}`}
+-                    width={1080}
+-                    height={2424}
+-                    sizes="(max-width: 780px) 85vw, 30vw"
+-                  />
+-                </div>
+-                <figcaption>
+-                  <h3>{title}</h3>
+-                  <p>{caption}</p>
+-                </figcaption>
+-              </figure>
+-            ))}
+-          </div>
+-        </div>
+-      </section>
+-      <section className="section page-wrap lock-faq" aria-labelledby="lock-faq-title">
+-        <p className="eyebrow">{en ? "Practical questions" : "Preguntas prácticas"}</p>
+-        <h2 id="lock-faq-title">
+-          {en ? "How it fits into a real day." : "Cómo encaja en el día a día."}
+-        </h2>
+-        {faqs.map(([question, answer]) => (
+-          <details key={question}>
+-            <summary>{question}</summary>
+-            <p>{answer}</p>
+-          </details>
+-        ))}
+-      </section>
+-    </>
+-  );
+-}
+--- /dev/null
++++ b/components/lock-in-preview.tsx
+@@ -0,0 +1,210 @@
++"use client";
++
++import { useId, useRef, useState, type KeyboardEvent } from "react";
++import type { Locale } from "@/lib/site-data";
++
++interface SampleDay {
++  day: string;
++  date: string;
++  events: readonly (readonly [time: string, title: string, place: string])[];
++}
++
++const sampleWeek: Record<Locale, readonly SampleDay[]> = {
++  en: [
++    {
++      day: "Mon",
++      date: "10",
++      events: [
++        ["09:00", "Algorithms", "Room A201"],
++        ["14:00", "Study group", "Library"]
++      ]
++    },
++    {
++      day: "Tue",
++      date: "11",
++      events: [
++        ["10:00", "HCI seminar", "Room B104"],
++        ["15:30", "Project time", "Campus"]
++      ]
++    },
++    {
++      day: "Wed",
++      date: "12",
++      events: [
++        ["10:00", "Software design", "Room A302"],
++        ["13:00", "Lunch break", "One hour to reset"],
++        ["15:00", "Doctor’s appointment", "Personal calendar"]
++      ]
++    },
++    {
++      day: "Thu",
++      date: "13",
++      events: [
++        ["09:00", "Databases", "Room B206"],
++        ["14:00", "Lab session", "Computer lab"]
++      ]
++    },
++    {
++      day: "Fri",
++      date: "14",
++      events: [
++        ["10:00", "Team review", "Room A108"],
++        ["16:00", "Gym", "Personal calendar"]
++      ]
++    }
++  ],
++  es: [
++    {
++      day: "Lun",
++      date: "10",
++      events: [
++        ["09:00", "Algoritmos", "Aula A201"],
++        ["14:00", "Grupo de estudio", "Biblioteca"]
++      ]
++    },
++    {
++      day: "Mar",
++      date: "11",
++      events: [
++        ["10:00", "Seminario HCI", "Aula B104"],
++        ["15:30", "Tiempo de proyecto", "Campus"]
++      ]
++    },
++    {
++      day: "Mié",
++      date: "12",
++      events: [
++        ["10:00", "Diseño de software", "Aula A302"],
++        ["13:00", "Pausa para comer", "Una hora para desconectar"],
++        ["15:00", "Cita médica", "Calendario personal"]
++      ]
++    },
++    {
++      day: "Jue",
++      date: "13",
++      events: [
++        ["09:00", "Bases de datos", "Aula B206"],
++        ["14:00", "Prácticas", "Laboratorio"]
++      ]
++    },
++    {
++      day: "Vie",
++      date: "14",
++      events: [
++        ["10:00", "Revisión de equipo", "Aula A108"],
++        ["16:00", "Gimnasio", "Calendario personal"]
++      ]
++    }
++  ]
++};
++
++export function LockInPreview({ locale }: { locale: Locale }) {
++  const id = useId();
++  const dayButtons = useRef<(HTMLButtonElement | null)[]>([]);
++  const [selectedDay, setSelectedDay] = useState(2);
++  const [light, setLight] = useState(false);
++  const week = sampleWeek[locale];
++  const selected = week[selectedDay];
++  const en = locale === "en";
++
++  const fullDays = en
++    ? ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
++    : ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
++  const selectWithKeyboard = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
++    const next =
++      event.key === "ArrowRight"
++        ? (index + 1) % week.length
++        : event.key === "ArrowLeft"
++          ? (index - 1 + week.length) % week.length
++          : event.key === "Home"
++            ? 0
++            : event.key === "End"
++              ? week.length - 1
++              : null;
++    if (next === null) return;
++    event.preventDefault();
++    setSelectedDay(next);
++    dayButtons.current[next]?.focus();
++  };
++
++  return (
++    <figure className={`lock-preview ${light ? "lock-preview-light" : ""}`}>
++      <div className="lock-device">
++        <div className="lock-system" aria-hidden="true">
++          <span>⌁</span>
++          <span>● ● ▰</span>
++        </div>
++        <div className="lock-clock" aria-hidden="true">
++          <span>
++            {en
++              ? `${fullDays[selectedDay]}, August ${selected.date}`
++              : `${fullDays[selectedDay]}, ${selected.date} de agosto`}
++          </span>
++          <strong>09:41</strong>
++        </div>
++        <div
++          className="lock-week"
++          role="group"
++          aria-label={en ? "Choose an example day" : "Elige un día de ejemplo"}
++        >
++          {week.map((day, index) => (
++            <button
++              type="button"
++              ref={(button) => {
++                dayButtons.current[index] = button;
++              }}
++              onKeyDown={(event) => selectWithKeyboard(event, index)}
++              aria-controls={`${id}-agenda`}
++              key={day.day}
++              aria-pressed={selectedDay === index}
++              onClick={() => setSelectedDay(index)}
++              aria-label={`${day.day} ${day.date}`}
++            >
++              <span>{day.day}</span>
++              <strong>{day.date}</strong>
++              <span className="lock-week-events" aria-hidden="true">
++                {day.events.map(([time, title]) => (
++                  <i key={title}>
++                    <small>{time}</small>
++                    <b>{title}</b>
++                  </i>
++                ))}
++              </span>
++            </button>
++          ))}
++        </div>
++        <div id={`${id}-agenda`} className="lock-agenda" aria-live="polite" aria-atomic="true">
++          <p className="lock-agenda-label">
++            {en ? "Example agenda" : "Agenda de ejemplo"} · {selected.day} {selected.date}
++          </p>
++          <ul key={selectedDay}>
++            {selected.events.map(([time, title, place]) => (
++              <li key={title}>
++                <time dateTime={time}>{time}</time>
++                <div>
++                  <strong>{title}</strong>
++                  <span>{place}</span>
++                </div>
++              </li>
++            ))}
++          </ul>
++        </div>
++        <div className="lock-bottom" aria-hidden="true">
++          <span>⌑</span>
++          <span>◉</span>
++        </div>
++      </div>
++      <div className="lock-preview-controls">
++        <span>{en ? "Try a day above" : "Prueba un día arriba"} ↑</span>
++        <button type="button" onClick={() => setLight(!light)} aria-pressed={light}>
++          {en ? "Light theme" : "Tema claro"}
++        </button>
++      </div>
++      <figcaption>
++        {en
++          ? "Interactive web illustration · sample events. Select a day to explore the agenda; use arrow keys, Home or End from the day picker."
++          : "Ilustración web interactiva · eventos ficticios. Elige un día para explorar la agenda; usa las flechas, Inicio o Fin desde el selector."}
++      </figcaption>
++    </figure>
++  );
++}
+--- /dev/null
++++ b/components/lock-in-story.tsx
+@@ -0,0 +1,162 @@
++import Link from "next/link";
++import { LockInPreview } from "@/components/lock-in-preview";
++import { ProductGallery } from "@/components/product-capture";
++import { ProductQuestions } from "@/components/product-questions";
++import { route, type Locale } from "@/lib/site-data";
++
++export function CurrentProductsAbout({ locale }: { locale: Locale }) {
++  const en = locale === "en";
++  return (
++    <section className="section lock-about" aria-labelledby="lock-about-title">
++      <div className="page-wrap lock-about-layout">
++        <div data-reveal>
++          <p className="eyebrow">{en ? "What I’m building now" : "Lo que estoy creando ahora"}</p>
++          <h2 id="lock-about-title">
++            {en ? "Everyday attention, made tangible." : "La atención cotidiana, hecha tangible."}
++          </h2>
++        </div>
++        <div data-reveal>
++          <p>
++            {en
++              ? "Lock In started with timetable screenshots that became outdated or disappeared behind a lock-screen clock. It now brings together calendar views, tasks, habits, focus sessions and small moments of study, with a preview that makes the result visible before applying it."
++              : "Lock In empezó con capturas de horarios que se desactualizaban o quedaban bajo el reloj del móvil. Ahora reúne calendarios, tareas, hábitos, sesiones de enfoque y pequeños repasos, con una vista previa para ver el resultado antes de aplicarlo."}
++          </p>
++          <p>
++            {en
++              ? "Setline brings the same thinking into the gym: record the set you actually did, adjust the rest you need, and review your own history. Training records stay local, with exportable backups."
++              : "Setline lleva ese enfoque al gimnasio: registrar la serie que hiciste, ajustar el descanso que necesitas y revisar tu historial. Los registros se guardan localmente, con copias exportables."}
++          </p>
++          <div className="button-row">
++            <Link className="arrow-link" href={route(locale, "/projects/lock-in/")}>
++              {en ? "Explore Lock In" : "Conoce Lock In"} <span aria-hidden="true">→</span>
++            </Link>
++            <Link className="arrow-link" href={route(locale, "/projects/setline/")}>
++              {en ? "Explore Setline" : "Conoce Setline"} <span aria-hidden="true">→</span>
++            </Link>
++          </div>
++        </div>
++      </div>
++    </section>
++  );
++}
++
++export function LockInStory({ locale }: { locale: Locale }) {
++  const en = locale === "en";
++  const steps = en
++    ? [
++        [
++          "A timetable worth keeping current",
++          "A class timetable was the starting point. A connected view makes the week easier to inspect than a screenshot that needs to be cropped and replaced."
++        ],
++        [
++          "From a schedule to a personal dashboard",
++          "The next event now sits alongside habits and focus state. The planner separates tasks, habits, countdowns and study cards so each action has a clear place."
++        ],
++        [
++          "Control at the point of attention",
++          "Choose what appears, arrange the blocks, and inspect the preview. The design question is what a person needs to notice and do next, at a glance."
++        ]
++      ]
++    : [
++        [
++          "Un horario que merece estar al día",
++          "El horario de clases fue el punto de partida. Una vista conectada facilita revisar la semana frente a una captura que hay que recortar y sustituir."
++        ],
++        [
++          "De agenda a panel personal",
++          "El próximo evento convive ahora con hábitos y estado de enfoque. El planificador separa tareas, hábitos, cuentas atrás y tarjetas para que cada acción tenga su lugar."
++        ],
++        [
++          "Control donde diriges la atención",
++          "Elige qué aparece, coloca los bloques y revisa el resultado. La pregunta de diseño es qué necesitas reconocer y hacer después con una mirada rápida."
++        ]
++      ];
++  const questions: readonly (readonly [question: string, answer: string])[] = en
++    ? [
++        [
++          "Which calendars can I choose?",
++          "The current flow offers Google Calendar, phone calendars, Microsoft / Outlook, and timetables from a file, image or link. You choose the calendars and privacy settings. Account events are read-only. The report shows the connection screen before sign-in; broader live-account validation continues."
++        ],
++        [
++          "How do focus sessions and study cards work?",
++          "Choose 25 minutes, 50 minutes or a custom focus duration, then start, pause or reset. Session controls can appear in an Android notification with permission. Study cards support .tsv / .txt import or an available AnkiDroid deck. Recall tracking is local to Lock In and does not grade or modify Anki reviews."
++        ],
++        [
++          "Will the wallpaper fit every phone?",
++          "Styles, block layout and an enlarged preview let you prepare the design before using Android’s native wallpaper flow. Final placement, system clocks, refresh and background behavior depend on the phone and its settings; real-device validation remains part of development."
++        ],
++        [
++          "Can I download it now?",
++          "Lock In is in active Android development. This portfolio presents the current product using an emulator review with example data. A public store download is not linked here yet."
++        ]
++      ]
++    : [
++        [
++          "¿Qué calendarios puedo elegir?",
++          "El flujo actual ofrece Google Calendar, calendarios del teléfono, Microsoft / Outlook y horarios desde archivo, imagen o enlace. Tú eliges calendarios y privacidad. Los eventos de las cuentas son de solo lectura. El informe muestra la conexión antes de iniciar sesión; continúa la validación con cuentas reales."
++        ],
++        [
++          "¿Cómo funcionan el enfoque y las tarjetas?",
++          "Elige 25 o 50 minutos, o una duración propia, y después inicia, pausa o reinicia. Con permiso, los controles pueden aparecer en una notificación de Android. Las tarjetas admiten .tsv / .txt o un mazo disponible en AnkiDroid. El seguimiento queda en Lock In y no califica ni modifica los repasos de Anki."
++        ],
++        [
++          "¿Encaja el fondo en cualquier móvil?",
++          "Los estilos, la distribución de bloques y la vista ampliada permiten preparar el diseño antes del flujo nativo de Android. La posición final, los relojes del sistema, la actualización y el segundo plano dependen del móvil y sus ajustes; la validación en dispositivos reales forma parte del desarrollo."
++        ],
++        [
++          "¿Ya puedo descargarla?",
++          "Lock In está en desarrollo activo para Android. Este portfolio presenta el producto actual con una revisión en emulador y datos de ejemplo. Todavía no hay una descarga pública de tienda enlazada aquí."
++        ]
++      ];
++  return (
++    <>
++      <section className="section lock-origin" aria-labelledby="lock-origin-title">
++        <div className="page-wrap">
++          <p className="eyebrow">{en ? "The product’s evolution" : "La evolución del producto"}</p>
++          <h2 id="lock-origin-title">
++            {en
++              ? "From a class timetable to a clearer day."
++              : "De un horario de clases a un día más claro."}
++          </h2>
++          <div className="lock-origin-steps">
++            {steps.map(([title, text], index) => (
++              <article key={title} data-reveal>
++                <span>{String(index + 1).padStart(2, "0")}</span>
++                <h3>{title}</h3>
++                <p>{text}</p>
++              </article>
++            ))}
++          </div>
++        </div>
++      </section>
++      <ProductGallery
++        locale={locale}
++        id="lock-gallery"
++        title={en ? "Arrange. Focus. Recall." : "Distribuir. Concentrarse. Recordar."}
++        description={
++          en
++            ? "Current app captures from the October 2026 review: emulator screens with sample data. Open any capture to inspect the interface at full size."
++            : "Capturas actuales de la revisión de octubre de 2026: pantallas de emulador con datos de ejemplo. Abre una captura para examinar la interfaz a tamaño completo."
++        }
++        assets={["lock-design", "lock-focus", "lock-study"]}
++      />
++      <section className="section page-wrap lock-demo-layout" aria-labelledby="lock-demo-title">
++        <div data-reveal>
++          <p className="eyebrow">
++            {en ? "Explore the calendar concept" : "Explora el concepto de calendario"}
++          </p>
++          <h2 id="lock-demo-title">
++            {en ? "A week you can scan." : "Una semana que puedes recorrer."}
++          </h2>
++          <p>
++            {en
++              ? "This web illustration isolates the day-picker interaction. Select a day or use the keyboard to see its sample agenda; the captures above show the actual Android interface."
++              : "Esta ilustración web permite probar el selector de días. Elige un día o usa el teclado para ver su agenda ficticia; las capturas anteriores muestran la interfaz Android real."}
++          </p>
++        </div>
++        <LockInPreview locale={locale} />
++      </section>
++      <ProductQuestions locale={locale} id="lock-faq" questions={questions} />
++    </>
++  );
++}
+--- a/components/pages.tsx
++++ b/components/pages.tsx
+@@ -3,8 +3,9 @@
+ import { ActionLink, MetadataList } from "@/components/ui";
+ import { FlowDiagram } from "@/components/diagram";
+ import { LinkedInProfileBadge } from "@/components/linkedin-profile-badge";
+-import { LockCalendarPreview } from "@/components/lock-calendar-preview";
+-import { LockCalendarAbout, LockCalendarStory } from "@/components/lock-calendar-story";
++import { CurrentProductsAbout, LockInStory } from "@/components/lock-in-story";
++import { ProductCapture } from "@/components/product-capture";
++import { SetlineStory } from "@/components/setline-story";
+ import { Portrait } from "@/components/media";
+ import { SignalField } from "@/components/signal-field";
+ import { SiteShell } from "@/components/site-shell";
+@@ -34,8 +35,8 @@
+   caseStudy?: boolean;
+ }) {
+   switch (slug) {
+-    case "lock-calendar":
+-      return <LockCalendarPreview locale={locale} />;
++    case "lock-in":
++      return <ProductCapture asset="lock-home" locale={locale} compact eager={caseStudy} />;
+     case "video-rescue":
+       return (
+         <VideoRescueFigure
+@@ -45,10 +46,8 @@
+           eager={caseStudy}
+         />
+       );
+-    case "cybermastery":
+-      return <FlowDiagram type="architecture" locale={locale} />;
+-    case "lifemap":
+-      return <FlowDiagram type="calendar" locale={locale} />;
++    case "setline":
++      return <ProductCapture asset="setline-log" locale={locale} compact eager={caseStudy} />;
+   }
+ }
+ 
+@@ -64,9 +63,7 @@
+             <h1 id="hero-title">{t.hero.title}</h1>
+             <p className="hero-lead">{t.hero.lead}</p>
+             <div className="button-row">
+-              <ActionLink href={route(locale, "/projects/lock-calendar/")}>
+-                {t.hero.work}
+-              </ActionLink>
++              <ActionLink href={route(locale, "/projects/lock-in/")}>{t.hero.work}</ActionLink>
+               <ActionLink variant="secondary" href={route(locale, "/about/")}>
+                 {t.hero.about}
+               </ActionLink>
+@@ -100,8 +97,8 @@
+             <h2 id="work-title">{t.projects.title}</h2>
+             <p>
+               {locale === "en"
+-                ? "Now focused on Lock Calendar: helping people see what comes next. Alongside it, projects in coordination, learning and intentional time."
+-                : "Ahora centrado en Lock Calendar: ayudar a ver qué viene después. Junto a él, proyectos de coordinación, aprendizaje y tiempo intencional."}
++                ? "Lock In makes everyday plans and attention visible. Setline keeps workout logging and progress clear. VIDEO-RESCUE explores human-AI coordination through supervised research."
++                : "Lock In hace visibles los planes y la atención. Setline facilita registrar entrenamientos y entender el progreso. VIDEO-RESCUE explora la coordinación persona-IA en investigación supervisada."}
+             </p>
+           </div>
+         </div>
+@@ -230,11 +227,11 @@
+         <p className="context">{project.context}</p>
+         <h3>{project.name}</h3>
+         <p className="project-problem">{project.problem}</p>
+-        {slug === "lock-calendar" && (
++        {slug === "lock-in" && (
+           <p className="lock-feature-line">
+             {locale === "en"
+-              ? "Your classes. Your appointments. Your week at a glance."
+-              : "Tus clases. Tus citas. Tu semana de un vistazo."}
++              ? "Your plans. Your focus. Your next useful action."
++              : "Tus planes. Tu enfoque. Tu próxima acción útil."}
+           </p>
+         )}
+         <MetadataList
+@@ -326,7 +323,7 @@
+           </div>
+         </div>
+ 
+-        <LockCalendarAbout locale={locale} />
++        <CurrentProductsAbout locale={locale} />
+ 
+         <section className="section principles-section" aria-labelledby="principles-title">
+           <div className="page-wrap">
+@@ -459,8 +456,9 @@
+           </div>
+         </section>
+ 
+-        {slug === "lock-calendar" && <LockCalendarStory locale={locale} />}
++        {slug === "lock-in" && <LockInStory locale={locale} />}
+         {slug === "video-rescue" && <VideoRescueStory locale={locale} />}
++        {slug === "setline" && <SetlineStory locale={locale} />}
+ 
+         <section className="section page-wrap case-decisions" aria-labelledby="decisions-title">
+           <div className="section-heading" data-reveal>
+--- /dev/null
++++ b/components/product-capture.tsx
+@@ -0,0 +1,74 @@
++import Image from "next/image";
++import { productCaptures, type CaptureId } from "@/lib/product-captures";
++import type { Locale } from "@/lib/site-data";
++
++export function ProductCapture({
++  asset,
++  locale,
++  compact = false,
++  eager = false
++}: {
++  asset: CaptureId;
++  locale: Locale;
++  compact?: boolean;
++  eager?: boolean;
++}) {
++  const capture = productCaptures[asset];
++  const text = capture.copy[locale];
++  return (
++    <figure
++      className={`product-capture capture-${capture.product} ${compact ? "product-capture-compact" : ""}`}
++    >
++      <a
++        href={capture.src}
++        aria-label={`${locale === "en" ? "View full-size capture" : "Ver captura a tamaño completo"}: ${text.title}`}
++      >
++        <Image
++          src={capture.src}
++          alt={text.alt}
++          width={capture.width}
++          height={capture.height}
++          sizes="(max-width: 780px) 85vw, 320px"
++          loading={eager ? "eager" : "lazy"}
++        />
++      </a>
++      <figcaption>
++        <strong>{text.title}</strong>
++        <p>{text.caption}</p>
++      </figcaption>
++    </figure>
++  );
++}
++
++export function ProductGallery({
++  locale,
++  id,
++  title,
++  description,
++  assets
++}: {
++  locale: Locale;
++  id: string;
++  title: string;
++  description: string;
++  assets: readonly CaptureId[];
++}) {
++  return (
++    <section className="section product-gallery" aria-labelledby={`${id}-title`}>
++      <div className="page-wrap">
++        <div className="section-heading" data-reveal>
++          <p className="eyebrow">{locale === "en" ? "Inside the app" : "Dentro de la app"}</p>
++          <div>
++            <h2 id={`${id}-title`}>{title}</h2>
++            <p>{description}</p>
++          </div>
++        </div>
++        <div className="product-captures">
++          {assets.map((asset) => (
++            <ProductCapture key={asset} asset={asset} locale={locale} />
++          ))}
++        </div>
++      </div>
++    </section>
++  );
++}
+--- /dev/null
++++ b/components/product-questions.tsx
+@@ -0,0 +1,27 @@
++import type { Locale } from "@/lib/site-data";
++
++export function ProductQuestions({
++  locale,
++  id,
++  questions
++}: {
++  locale: Locale;
++  id: string;
++  questions: readonly (readonly [question: string, answer: string])[];
++}) {
++  const en = locale === "en";
++  return (
++    <section className="section page-wrap lock-faq" aria-labelledby={`${id}-title`}>
++      <p className="eyebrow">{en ? "Practical questions" : "Preguntas prácticas"}</p>
++      <h2 id={`${id}-title`}>
++        {en ? "How it fits into a real day." : "Cómo encaja en el día a día."}
++      </h2>
++      {questions.map(([question, answer]) => (
++        <details key={question}>
++          <summary>{question}</summary>
++          <p>{answer}</p>
++        </details>
++      ))}
++    </section>
++  );
++}
+--- /dev/null
++++ b/components/setline-story.tsx
+@@ -0,0 +1,95 @@
++import { ProductGallery } from "@/components/product-capture";
++import { ProductQuestions } from "@/components/product-questions";
++import type { Locale } from "@/lib/site-data";
++
++export function SetlineStory({ locale }: { locale: Locale }) {
++  const en = locale === "en";
++  const questions: readonly (readonly [question: string, answer: string])[] = en
++    ? [
++        [
++          "How is a workout organised?",
++          "Choose a programme, week and session, or continue an open workout. Each exercise keeps targets, actual reps, weight, notes and rest together. You can add sets, distinguish set types, choose exercise alternatives and reuse previous-session weights."
++        ],
++        [
++          "What does the progress chart measure?",
++          "The chart shows the best estimated one-repetition maximum (1RM) for each of the last ten sessions. Tap a point to see its date, weight, reps and estimate. The Epley formula is weight × (1 + reps / 30): 65 kg × 12 reps gives an estimated 91 kg. It is a calculated indicator, not a measured maximum. Session volume excludes warm-up sets."
++        ],
++        [
++          "Does it work without an account or connection?",
++          "The Android core and training records are available offline. Setline has no own account, ads or analytics. Export and import backups to preserve weights, reps, sessions, history and settings. Spanish, English and Simplified Chinese are available."
++        ],
++        [
++          "How do calendars and rest alerts work?",
++          "Plan a start date and usual time; Setline organises sessions and recovery days. Local reminders and .ics export support planning. The optional Google Calendar connection is available only on the web. Native Android rest alerts use sound and vibration, subject to notification / alarm permissions and background settings."
++        ]
++      ]
++    : [
++        [
++          "¿Cómo se organiza un entrenamiento?",
++          "Elige programa, semana y sesión o continúa un entrenamiento abierto. Cada ejercicio reúne objetivos, repeticiones reales, peso, notas y descanso. Puedes añadir series, distinguir tipos, sustituir ejercicios y reutilizar pesos de la sesión anterior."
++        ],
++        [
++          "¿Qué mide el gráfico de progreso?",
++          "Muestra el mejor máximo de una repetición (1RM) estimado de cada una de las últimas diez sesiones. Toca un punto para ver fecha, peso, repeticiones y estimación. La fórmula de Epley es peso × (1 + repeticiones / 30): 65 kg × 12 repeticiones da 91 kg estimados. Es un indicador calculado, no un máximo medido. El volumen de sesión excluye las series de calentamiento."
++        ],
++        [
++          "¿Funciona sin cuenta ni conexión?",
++          "La base Android y los registros están disponibles sin conexión. Setline no tiene cuenta propia, anuncios ni analítica. Exporta e importa copias para conservar pesos, repeticiones, sesiones, historial y ajustes. Incluye español, inglés y chino simplificado."
++        ],
++        [
++          "¿Cómo funcionan calendarios y alertas de descanso?",
++          "Elige fecha de inicio y hora habitual; Setline organiza sesiones y días de recuperación. Los recordatorios locales y la exportación .ics ayudan a planificar. La conexión opcional a Google Calendar solo está disponible en web. Las alertas nativas de descanso en Android utilizan sonido y vibración, sujetas a permisos de notificación / alarma y ajustes de segundo plano."
++        ]
++      ];
++  return (
++    <>
++      <ProductGallery
++        locale={locale}
++        id="setline-gallery"
++        title={
++          en
++            ? "Less input friction. A clearer training record."
++            : "Menos fricción al registrar. Un historial más claro."
++        }
++        description={
++          en
++            ? "Actual interface captures from the version 1.2.2 report, using sample sessions. The dark surface, large controls and lime accents keep the current action easy to locate."
++            : "Capturas reales de la interfaz del informe de la versión 1.2.2, con sesiones de ejemplo. La superficie oscura, los controles grandes y los acentos lima ayudan a localizar la acción actual."
++        }
++        assets={["setline-entry", "setline-rest", "setline-progress"]}
++      />
++      <section className="section page-wrap setline-record" aria-labelledby="setline-record-title">
++        <div data-reveal>
++          <p className="eyebrow">{en ? "Readable progress" : "Progreso comprensible"}</p>
++          <h2 id="setline-record-title">
++            {en ? "The number has a record behind it." : "La cifra tiene un registro detrás."}
++          </h2>
++          <p>
++            {en
++              ? "A chart is more useful when its point can be traced back to a session. This example connects the performed set to the Epley estimate shown in the app, keeping recorded performance and derived indicators distinct."
++              : "Un gráfico resulta más útil cuando puedes volver a la sesión de cada punto. Este ejemplo conecta la serie realizada con la estimación de Epley que muestra la app, distinguiendo el registro real del indicador calculado."}
++          </p>
++        </div>
++        <dl className="setline-example" data-reveal>
++          <div>
++            <dt>{en ? "Recorded set" : "Serie registrada"}</dt>
++            <dd>65 kg × 12 {en ? "reps" : "repeticiones"}</dd>
++          </div>
++          <div>
++            <dt>{en ? "Estimated 1RM" : "1RM estimado"}</dt>
++            <dd>91 kg</dd>
++          </div>
++          <div>
++            <dt>{en ? "Calculation" : "Cálculo"}</dt>
++            <dd>65 × (1 + 12 / 30)</dd>
++          </div>
++          <div>
++            <dt>{en ? "Data" : "Datos"}</dt>
++            <dd>{en ? "Sample session" : "Sesión de ejemplo"}</dd>
++          </div>
++        </dl>
++      </section>
++      <ProductQuestions locale={locale} id="setline-faq" questions={questions} />
++    </>
++  );
++}
+--- a/components/signal-field.tsx
++++ b/components/signal-field.tsx
+@@ -127,9 +127,7 @@
+   }, []);
+ 
+   const nodeLabels =
+-    locale === "en"
+-      ? ["Plan", "Coordinate", "Learn", "Reflect"]
+-      : ["Planificar", "Coordinar", "Aprender", "Reflexionar"];
++    locale === "en" ? ["Plan", "Coordinate", "Train"] : ["Organizar", "Coordinar", "Entrenar"];
+   const concepts =
+     locale === "en"
+       ? ["Behavior", "Learning", "Evidence", "Decisions"]
+--- /dev/null
++++ b/docs/cv/Adrian_Munoz_Atienza_CV_Public_ATS.html
+@@ -0,0 +1,254 @@
++<!doctype html>
++<html lang="en">
++  <head>
++    <meta charset="utf-8" />
++    <meta name="viewport" content="width=device-width, initial-scale=1" />
++    <title>Adrián Muñoz Atienza - ATS CV</title>
++    <style>
++      @page {
++        size: A4;
++        margin: 11mm 14mm 10mm;
++      }
++      * {
++        box-sizing: border-box;
++      }
++      body {
++        margin: 0;
++        color: #111827;
++        background: #fff;
++        font-family: Arial, "Helvetica Neue", sans-serif;
++        font-size: 9.1pt;
++        line-height: 1.22;
++      }
++      a {
++        color: #111827;
++        text-decoration: none;
++      }
++      h1 {
++        margin: 0;
++        font-size: 18pt;
++        letter-spacing: -0.3pt;
++      }
++      .title {
++        margin: 0.9mm 0 1.3mm;
++        font-size: 10pt;
++        font-weight: 700;
++      }
++      .contact {
++        margin: 0;
++        font-size: 8.2pt;
++      }
++      section {
++        margin-top: 2.45mm;
++      }
++      h2 {
++        margin: 0 0 1.05mm;
++        padding-bottom: 0.55mm;
++        border-bottom: 0.3mm solid #374151;
++        font-size: 9.6pt;
++        letter-spacing: 0.5pt;
++        text-transform: uppercase;
++      }
++      h3 {
++        margin: 0;
++        font-size: 9.1pt;
++        line-height: 1.2;
++      }
++      p {
++        margin: 0;
++      }
++      .summary {
++        line-height: 1.27;
++      }
++      .entry {
++        margin-bottom: 1.45mm;
++        page-break-inside: avoid;
++      }
++      .meta {
++        margin-top: 0.3mm;
++        font-size: 8.3pt;
++        color: #374151;
++      }
++      ul {
++        margin: 0.5mm 0 0;
++        padding-left: 4.3mm;
++      }
++      li {
++        margin-bottom: 0.35mm;
++      }
++      .project {
++        margin-bottom: 1.25mm;
++      }
++      .skills-line {
++        margin-bottom: 0.42mm;
++      }
++      .skills-line strong {
++        font-weight: 700;
++      }
++    </style>
++  </head>
++  <body>
++    <header>
++      <h1>Adrián Muñoz Atienza</h1>
++      <p class="title">
++        Computer Science Student | Software Engineering | Android &amp; Human-Centered AI
++      </p>
++      <p class="contact">
++        Suzhou, Jiangsu, China | <a href="https://hiatienza.github.io">hiatienza.github.io</a> |
++        <a href="https://www.linkedin.com/in/hiatienza/">linkedin.com/in/hiatienza</a> |
++        <a href="https://github.com/HiAtienza">github.com/HiAtienza</a>
++      </p>
++    </header>
++
++    <section>
++      <h2>Professional Summary</h2>
++      <p class="summary">
++        Year 3 BSc Information and Computing Science student at Xi'an Jiaotong-Liverpool University,
++        with expected graduation in July 2028. Building human-centered Android, full-stack web and
++        applied-AI products. Currently building Lock In and Setline alongside supervised HCI
++        research. Seeking software engineering internships in Suzhou, Shanghai, Spain, the EU or
++        compatible remote roles; open to on-site, hybrid and remote work and relocation within those
++        regions.
++      </p>
++    </section>
++
++    <section>
++      <h2>Experience</h2>
++      <article class="entry">
++        <h3>Undergraduate Researcher | XJTLU Summer Undergraduate Research Fellowship</h3>
++        <p class="meta">Jul 2026 - Present | Suzhou, China</p>
++        <ul>
++          <li>
++            Developed VIDEO-RESCUE prototype work as one of two student team members in supervised
++            HCI research, connecting field reports, live transcripts, media and a shared map while
++            preserving human decision responsibility.
++          </li>
++          <li>
++            Supported study design, recruitment, sessions and analysis. Data collection is complete;
++            fuller analysis of preliminary qualitative feedback remains ongoing.
++          </li>
++        </ul>
++      </article>
++      <article class="entry">
++        <h3>Software Developer | Independent Projects</h3>
++        <p class="meta">Jul 2026 - Present | Suzhou, China</p>
++        <ul>
++          <li>
++            Develop Lock In and Setline, connecting Android and web interfaces to local persistence,
++            reusable architecture and automated testing.
++          </li>
++        </ul>
++      </article>
++      <article class="entry">
++        <h3>Bellperson | Marriott International</h3>
++        <p class="meta">Jul 2024 - Sep 2024 | Madrid, Spain | Seasonal</p>
++        <ul>
++          <li>
++            Coordinated guest requests in a multicultural environment through clear communication,
++            teamwork and practical problem solving under time pressure.
++          </li>
++        </ul>
++      </article>
++      <article class="entry">
++        <h3>Freelance Mathematics Tutor</h3>
++        <p class="meta">2023 - 2024 | Madrid, Spain</p>
++        <ul>
++          <li>
++            Adapted mathematical explanations and practice to individual learners through active
++            listening and feedback.
++          </li>
++        </ul>
++      </article>
++    </section>
++
++    <section>
++      <h2>Selected Projects</h2>
++      <article class="project">
++        <h3>
++          <a href="https://hiatienza.github.io/projects/lock-in/">Lock In</a> | Kotlin, Jetpack
++          Compose, CalendarContract, Canvas, Google Calendar API
++        </h3>
++        <p>
++          Android dashboard combining selected calendars, a configurable lock-screen wallpaper,
++          tasks, habits, countdowns, focus sessions and study cards. Preview and block controls
++          support legibility; account events are read-only and card recall stays local without
++          changing Anki reviews. Active development; device and integration validation continues.
++        </p>
++      </article>
++      <article class="project">
++        <h3>
++          <a href="https://hiatienza.github.io/projects/video-rescue/">VIDEO-RESCUE</a> | React,
++          TypeScript, Express, SQLite, LiveKit/WebRTC
++        </h3>
++        <p>
++          Research coordination prototype combining reports, media, live transcripts, a
++          human-visible map and AI assistance that keeps unknowns visible. Assignment, receipt
++          confirmation and export support follow-up and review. Human operators retain decisions;
++          direct AI map access and navigation remain future work. Not an operational rescue
++          platform.
++        </p>
++      </article>
++
++      <article class="project">
++        <h3>
++          <a href="https://hiatienza.github.io/projects/setline/">Setline</a> | JavaScript,
++          TypeScript, Capacitor, Android, PWA
++        </h3>
++        <p>
++          Local-first workout log organised by programme, week and session. Separates target ranges
++          from actual repetitions, supports adjustable rest and exercise alternatives, and connects
++          session history to estimated 1RM charts. Local backups preserve training records. Android
++          alerts depend on device permissions; optional Google Calendar connection is web-only.
++        </p>
++      </article>
++    </section>
++
++    <section>
++      <h2>Education</h2>
++      <article class="entry">
++        <h3>BSc Information and Computing Science | Xi'an Jiaotong-Liverpool University</h3>
++        <p class="meta">Sep 2025 - Expected Jul 2028 | Current Year 3 | Suzhou, China</p>
++        <p>
++          Relevant study: software engineering, algorithms, databases, artificial intelligence and
++          human-centered computing.
++        </p>
++      </article>
++      <article class="entry">
++        <h3>Foundational Coursework in Software Engineering | U-TAD</h3>
++        <p class="meta">Sep 2022 - Aug 2025 | Madrid, Spain</p>
++        <p>
++          English-taught coursework, including an XJTLU exchange in 2024-2025. Transferred to the
++          XJTLU BSc.
++        </p>
++      </article>
++    </section>
++
++    <section>
++      <h2>Technical Skills</h2>
++      <p class="skills-line">
++        <strong>Languages and platforms:</strong> Kotlin, TypeScript, Java, Python, SQL; Android,
++        Jetpack Compose, React, Next.js
++      </p>
++      <p class="skills-line">
++        <strong>Data and quality:</strong> PostgreSQL, Prisma, SQLite, Git, Playwright,
++        unit/integration/browser testing
++      </p>
++      <p class="skills-line">
++        <strong>Engineering:</strong> REST APIs, authentication, accessibility, local-first
++        architecture, technical documentation
++      </p>
++      <p class="skills-line">
++        <strong>Growing focus:</strong> Human-Centered AI, Human-AI Interaction, HCI, User-Centered
++        Design, Behavioral Technology
++      </p>
++    </section>
++
++    <section>
++      <h2>Languages</h2>
++      <p>
++        Spanish - Native | English - Full professional proficiency | Mandarin Chinese - Elementary
++        proficiency
++      </p>
++    </section>
++  </body>
++</html>
+--- /dev/null
++++ b/docs/cv/Adrian_Munoz_Atienza_CV_Public_Visual.html
+@@ -0,0 +1,533 @@
++<!doctype html>
++<html lang="en">
++  <head>
++    <meta charset="utf-8" />
++    <meta name="viewport" content="width=device-width, initial-scale=1" />
++    <title>Adrián Muñoz Atienza - Visual CV</title>
++    <style>
++      @page {
++        size: A4;
++        margin: 0;
++      }
++      * {
++        box-sizing: border-box;
++      }
++      html,
++      body {
++        margin: 0;
++        padding: 0;
++        width: 210mm;
++        height: 297mm;
++      }
++      body {
++        font-family: Arial, "Helvetica Neue", sans-serif;
++        color: #17263a;
++        background: #fff;
++        font-size: 8.8pt;
++        line-height: 1.28;
++      }
++      a {
++        color: inherit;
++        text-decoration: none;
++        overflow-wrap: anywhere;
++      }
++      .page {
++        width: 210mm;
++        height: 297mm;
++        display: grid;
++        grid-template-columns: 62mm 148mm;
++      }
++      .sidebar {
++        background: linear-gradient(180deg, #102a46 0%, #173c62 100%);
++        color: #fff;
++        padding: 10mm 8mm 9mm;
++      }
++      .portrait {
++        width: 33mm;
++        height: 33mm;
++        display: block;
++        margin: 0 auto 5mm;
++        object-fit: cover;
++        border-radius: 50%;
++        border: 1.2mm solid rgba(255, 255, 255, 0.9);
++      }
++      .side-section {
++        margin-top: 4mm;
++      }
++      .side-title {
++        margin: 0 0 2.5mm;
++        padding-bottom: 1.4mm;
++        border-bottom: 0.3mm solid rgba(255, 255, 255, 0.33);
++        color: #8fd3ff;
++        font-size: 8.5pt;
++        letter-spacing: 0.9pt;
++        text-transform: uppercase;
++      }
++      .side-copy {
++        margin: 0;
++        color: #edf5fb;
++        font-size: 8.2pt;
++        line-height: 1.4;
++      }
++      .contact {
++        display: grid;
++        gap: 2.1mm;
++      }
++      .contact-row {
++        display: grid;
++        grid-template-columns: 4mm 1fr;
++        gap: 1.8mm;
++        align-items: start;
++      }
++      .contact-icon {
++        color: #8fd3ff;
++        font-weight: 700;
++      }
++      .skill-group {
++        margin-bottom: 2.7mm;
++      }
++      .skill-label {
++        color: #8fd3ff;
++        font-size: 7pt;
++        font-weight: 700;
++        letter-spacing: 0.35pt;
++        text-transform: uppercase;
++      }
++      .skill-text {
++        margin-top: 0.6mm;
++        color: #fff;
++      }
++      .language {
++        margin-bottom: 2.2mm;
++      }
++      .language strong {
++        display: block;
++      }
++      .language span {
++        color: #dbe9f4;
++      }
++      .main {
++        position: relative;
++        min-width: 0;
++        padding: 10mm 10mm 8mm;
++        background: #fff;
++      }
++      .header {
++        position: relative;
++        margin: -10mm -10mm 4mm;
++        padding: 10mm 10mm 6mm;
++        min-height: 35mm;
++        overflow: hidden;
++        background: linear-gradient(105deg, #edf6fc 0%, #f9fcfe 58%, #d8ebf6 100%);
++        border-bottom: 0.8mm solid #2b78aa;
++      }
++      .header::after {
++        content: "";
++        position: absolute;
++        right: 0;
++        bottom: 0;
++        width: 60mm;
++        height: 22mm;
++        opacity: 0.2;
++        background: linear-gradient(
++          90deg,
++          transparent 0 5%,
++          #2b78aa 5% 8%,
++          transparent 8% 12%,
++          #2b78aa 12% 17%,
++          transparent 17% 23%,
++          #2b78aa 23% 27%,
++          transparent 27% 31%,
++          #2b78aa 31% 38%,
++          transparent 38% 43%,
++          #2b78aa 43% 47%,
++          transparent 47% 54%,
++          #2b78aa 54% 63%,
++          transparent 63% 69%,
++          #2b78aa 69% 73%,
++          transparent 73% 79%,
++          #2b78aa 79% 88%,
++          transparent 88%
++        );
++        clip-path: polygon(
++          0 100%,
++          0 72%,
++          7% 72%,
++          7% 56%,
++          14% 56%,
++          14% 68%,
++          22% 68%,
++          22% 36%,
++          29% 36%,
++          29% 62%,
++          38% 62%,
++          38% 18%,
++          45% 18%,
++          45% 66%,
++          53% 66%,
++          53% 44%,
++          61% 44%,
++          61% 69%,
++          70% 69%,
++          70% 31%,
++          77% 31%,
++          77% 58%,
++          86% 58%,
++          86% 40%,
++          93% 40%,
++          93% 65%,
++          100% 65%,
++          100% 100%
++        );
++      }
++      h1 {
++        position: relative;
++        z-index: 1;
++        margin: 0;
++        color: #102a46;
++        font-size: 22pt;
++        line-height: 1;
++        letter-spacing: -0.5pt;
++      }
++      .role {
++        position: relative;
++        z-index: 1;
++        margin-top: 2.2mm;
++        color: #2b78aa;
++        font-size: 9.8pt;
++        font-weight: 700;
++        letter-spacing: 0.25pt;
++        text-transform: uppercase;
++      }
++      .section {
++        margin-top: 3.3mm;
++      }
++      .section-title {
++        display: flex;
++        align-items: center;
++        gap: 2mm;
++        margin: 0 0 2mm;
++        color: #173c62;
++        font-size: 9.6pt;
++        letter-spacing: 0.7pt;
++        text-transform: uppercase;
++      }
++      .section-title::after {
++        content: "";
++        flex: 1;
++        height: 0.35mm;
++        background: #b9d5e6;
++      }
++      .entry {
++        margin-bottom: 2.3mm;
++        page-break-inside: avoid;
++      }
++      .entry-head {
++        display: grid;
++        grid-template-columns: 1fr auto;
++        gap: 3mm;
++        align-items: baseline;
++      }
++      .entry h3 {
++        margin: 0;
++        color: #102a46;
++        font-size: 9pt;
++        line-height: 1.2;
++      }
++      .date {
++        color: #5b6d7e;
++        font-size: 7.6pt;
++        white-space: nowrap;
++      }
++      .org {
++        margin-top: 0.4mm;
++        color: #2b78aa;
++        font-size: 7.8pt;
++        font-weight: 700;
++      }
++      ul {
++        margin: 1mm 0 0;
++        padding-left: 4mm;
++      }
++      li {
++        margin: 0 0 0.6mm;
++      }
++      .project-grid {
++        display: grid;
++        grid-template-columns: 1fr 1fr;
++        gap: 2.2mm;
++      }
++      .project {
++        padding: 2.3mm;
++        border: 0.25mm solid #c9dce8;
++        border-radius: 1.8mm;
++        background: #f7fbfd;
++      }
++      .project h3 {
++        margin: 0 0 1mm;
++        color: #173c62;
++        font-size: 8.8pt;
++      }
++      .project p {
++        margin: 0;
++        font-size: 8.1pt;
++        line-height: 1.3;
++      }
++      .project .stack {
++        margin-top: 1mm;
++        color: #2b78aa;
++        font-weight: 700;
++      }
++      .project:last-child {
++        grid-column: 1 / -1;
++      }
++      .project-current {
++        border-top: 0.8mm solid #2b78aa;
++      }
++      .edu-grid {
++        display: grid;
++        grid-template-columns: 1fr 1fr;
++        gap: 3mm;
++      }
++      .edu {
++        padding-left: 2.3mm;
++        border-left: 0.8mm solid #69afd4;
++      }
++      .edu h3 {
++        margin: 0;
++        font-size: 8.6pt;
++      }
++      .edu p {
++        margin: 0.8mm 0 0;
++        font-size: 7.8pt;
++      }
++      .small-note {
++        color: #627386;
++        font-size: 7.3pt;
++      }
++    </style>
++  </head>
++  <body>
++    <main class="page">
++      <aside class="sidebar">
++        <img
++          class="portrait"
++          src="../../public/images/profile-800.webp"
++          alt="Portrait of Adrián Muñoz Atienza"
++        />
++
++        <section class="side-section">
++          <h2 class="side-title">Contact</h2>
++          <div class="contact side-copy">
++            <div class="contact-row">
++              <span class="contact-icon">●</span><span>Suzhou, Jiangsu, China</span>
++            </div>
++            <div class="contact-row">
++              <span class="contact-icon">↗</span
++              ><a href="https://hiatienza.github.io">hiatienza.github.io</a>
++            </div>
++            <div class="contact-row">
++              <span class="contact-icon">in</span
++              ><a href="https://www.linkedin.com/in/hiatienza/">linkedin.com/in/hiatienza</a>
++            </div>
++            <div class="contact-row">
++              <span class="contact-icon">&lt;/&gt;</span
++              ><a href="https://github.com/HiAtienza">github.com/HiAtienza</a>
++            </div>
++          </div>
++        </section>
++
++        <section class="side-section">
++          <h2 class="side-title">Profile</h2>
++          <p class="side-copy">
++            Year 3 BSc Information and Computing Science student at XJTLU. Expected graduation: July
++            2028. Building human-centered Android, web and applied-AI products. Current products:
++            Lock In and Setline.
++          </p>
++        </section>
++
++        <section class="side-section">
++          <h2 class="side-title">Technical skills</h2>
++          <div class="side-copy">
++            <div class="skill-group">
++              <div class="skill-label">Core</div>
++              <div class="skill-text">
++                Software Engineering · Product Development · TypeScript · Automated Testing
++              </div>
++            </div>
++            <div class="skill-group">
++              <div class="skill-label">Web</div>
++              <div class="skill-text">
++                TypeScript · React · Next.js · REST APIs · Authentication
++              </div>
++            </div>
++            <div class="skill-group">
++              <div class="skill-label">Mobile</div>
++              <div class="skill-text">
++                Kotlin · Android · Jetpack Compose · Canvas · Calendar integration
++              </div>
++            </div>
++            <div class="skill-group">
++              <div class="skill-label">Data &amp; tools</div>
++              <div class="skill-text">PostgreSQL · Prisma · SQLite · Git · Playwright</div>
++            </div>
++            <div class="skill-group">
++              <div class="skill-label">Human-centered direction</div>
++              <div class="skill-text">
++                Human-Centered AI · Human-AI Interaction · HCI · Behavioral Technology
++              </div>
++            </div>
++          </div>
++        </section>
++
++        <section class="side-section">
++          <h2 class="side-title">Languages</h2>
++          <div class="side-copy">
++            <div class="language"><strong>Spanish</strong><span>Native</span></div>
++            <div class="language"><strong>English</strong><span>Full professional</span></div>
++            <div class="language"><strong>Mandarin Chinese</strong><span>Elementary</span></div>
++          </div>
++        </section>
++        <section class="side-section">
++          <h2 class="side-title">Availability</h2>
++          <p class="side-copy">
++            Software engineering internships in Suzhou, Shanghai, Spain, the EU or compatible remote
++            roles. Open to all workplace modes and relocation within these regions.
++          </p>
++        </section>
++      </aside>
++
++      <section class="main">
++        <header class="header">
++          <h1>Adrián Muñoz Atienza</h1>
++          <div class="role">
++            Computer Science Student | Software Engineering | Human-Centered AI
++          </div>
++        </header>
++
++        <section class="section">
++          <h2 class="section-title">Experience &amp; supervised research</h2>
++          <article class="entry">
++            <div class="entry-head">
++              <h3>Undergraduate Researcher</h3>
++              <span class="date">Jul 2026 - Present</span>
++            </div>
++            <div class="org">XJTLU Summer Undergraduate Research Fellowship | Suzhou, China</div>
++            <ul>
++              <li>
++                Developed VIDEO-RESCUE prototype work as one of two student team members, connecting
++                reports, transcripts, media and maps with human-controlled AI assistance.
++              </li>
++              <li>
++                Supported study design, recruitment, sessions and analysis. Data collection
++                complete; fuller analysis of preliminary feedback ongoing.
++              </li>
++            </ul>
++          </article>
++          <article class="entry">
++            <div class="entry-head">
++              <h3>Software Developer</h3>
++              <span class="date">Jul 2026 - Present</span>
++            </div>
++            <div class="org">Independent Projects | Suzhou, China</div>
++            <ul>
++              <li>
++                Build Lock In and Setline with reusable architecture, local persistence, clear input
++                workflows and automated testing.
++              </li>
++            </ul>
++          </article>
++          <article class="entry">
++            <div class="entry-head">
++              <h3>Bellperson</h3>
++              <span class="date">Jul 2024 - Sep 2024</span>
++            </div>
++            <div class="org">Marriott International | Madrid, Spain | Seasonal</div>
++            <ul>
++              <li>
++                Coordinated guest requests through clear communication, teamwork and practical
++                problem solving in a multicultural environment.
++              </li>
++            </ul>
++          </article>
++          <article class="entry">
++            <div class="entry-head">
++              <h3>Freelance Mathematics Tutor</h3>
++              <span class="date">2023 - 2024</span>
++            </div>
++            <div class="org">Madrid, Spain</div>
++            <ul>
++              <li>
++                Adapted mathematical explanations and practice to individual learners through active
++                listening and feedback.
++              </li>
++            </ul>
++          </article>
++        </section>
++
++        <section class="section">
++          <h2 class="section-title">Selected projects</h2>
++          <div class="project-grid">
++            <article class="project project-current">
++              <h3><a href="https://hiatienza.github.io/projects/lock-in/">1. Lock In</a></h3>
++              <p>
++                Android dashboard for calendars, tasks, habits, countdowns, focus and study. Preview
++                and block layout support the lock-screen wallpaper. Read-only account events; local
++                recall tracking does not change Anki reviews. Active development; device validation
++                continues.
++              </p>
++              <p class="stack">
++                Kotlin · Compose · Canvas · CalendarContract · Google Calendar API
++              </p>
++            </article>
++            <article class="project">
++              <h3>
++                <a href="https://hiatienza.github.io/projects/video-rescue/">2. VIDEO-RESCUE</a>
++              </h3>
++              <p>
++                Supervised research prototype combining reports, media, transcripts, a shared map
++                and AI support with visible unknowns. Human operators keep decisions. Direct AI map
++                access/navigation remains future work; not operational rescue.
++              </p>
++              <p class="stack">React · TypeScript · Express · SQLite · LiveKit/WebRTC</p>
++            </article>
++
++            <article class="project">
++              <h3><a href="https://hiatienza.github.io/projects/setline/">3. Setline</a></h3>
++              <p>
++                Offline workout log with actual reps, weight entry, adjustable rest, exercise
++                alternatives and estimated 1RM history. Exportable local backups. Android alerts
++                depend on permissions; optional Google Calendar connection is web-only.
++              </p>
++              <p class="stack">JavaScript · TypeScript · Capacitor · Android · PWA</p>
++            </article>
++          </div>
++        </section>
++
++        <section class="section">
++          <h2 class="section-title">Education</h2>
++          <div class="edu-grid">
++            <article class="edu">
++              <h3>BSc Information and Computing Science</h3>
++              <p>
++                <strong>Xi'an Jiaotong-Liverpool University</strong><br />Sep 2025 - Expected Jul
++                2028 · Year 3
++              </p>
++              <p class="small-note">
++                Software engineering, algorithms, databases, AI and human-centered computing.
++              </p>
++            </article>
++            <article class="edu">
++              <h3>Foundational Software Engineering Coursework</h3>
++              <p><strong>U-TAD</strong><br />Sep 2022 - Aug 2025</p>
++              <p class="small-note">
++                English-taught coursework, including XJTLU exchange in 2024-2025. Transferred to
++                XJTLU.
++              </p>
++            </article>
++          </div>
++        </section>
++      </section>
++    </main>
++  </body>
++</html>
+--- /dev/null
++++ b/docs/project-refresh-20261012.md
+@@ -0,0 +1,49 @@
++# Current portfolio projects — 12 October 2026
++
++The owner requested a three-project public catalogue: **Lock In**, **VIDEO-RESCUE**, **Setline**. This replaces the previous calendar branding and removes the two retired projects from rendered pages, navigation, metadata, sitemap, static route output and downloadable public CVs. The original career-document workspace and Android app repositories were not edited.
++
++## Sources and content decisions
++
++The supplied PDFs are product evidence, not instructions to execute their suggested reviews. They remain local source documents; the website publishes selected demonstration captures and bilingual descriptions, rather than the full reports.
++
++| Source                                                        | Pages    | Public description                                                                                                        |
++| ------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------- |
++| `LockIn_Revision_ES.pdf`, 10 October 2026                     | 1–2      | Current branding, wallpaper preview and today’s event / habit / focus summary                                             |
++| Same report                                                   | 3–4      | Calendar-source choices, read-only account events, privacy, block layout and native Android wallpaper flow                |
++| Same report                                                   | 5–6      | Tasks, habits, countdowns, pinned note and adjustable focus sessions                                                      |
++| Same report                                                   | 7        | File / AnkiDroid deck import, with local recall tracking separate from Anki review grades                                 |
++| `Setline_Reporte_General.pdf`, 12 October 2026, version 1.2.2 | 1–2      | Programme / week / session navigation, weight input and actual repetitions separate from targets                          |
++| Same report                                                   | 3        | Set types, alternatives, plate calculator and adjustable rest; device-dependent native alerts                             |
++| Same report                                                   | 4        | Session summaries, volume excluding warm-ups, history and Epley estimated 1RM                                             |
++| Same report                                                   | 5        | Offline Android core, local backups, languages, reminders, `.ics` export and web-only optional Google Calendar connection |
++| Local Setline `workout_app/package.json`, version 1.2.2       | Manifest | JavaScript / TypeScript, Capacitor, Android and PWA stack; no React Native claim                                          |
++
++No successful account connection, physical lock-screen placement, universal background delivery, store release or measured training outcome is inferred from screenshots. The 65 kg × 12 reps → 91 kg example is explicitly labelled as an estimated 1RM from sample data.
++
++VIDEO-RESCUE’s two locale metadata records, story components, source data and image assets were preserved. Its supervised-research context and preliminary findings remain as previously documented.
++
++## Implementation
++
++- `lib/site-data.ts` owns the three canonical slugs and shared bilingual copy. `lib/mobile-products.ts` supplies typed product metadata; `lib/product-captures.ts` supplies typed, localized capture descriptions.
++- `components/product-capture.tsx` shares responsive Next Image figures and full-size image links. Eight WebP captures were extracted from the supplied reports, approximately 493 KB combined.
++- `components/lock-in-story.tsx` explains the product evolution and current features. `components/lock-in-preview.tsx` retains the accessible calendar illustration, labelled separately from real app captures, with sapphire / cyan styling.
++- `components/setline-story.tsx` presents workout entry, rest, history and the traceable estimated-1RM example. `components/product-questions.tsx` shares native accessible disclosure sections.
++- Canonical project routes are `/projects/lock-in/`, `/projects/video-rescue/`, `/projects/setline/` and their `/es/` equivalents. Static calendar aliases retain real links for no-JavaScript users and replace the location when JavaScript is available. These aliases are noindex, canonicalize to Lock In and are excluded from the sitemap.
++- Static export configuration remains `output: "export"`, `trailingSlash: true`, `images.unoptimized: true`, with no domain-root asset prefix.
++- The two public CV PDFs were regenerated from their new editable `docs/cv/` sources using existing Playwright tooling in `scripts/build-public-cvs.mjs`. Both retain one A4 page, selectable text, PDF tags and links. The retired projects and defensive education wording were removed from these public copies.
++
++## Verification
++
++All checks below ran against the actual portfolio checkout and its new export:
++
++- `npm run build`: successful static production export.
++- `npm run lint`: no warnings or errors.
++- `npm run typecheck`: successful strict TypeScript check.
++- `npm run format:check`: passed.
++- `npm test`: 9 content tests passed.
++- `npm run test:links`: links, fragments and responsive assets resolved across 19 exported HTML files.
++- `npm run test:smoke`: 26 desktop / mobile Chromium tests passed, including direct loads and reloads, WCAG AA axe scans, keyboard controls, 320 / 375 px overflow checks, image loading, retired-route 404s and old bookmarks with and without JavaScript.
++- Export inspection confirmed absence of retired project folders, text and sitemap entries; obsolete calendar image files are absent from `out/`.
++- PDF metadata and extracted text confirmed one tagged A4 page per CV, the current three-project catalogue and no retired names. Both PDFs and the desktop / mobile product layouts were visually inspected.
++
++The changes are local. No commit, push or production deployment was performed. `docs/project-refresh-20261012.patch` records the source changes against the pre-update local snapshot; image and PDF modifications are listed as binary changes.
+--- /dev/null
++++ b/lib/mobile-products.ts
+@@ -0,0 +1,148 @@
++import type { Locale, Project, ProjectSlug } from "@/lib/site-data";
++
++export type MobileProjectSlug = Extract<ProjectSlug, "lock-in" | "setline">;
++
++// Product descriptions follow the owner-supplied October 2026 reports.
++// Technology for Setline is also checked against its 1.2.2 package manifest.
++export const mobileProjects: Record<Locale, Record<MobileProjectSlug, Project>> = {
++  en: {
++    "lock-in": {
++      slug: "lock-in",
++      order: "01",
++      name: "Lock In",
++      context: "Independent Android product · everyday attention and planning",
++      problem:
++        "Plans, habits and study tools compete for attention across separate apps. The next useful action should be easy to see, starting with the screen you already look at.",
++      role: "Product concept, interaction design, Android architecture and implementation",
++      tech: ["Kotlin", "Jetpack Compose", "CalendarContract", "Canvas", "Google Calendar API"],
++      status: "Active Android development · current interface shown with emulator sample data",
++      summary:
++        "A personal dashboard for your lock screen: selected calendars, tasks, habits, countdowns, focus sessions and study cards. Lock In grew from a university timetable into a more complete tool for everyday attention.",
++      facts: [
++        {
++          title: "A clear next action",
++          text: "The home screen combines a wallpaper preview with the next event, habits and focus state. Tasks, habits, countdowns and a pinned note support the rest of the day in the planner."
++        },
++        {
++          title: "Calendar choice and control",
++          text: "The calendar flow offers Google Calendar, device calendars, Microsoft / Outlook and timetables from a file, image or link. Account events are read-only; you choose the calendars and privacy settings."
++        },
++        {
++          title: "Preview before applying",
++          text: "Styles, block layout and an enlarged preview let you inspect the design before handing it to Android’s native wallpaper flow. The final placement depends on the phone."
++        },
++        {
++          title: "Focus and small moments of study",
++          text: "The Lock-In Timer supports 25-minute, 50-minute and custom sessions with pause and reset. Study cards accept .tsv / .txt imports or an available AnkiDroid deck; recall tracking stays local and does not grade or change Anki reviews."
++        }
++      ],
++      limitation:
++        "The supplied review shows emulator captures and sample data. It does not establish successful live-account connections or final wallpaper placement on every phone. Notification permissions and Android background behavior affect focus visibility and refresh; study-card tracking does not modify Anki reviews.",
++      next: "Refine the route from calendar selection to a legible wallpaper, then validate account connections, background behavior and placement across real phones."
++    },
++    setline: {
++      slug: "setline",
++      order: "03",
++      name: "Setline",
++      context: "Independent workout product · local-first web and Android",
++      problem:
++        "During a workout, recording a set should take less attention than doing it. Planned targets, actual repetitions, rest and progress need to stay clear without relying on a connection.",
++      role: "Product design, workout-data workflows and web / Android implementation",
++      tech: ["JavaScript", "TypeScript", "Capacitor", "Android", "PWA"],
++      status: "Personal workout app · version 1.2.2 documented with sample sessions",
++      summary:
++        "An offline workout log organised by programme, week and session. Record weights and actual repetitions, adjust rest, review your progress and keep a backup of your training history on your own terms.",
++      facts: [
++        {
++          title: "Actual performance, clearly recorded",
++          text: "Target ranges stay separate from performed repetitions. A set is completed only after entering a positive whole number of reps; large numeric controls and quick weight adjustments reduce input friction. Previous-session weights can be reused."
++        },
++        {
++          title: "Adapt the session",
++          text: "Add sets, distinguish warm-up, normal, failure and drop sets, choose an exercise alternative, or calculate plates using a 20 kg bar. Optional RIR (repetitions in reserve) informs load suggestions that you decide whether to accept."
++        },
++        {
++          title: "Rest with useful controls",
++          text: "Completing a set starts rest with haptic feedback. Adjust by 15 seconds or cancel. Android sound and vibration alerts depend on notification / alarm permissions and background settings."
++        },
++        {
++          title: "Understand progress and keep your data",
++          text: "Session summaries show volume, completed sets, time and average RIR. Exercise charts show estimated 1RM and history; warm-ups are excluded from volume. Local backup export / import, reminders and .ics calendar export support continuity. The optional Google Calendar connection is web-only."
++        }
++      ],
++      limitation:
++        "The 1RM chart is an estimate, not a measured maximum or a training prescription. The report demonstrates sample sessions; Android background alerts remain dependent on device permissions and settings. Google Calendar connection is web-only, and local records need an exported backup to survive device loss.",
++      next: "Refine programme discovery and workout entry, keep progress calculations understandable, and validate rest alerts and backup recovery across Android devices."
++    }
++  },
++  es: {
++    "lock-in": {
++      slug: "lock-in",
++      order: "01",
++      name: "Lock In",
++      context: "Producto Android independiente · atención y organización cotidiana",
++      problem:
++        "Planes, hábitos y herramientas de estudio compiten por tu atención en distintas apps. La próxima acción útil debería ser fácil de ver, empezando por la pantalla que ya consultas.",
++      role: "Concepto de producto, diseño de interacción, arquitectura Android e implementación",
++      tech: ["Kotlin", "Jetpack Compose", "CalendarContract", "Canvas", "Google Calendar API"],
++      status: "Android en desarrollo activo · interfaz actual con datos de ejemplo en emulador",
++      summary:
++        "Un panel personal para la pantalla de bloqueo: calendarios seleccionados, tareas, hábitos, cuentas atrás, sesiones de enfoque y tarjetas de estudio. Lock In evolucionó de un horario universitario a una herramienta más completa para organizar la atención cotidiana.",
++      facts: [
++        {
++          title: "Una próxima acción clara",
++          text: "El inicio combina una vista previa del fondo con el próximo evento, los hábitos y el estado de enfoque. Tareas, hábitos, cuentas atrás y una nota fija acompañan el resto del día en el planificador."
++        },
++        {
++          title: "Elección y control del calendario",
++          text: "El flujo ofrece Google Calendar, calendarios del teléfono, Microsoft / Outlook y horarios desde archivo, imagen o enlace. Los eventos de las cuentas se consultan en modo de solo lectura; tú eliges calendarios y privacidad."
++        },
++        {
++          title: "Ver antes de aplicar",
++          text: "Los estilos, la distribución de bloques y la vista ampliada permiten revisar el diseño antes de entregarlo al flujo nativo de fondos de Android. La colocación final depende del móvil."
++        },
++        {
++          title: "Enfoque y pequeños repasos",
++          text: "Lock-In Timer admite sesiones de 25 o 50 minutos y duraciones personalizadas, con pausa y reinicio. Las tarjetas permiten importar .tsv / .txt o elegir un mazo disponible en AnkiDroid; el seguimiento es local y no califica ni modifica el repaso de Anki."
++        }
++      ],
++      limitation:
++        "El informe muestra capturas de emulador con datos de ejemplo. No acredita conexiones con cuentas reales ni la colocación final del fondo en cualquier móvil. Los permisos de notificaciones y el comportamiento de Android afectan a la visibilidad del enfoque y la actualización; el seguimiento de tarjetas no modifica los repasos de Anki.",
++      next: "Afinar el recorrido desde la selección del calendario hasta un fondo legible y validar las conexiones, el funcionamiento en segundo plano y la colocación en móviles reales."
++    },
++    setline: {
++      slug: "setline",
++      order: "03",
++      name: "Setline",
++      context: "Producto de entrenamiento independiente · web y Android local-first",
++      problem:
++        "En el gimnasio, registrar una serie debería requerir menos atención que hacerla. Objetivos, repeticiones reales, descansos y progreso deben estar claros sin depender de una conexión.",
++      role: "Diseño de producto, flujos de datos de entrenamiento e implementación web / Android",
++      tech: ["JavaScript", "TypeScript", "Capacitor", "Android", "PWA"],
++      status: "App personal de entrenamiento · versión 1.2.2 documentada con sesiones de ejemplo",
++      summary:
++        "Un diario de entrenamiento sin conexión, organizado por programa, semana y sesión. Registra pesos y repeticiones reales, ajusta los descansos, consulta el progreso y conserva una copia de tu historial bajo tu control.",
++      facts: [
++        {
++          title: "Registrar lo que realmente hiciste",
++          text: "El rango objetivo se separa de las repeticiones realizadas. Una serie se completa al introducir un número entero positivo de repeticiones; los controles numéricos grandes y los ajustes rápidos de peso facilitan la entrada. Puedes reutilizar los pesos de la sesión anterior."
++        },
++        {
++          title: "Adaptar la sesión",
++          text: "Añade series, distingue calentamiento, normal, fallo y drop set, elige una alternativa de ejercicio o calcula discos con una barra de 20 kg. El RIR opcional —repeticiones en reserva— orienta propuestas de carga que tú decides si aceptar."
++        },
++        {
++          title: "Descansar con controles útiles",
++          text: "Completar una serie inicia el descanso con respuesta háptica. Puedes ajustar 15 segundos o cancelarlo. Las alertas de sonido y vibración en Android dependen de permisos de notificación / alarma y ajustes de segundo plano."
++        },
++        {
++          title: "Entender el progreso y conservar los datos",
++          text: "El resumen muestra volumen, series completadas, tiempo y RIR medio. Los gráficos por ejercicio muestran 1RM estimado e historial; el volumen excluye calentamientos. La exportación / importación de copias locales, los recordatorios y la exportación .ics facilitan continuar. La conexión opcional a Google Calendar es solo web."
++        }
++      ],
++      limitation:
++        "El gráfico de 1RM es una estimación, no un máximo medido ni una prescripción de entrenamiento. El informe utiliza sesiones de ejemplo; las alertas en segundo plano dependen de permisos y ajustes del móvil. La conexión a Google Calendar es solo web y los datos locales necesitan una copia exportada para sobrevivir a la pérdida del dispositivo.",
++      next: "Mejorar la elección de programas y el registro del entrenamiento, mantener comprensibles los cálculos de progreso y validar alertas y recuperación de copias en distintos Android."
++    }
++  }
++};
+--- /dev/null
++++ b/lib/product-captures.ts
+@@ -0,0 +1,175 @@
++import type { Locale } from "@/lib/site-data";
++import type { MobileProjectSlug } from "@/lib/mobile-products";
++
++interface Capture {
++  product: MobileProjectSlug;
++  src: string;
++  width: number;
++  height: number;
++  copy: Record<Locale, { title: string; caption: string; alt: string }>;
++}
++
++export const productCaptures = {
++  "lock-home": {
++    product: "lock-in",
++    src: "/images/lock-in/home.webp",
++    width: 834,
++    height: 1872,
++    copy: {
++      en: {
++        title: "Your day, at a glance",
++        caption:
++          "Wallpaper preview, next event, habits and focus state. Emulator capture · sample data.",
++        alt: "Lock In home screen with the selected wallpaper, Edit layout action and today’s event, habits and focus cards."
++      },
++      es: {
++        title: "El día, de un vistazo",
++        caption:
++          "Vista previa del fondo, próximo evento, hábitos y estado de enfoque. Emulador · datos de ejemplo.",
++        alt: "Inicio de Lock In con el fondo elegido, la acción de editar distribución y tarjetas de evento, hábitos y enfoque."
++      }
++    }
++  },
++  "lock-design": {
++    product: "lock-in",
++    src: "/images/lock-in/design.webp",
++    width: 834,
++    height: 1872,
++    copy: {
++      en: {
++        title: "Arrange before applying",
++        caption:
++          "Inspect an enlarged preview, arrange blocks and choose a look before applying the wallpaper. Emulator · sample data.",
++        alt: "Lock In design screen with an enlarged timetable preview, block arrangement controls, style options and Apply wallpaper."
++      },
++      es: {
++        title: "Distribuir antes de aplicar",
++        caption:
++          "Amplía la vista, coloca los bloques y elige el estilo antes de aplicar el fondo. Emulador · datos de ejemplo.",
++        alt: "Diseño de Lock In con vista ampliada del horario, controles de distribución, estilos y botón de aplicar fondo."
++      }
++    }
++  },
++  "lock-focus": {
++    product: "lock-in",
++    src: "/images/lock-in/focus.webp",
++    width: 834,
++    height: 1872,
++    copy: {
++      en: {
++        title: "Make room for one thing",
++        caption:
++          "A 25-minute focus session, ready to start. Choose 50 minutes or set a custom duration. Emulator · sample data.",
++        alt: "Lock-In Timer showing an inactive 25-minute session, Start button, 25 and 50 minute presets and custom minutes."
++      },
++      es: {
++        title: "Reservar tiempo para una cosa",
++        caption:
++          "Una sesión de 25 minutos lista para empezar. Elige 50 minutos o una duración propia. Emulador · datos de ejemplo.",
++        alt: "Lock-In Timer con sesión inactiva de 25 minutos, botón Iniciar, opciones de 25 y 50 minutos y duración personalizada."
++      }
++    }
++  },
++  "lock-study": {
++    product: "lock-in",
++    src: "/images/lock-in/study.webp",
++    width: 834,
++    height: 1872,
++    copy: {
++      en: {
++        title: "Small moments of recall",
++        caption:
++          "Choose an AnkiDroid deck, try example cards or import .tsv / .txt. Recall tracking stays within Lock In. Emulator · sample data.",
++        alt: "Lock In Study cards screen with AnkiDroid deck selection, three example cards and file import controls."
++      },
++      es: {
++        title: "Pequeños momentos de repaso",
++        caption:
++          "Elige un mazo de AnkiDroid, prueba tarjetas o importa .tsv / .txt. El seguimiento se queda en Lock In. Emulador · datos de ejemplo.",
++        alt: "Tarjetas de estudio de Lock In con selección de mazo AnkiDroid, tarjetas de ejemplo e importación de archivos."
++      }
++    }
++  },
++  "setline-log": {
++    product: "setline",
++    src: "/images/setline/log.webp",
++    width: 780,
++    height: 1688,
++    copy: {
++      en: {
++        title: "Log what you actually did",
++        caption:
++          "65 kg × 12 actual reps, with the target range shown separately. App capture · sample session.",
++        alt: "Setline exercise log: the first set is completed at 65 kg and 12 actual reps; two sets remain pending. Target: 10–15 reps."
++      },
++      es: {
++        title: "Registrar lo que hiciste",
++        caption:
++          "65 kg × 12 repeticiones reales, con el rango objetivo separado. Captura de la app · sesión de ejemplo.",
++        alt: "Registro de Setline: primera serie completada con 65 kg y 12 repeticiones reales; dos pendientes. Objetivo: 10–15 repeticiones."
++      }
++    }
++  },
++  "setline-entry": {
++    product: "setline",
++    src: "/images/setline/numeric-entry.webp",
++    width: 780,
++    height: 1688,
++    copy: {
++      en: {
++        title: "Keep input within reach",
++        caption:
++          "A large numeric sheet with ±2.5 kg and ±5 kg adjustments, plus explicit Apply and Cancel actions. App capture · sample data.",
++        alt: "Setline weight entry sheet showing 65 kg, a large numeric keypad, quick weight adjustments, Apply and Cancel."
++      },
++      es: {
++        title: "Una entrada a mano",
++        caption:
++          "Panel numérico grande con ajustes de ±2,5 y ±5 kg y acciones explícitas de Aplicar y Cancelar. Captura · datos de ejemplo.",
++        alt: "Panel de peso de Setline con 65 kg, teclado numérico grande, ajustes rápidos y acciones Aplicar y Cancelar."
++      }
++    }
++  },
++  "setline-rest": {
++    product: "setline",
++    src: "/images/setline/rest.webp",
++    width: 780,
++    height: 1688,
++    copy: {
++      en: {
++        title: "Recover without losing the session",
++        caption:
++          "A two-minute rest remains beside the set log, with ±15-second adjustments and cancellation. App capture · sample session.",
++        alt: "Setline set log with a two-minute rest bar, minus 15 seconds, plus 15 seconds and cancel controls above the next-exercise action."
++      },
++      es: {
++        title: "Descansar sin perder la sesión",
++        caption:
++          "Dos minutos de descanso junto al registro, con ajustes de ±15 segundos y cancelación. Captura · sesión de ejemplo.",
++        alt: "Registro de Setline con barra de descanso de dos minutos, controles de menos y más 15 segundos y cancelar, sobre Siguiente ejercicio."
++      }
++    }
++  },
++  "setline-progress": {
++    product: "setline",
++    src: "/images/setline/progress.webp",
++    width: 780,
++    height: 1688,
++    copy: {
++      en: {
++        title: "Read the record behind the trend",
++        caption:
++          "Exercise history connects a chart point to its date, load and reps. 91 kg is an estimated 1RM. App capture · sample history.",
++        alt: "Setline progress chart with seven sample sessions; the selected point shows 65 kg × 12 reps and an estimated 1RM of 91 kg."
++      },
++      es: {
++        title: "Ver el registro detrás de la tendencia",
++        caption:
++          "El historial conecta cada punto con fecha, carga y repeticiones. 91 kg es un 1RM estimado. Captura · historial de ejemplo.",
++        alt: "Gráfico de Setline con siete sesiones de ejemplo; el punto elegido muestra 65 kg × 12 repeticiones y 1RM estimado de 91 kg."
++      }
++    }
++  }
++} as const satisfies Record<string, Capture>;
++
++export type CaptureId = keyof typeof productCaptures;
+--- a/lib/site-data.ts
++++ b/lib/site-data.ts
+@@ -1,3 +1,5 @@
++import { mobileProjects } from "./mobile-products";
++
+ export type Locale = "en" | "es";
+ 
+ export const siteUrl = "https://hiatienza.github.io";
+@@ -6,7 +8,7 @@
+   linkedin: "https://www.linkedin.com/in/hiatienza/"
+ };
+ 
+-export const slugs = ["lock-calendar", "video-rescue", "cybermastery", "lifemap"] as const;
++export const slugs = ["lock-in", "video-rescue", "setline"] as const;
+ export type ProjectSlug = (typeof slugs)[number];
+ 
+ export interface Project {
+@@ -47,8 +49,8 @@
+     hero: {
+       eyebrow: "Computer Science student @ XJTLU",
+       title: "I turn complex signals into software people can understand and act on.",
+-      lead: "Currently building Lock Calendar: an Android app that brings your week and next appointment to your lock screen. My wider work connects Software Engineering, Human-Centered AI, Behavioral Technology and Human-AI Interaction.",
+-      work: "Explore Lock Calendar",
++      lead: "Currently building Lock In for everyday planning and focus, and Setline for offline workout logging. My wider work connects Software Engineering, Human-Centered AI, Behavioral Technology and Human-AI Interaction.",
++      work: "Explore Lock In",
+       about: "About my path",
+       cv: "Download CV",
+       visual: "View public visual CV",
+@@ -162,7 +164,7 @@
+           date: "2026 – present",
+           title: "Independent product development",
+           detail:
+-            "Currently focused on Lock Calendar, alongside CyberMastery and LifeMap across full-stack web and Android."
++            "Currently building Lock In and Setline, connecting everyday planning and workout logging with local data and clear interaction design."
+         },
+         {
+           date: "Jul – Sep 2024",
+@@ -241,8 +243,8 @@
+     hero: {
+       eyebrow: "Estudiante de Computer Science @ XJTLU",
+       title: "Convierto señales complejas en software que las personas pueden entender y usar.",
+-      lead: "Ahora estoy creando Lock Calendar: una app Android que lleva tu semana y tu próxima cita a la pantalla de bloqueo. Mi trabajo conecta ingeniería de software, Human-Centered AI y tecnología del comportamiento.",
+-      work: "Conoce Lock Calendar",
++      lead: "Ahora estoy creando Lock In para organizar el día y el enfoque, y Setline para registrar entrenamientos sin conexión. Mi trabajo conecta ingeniería de software, Human-Centered AI y tecnología del comportamiento.",
++      work: "Conoce Lock In",
+       about: "Conoce mi recorrido",
+       cv: "Descargar CV",
+       visual: "Ver CV visual público",
+@@ -357,7 +359,7 @@
+           date: "2026 – actualidad",
+           title: "Desarrollo de productos independientes",
+           detail:
+-            "Ahora centrado en Lock Calendar, junto a CyberMastery y LifeMap en desarrollo web full-stack y Android."
++            "Ahora desarrollo Lock In y Setline: organización cotidiana y registro de entrenamientos con datos locales e interacciones claras."
+         },
+         {
+           date: "Jul – Sep 2024",
+@@ -429,40 +431,7 @@
+ 
+ export const projects: Record<Locale, Record<ProjectSlug, Project>> = {
+   en: {
+-    "lock-calendar": {
+-      slug: "lock-calendar",
+-      order: "01",
+-      name: "Lock Calendar",
+-      context: "Current focus · independent Android product",
+-      problem:
+-        "A timetable screenshot becomes outdated, gets cropped, or disappears behind the lock-screen clock. Your next class or appointment should be easier to see.",
+-      role: "Product concept, UX, Android architecture and implementation",
+-      tech: ["Kotlin", "Jetpack Compose", "CalendarContract", "Canvas", "Google Calendar API"],
+-      status: "Android app in active development · not yet publicly released",
+-      summary:
+-        "Your week, right where you look. Lock Calendar turns connected calendars into a readable live wallpaper, bringing classes and everyday appointments to your Android lock screen.",
+-      facts: [
+-        {
+-          title: "One place for what comes next",
+-          text: "Device calendars and a direct Google Calendar integration feed a weekly view and daily agenda. Calendar sources are explicitly selected; the wallpaper reads your schedule without editing calendar events."
+-        },
+-        {
+-          title: "A layout made for a lock screen",
+-          text: "A shared Compose and Canvas layout model powers the in-app preview and live wallpaper. Placement controls let you adjust the agenda around system elements instead of cropping a screenshot."
+-        },
+-        {
+-          title: "Updates with the schedule",
+-          text: "Calendar-change notifications, visibility checks and bounded refresh policies keep the display connected to its source while avoiding a continuous rendering loop. Freshness depends on the source and Android lifecycle."
+-        },
+-        {
+-          title: "An app designed around the preview",
+-          text: "Calendar selection, layout and background customization, and grouped settings make the result visible before applying it. Synthetic captures document the current app design."
+-        }
+-      ],
+-      limitation:
+-        "Android only and still in development. Google authorization and device-calendar flows have implementation and test evidence, but broader Google acceptance and cross-device validation remain ongoing. Some lock-screen clocks still require manual placement; no universal fit or measured productivity improvement is claimed.",
+-      next: "Keep validating synchronization and placement across devices, refine the student workflow, and prepare a public release after the remaining acceptance checks."
+-    },
++    ...mobileProjects.en,
+     "video-rescue": {
+       slug: "video-rescue",
+       order: "02",
+@@ -496,111 +465,10 @@
+       limitation:
+         "No field deployment, operational safety claim, rescue-outcome claim or validated AI-accuracy claim is made. The assistant does not directly access map data, building names or distances; a human-visible map does not establish AI navigation.",
+       next: "Complete fuller analysis and explore team-wide assistance and geographic-context integration as future work, guided by the preliminary feedback."
+-    },
+-    cybermastery: {
+-      slug: "cybermastery",
+-      order: "03",
+-      name: "CyberMastery",
+-      context: "Independent product development · full-stack learning product",
+-      problem:
+-        "Learners need a structured way to move from guided explanation to independent practice, evidence and rechecking without turning progress into an opaque score.",
+-      role: "Full-stack product and learning-domain implementation",
+-      tech: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Playwright"],
+-      status: "Working HTTP Fundamentals vertical slice using static protocol simulations",
+-      summary:
+-        "A full-stack cybersecurity-learning prototype built around one authenticated HTTP Fundamentals lifecycle.",
+-      facts: [
+-        {
+-          title: "Learning flow",
+-          text: "Guided learning leads into independent assessment, structured skill evidence, retention rechecks and transfer activities."
+-        },
+-        {
+-          title: "Mastery model",
+-          text: "Deterministic scoring and evidence history make the learning-domain logic inspectable rather than purely UI-driven."
+-        },
+-        {
+-          title: "Architecture",
+-          text: "The learning domain is separated from UI, persistence and authentication within a documented modular-monolith boundary."
+-        },
+-        {
+-          title: "Verification",
+-          text: "The audited source includes unit, integration and browser test coverage; volatile counts and CI status are intentionally excluded."
+-        }
+-      ],
+-      limitation:
+-        "The repository is private, the scope is one HTTP Fundamentals slice, and no validated learning-outcome or production claim is made.",
+-      next: "Expand only after safely evaluating the current vertical slice and defining a public-safe artifact."
+-    },
+-    lifemap: {
+-      slug: "lifemap",
+-      order: "04",
+-      name: "LifeMap",
+-      context: "Independent Android product development",
+-      problem:
+-        "Long-term goals are easy to defer when time is invisible; a calm, private visual can make a horizon more tangible without collecting personal data.",
+-      role: "Android product, rendering and local-first implementation",
+-      tech: ["Kotlin", "Jetpack Compose", "Preferences DataStore", "Android"],
+-      status: "Active local-first Android prototype",
+-      summary:
+-        "A local-first Android prototype for visualising life, years and goals as time grids.",
+-      facts: [
+-        {
+-          title: "Core interaction",
+-          text: "A shared calendar render model turns time and goals into a simple visual grid across the app experience."
+-        },
+-        {
+-          title: "Local-first privacy",
+-          text: "Preferences persist on-device through Preferences DataStore; the product does not depend on an account or remote service."
+-        },
+-        {
+-          title: "Accessible and responsive",
+-          text: "Responsive layouts and accessibility descriptions support different device contexts and non-visual interpretation."
+-        },
+-        {
+-          title: "Ambient surface",
+-          text: "An event-driven live wallpaper reuses the product concept without claiming a public-store release."
+-        }
+-      ],
+-      limitation:
+-        "LifeMap is a prototype in active development, not a Play Store release or validated behaviour-change product.",
+-      next: "Continue device-level validation, refine accessibility and test the product concept with appropriate user feedback."
+     }
+   },
+   es: {
+-    "lock-calendar": {
+-      slug: "lock-calendar",
+-      order: "01",
+-      name: "Lock Calendar",
+-      context: "Mi foco actual · producto Android independiente",
+-      problem:
+-        "Una captura del horario se queda desactualizada, se recorta o queda tapada por el reloj de la pantalla de bloqueo. Ver tu próxima clase o cita debería ser más fácil.",
+-      role: "Concepto de producto, UX, arquitectura Android e implementación",
+-      tech: ["Kotlin", "Jetpack Compose", "CalendarContract", "Canvas", "Google Calendar API"],
+-      status: "App Android en desarrollo activo · todavía sin lanzamiento público",
+-      summary:
+-        "Tu semana, donde ya miras. Lock Calendar convierte tus calendarios conectados en un fondo de pantalla dinámico y legible, con tus clases y citas cotidianas en la pantalla de bloqueo de Android.",
+-      facts: [
+-        {
+-          title: "Lo siguiente, en un mismo lugar",
+-          text: "Los calendarios del teléfono y una integración directa con Google Calendar alimentan la vista semanal y la agenda diaria. Tú eliges la fuente y los calendarios; el fondo lee tu horario sin editar sus eventos."
+-        },
+-        {
+-          title: "Un diseño para la pantalla de bloqueo",
+-          text: "Un modelo de diseño compartido entre Compose y Canvas alimenta la vista previa y el fondo dinámico. Puedes ajustar la posición de la agenda alrededor de los elementos del sistema en lugar de recortar una captura."
+-        },
+-        {
+-          title: "El horario cambia; la agenda se actualiza",
+-          text: "Las notificaciones de cambios, las comprobaciones al volver a mostrar la pantalla y las políticas de refresco mantienen la conexión con la fuente sin renderizar continuamente. La actualización depende de la fuente y del ciclo de vida de Android."
+-        },
+-        {
+-          title: "Una app construida alrededor de la vista previa",
+-          text: "La selección de calendarios, la personalización del diseño y el fondo, y los ajustes agrupados permiten ver el resultado antes de aplicarlo. Las capturas sintéticas muestran el diseño actual de la app."
+-        }
+-      ],
+-      limitation:
+-        "Solo Android y todavía en desarrollo. La autorización de Google y los calendarios del dispositivo tienen evidencia de implementación y pruebas; continúa la validación más amplia de Google y de distintos dispositivos. Algunos relojes requieren ajustar la posición manualmente. No se garantiza un encaje universal ni una mejora de productividad medida.",
+-      next: "Seguir validando sincronización y posición en distintos dispositivos, mejorar el flujo para estudiantes y preparar el lanzamiento público tras las comprobaciones pendientes."
+-    },
++    ...mobileProjects.es,
+     "video-rescue": {
+       slug: "video-rescue",
+       order: "02",
+@@ -634,74 +502,6 @@
+       limitation:
+         "No se afirma despliegue de campo, seguridad operativa, mejora de resultados de rescate ni precisión validada de IA. El asistente no accede directamente a datos del mapa, nombres de edificios ni distancias; un mapa visible para personas no demuestra navegación con IA.",
+       next: "Completar el análisis más amplio y explorar asistencia para todo el equipo e integración de contexto geográfico como trabajo futuro, a partir de los comentarios preliminares."
+-    },
+-    cybermastery: {
+-      slug: "cybermastery",
+-      order: "03",
+-      name: "CyberMastery",
+-      context: "Desarrollo independiente · producto de aprendizaje full-stack",
+-      problem:
+-        "Las personas que aprenden necesitan una forma estructurada de pasar de explicaciones guiadas a práctica independiente, evidencias y revisiones sin convertir el progreso en una puntuación opaca.",
+-      role: "Implementación full-stack de producto y dominio de aprendizaje",
+-      tech: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Playwright"],
+-      status: "Slice funcional de HTTP Fundamentals con simulaciones estáticas de protocolos",
+-      summary:
+-        "Un prototipo full-stack de aprendizaje de ciberseguridad construido alrededor de un ciclo autenticado de HTTP Fundamentals.",
+-      facts: [
+-        {
+-          title: "Flujo de aprendizaje",
+-          text: "El aprendizaje guiado conduce a evaluación independiente, evidencias estructuradas de habilidades, revalidaciones de retención y actividades de transferencia."
+-        },
+-        {
+-          title: "Modelo de dominio",
+-          text: "La puntuación determinista y el historial de evidencias hacen que la lógica del dominio de aprendizaje sea interpretable y no dependa solo de la interfaz."
+-        },
+-        {
+-          title: "Arquitectura",
+-          text: "El dominio de aprendizaje se separa de la interfaz, la persistencia y la autenticación dentro de un límite modular-monolítico documentado."
+-        },
+-        {
+-          title: "Verificación",
+-          text: "El código auditado incluye cobertura de pruebas unitarias, de integración y de navegador; se excluyen deliberadamente recuentos variables y estado de CI."
+-        }
+-      ],
+-      limitation:
+-        "El repositorio es privado, el alcance actual es un slice de HTTP Fundamentals y no se afirma resultado de aprendizaje validado ni producción.",
+-      next: "Ampliar solo después de evaluar de forma segura el slice actual y definir un artefacto público seguro."
+-    },
+-    lifemap: {
+-      slug: "lifemap",
+-      order: "04",
+-      name: "LifeMap",
+-      context: "Desarrollo independiente de producto Android",
+-      problem:
+-        "Es fácil posponer objetivos a largo plazo cuando el tiempo es invisible; una visualización tranquila y privada puede hacer más tangible el horizonte sin recopilar datos personales.",
+-      role: "Producto Android, renderizado e implementación local-first",
+-      tech: ["Kotlin", "Jetpack Compose", "Preferences DataStore", "Android"],
+-      status: "Prototipo Android local-first en desarrollo activo",
+-      summary:
+-        "Un prototipo Android local-first para visualizar la vida, los años y los objetivos como cuadrículas temporales.",
+-      facts: [
+-        {
+-          title: "Interacción principal",
+-          text: "Un modelo compartido de renderizado de calendario convierte tiempo y objetivos en una cuadrícula visual sencilla en toda la experiencia."
+-        },
+-        {
+-          title: "Privacidad local-first",
+-          text: "Las preferencias persisten en el dispositivo con Preferences DataStore; el producto no depende de una cuenta ni de un servicio remoto."
+-        },
+-        {
+-          title: "Accesible y adaptable",
+-          text: "Los diseños adaptables y las descripciones de accesibilidad ayudan en distintos dispositivos y facilitan la interpretación no visual."
+-        },
+-        {
+-          title: "Superficie ambiental",
+-          text: "Un fondo de pantalla dinámico basado en eventos reutiliza el concepto del producto sin afirmar un lanzamiento público."
+-        }
+-      ],
+-      limitation:
+-        "LifeMap es un prototipo en desarrollo activo, no un lanzamiento en Play Store ni un producto con cambio de comportamiento validado.",
+-      next: "Continuar la validación en dispositivos, mejorar accesibilidad y probar el concepto de producto con comentarios de personas usuarias apropiados."
+     }
+   }
+ };
+@@ -711,13 +511,13 @@
+     label: "About",
+     title: "Software engineering with a human-centered lens.",
+     intro:
+-      "I’m Adrián, a Computer Science student at XJTLU building web, Android and applied-AI products. Right now, my main product focus is Lock Calendar: making everyday schedules easier to see from an Android lock screen. I also build across web and applied AI.",
++      "I’m Adrián, a Computer Science student at XJTLU building web, Android and applied-AI products. My current products are Lock In, for planning, focus and study, and Setline, for recording workouts and understanding progress. My supervised research explores human-AI coordination.",
+     storyTitle: "A path shaped between Spain and China.",
+     story: [
+       "I began my software engineering studies at U-TAD in Madrid before transferring to Xi’an Jiaotong-Liverpool University, where I am now a Year 3 BSc Information and Computing Science student with expected graduation in July 2028.",
+       "Moving between countries and working in tutoring, multicultural customer service and supervised research taught me to treat communication as part of engineering. A system is not useful simply because it works; people also need to understand what it is doing, trust its boundaries and know what to do next.",
+-      "Lock Calendar began with something I kept seeing at university: students taking screenshots of class timetables and struggling to make them fit behind the lock-screen clock. I wanted a cleaner, connected calendar that could keep up with real life, rather than a static image.",
+-      "That idea connects my current work: visible everyday schedules, coordination support for complex transcripts, structured cybersecurity learning and calm tools for visualising time and goals."
++      "Lock In began with something I kept seeing at university: students taking screenshots of class timetables and struggling to make them fit behind the lock-screen clock. I wanted a cleaner, connected calendar that could keep up with real life, rather than a static image.",
++      "That idea connects my current work: Lock In makes plans and attention visible; Setline makes workout records easier to capture and review; VIDEO-RESCUE explores coordination support for complex transcripts within supervised research."
+     ],
+     dual: [
+       {
+@@ -757,13 +557,13 @@
+     label: "Sobre mí",
+     title: "Ingeniería de software con una perspectiva centrada en las personas.",
+     intro:
+-      "Soy Adrián, estudiante de Computer Science en XJTLU. Desarrollo productos web, Android y de IA aplicada. Ahora mi foco principal es Lock Calendar: hacer más fácil consultar el día a día desde la pantalla de bloqueo de Android. También desarrollo productos web y de IA aplicada.",
++      "Soy Adrián, estudiante de Computer Science en XJTLU. Desarrollo productos web, Android y de IA aplicada. Mis productos actuales son Lock In, para organizar planes, enfoque y estudio, y Setline, para registrar entrenamientos y entender el progreso. Mi investigación supervisada explora la coordinación entre personas e IA.",
+     storyTitle: "Un recorrido construido entre España y China.",
+     story: [
+       "Comencé mis estudios de ingeniería del software en U-TAD, Madrid, antes de trasladarme a Xi’an Jiaotong-Liverpool University, donde actualmente curso tercero del BSc Information and Computing Science y tengo prevista la graduación en julio de 2028.",
+       "Vivir entre países y trabajar en tutoría, atención al cliente multicultural e investigación supervisada me enseñó que la comunicación forma parte de la ingeniería. Un sistema no es útil solo porque funcione: las personas también necesitan entender qué hace, confiar en sus límites y saber cuál es el siguiente paso.",
+-      "Lock Calendar nació de algo que veía continuamente en la universidad: estudiantes haciendo capturas del horario de clases y tratando de encajarlas detrás del reloj de la pantalla de bloqueo. Quería una agenda más limpia y conectada que siguiera el ritmo del día a día, en lugar de una imagen estática.",
+-      "Esa idea conecta mi trabajo actual: horarios cotidianos visibles, apoyo a la coordinación de transcripciones complejas, aprendizaje estructurado de ciberseguridad y herramientas tranquilas para visualizar tiempo y objetivos."
++      "Lock In nació de algo que veía continuamente en la universidad: estudiantes haciendo capturas del horario de clases y tratando de encajarlas detrás del reloj de la pantalla de bloqueo. Quería una agenda más limpia y conectada que siguiera el ritmo del día a día, en lugar de una imagen estática.",
++      "Esa idea conecta mi trabajo actual: Lock In hace visibles los planes y la atención; Setline facilita registrar y revisar entrenamientos; VIDEO-RESCUE explora el apoyo a la coordinación de transcripciones complejas en investigación supervisada."
+     ],
+     dual: [
+       {
+Binary change: public/cv/Adrian_Munoz_Atienza_CV_Public_ATS.pdf
+  before: a5764022bbd5c2a1350df7b19947d00cb45e91541f8c5e5e843180d8e9232831
+  after: 3c562934abe8cb1bd3562d20779a64e867aef46538f03ad9dcb993e48073b72c
+Binary change: public/cv/Adrian_Munoz_Atienza_CV_Public_Visual.pdf
+  before: e7dad510479316265ec306577557230138ce937e8490e5cd8edaf5f499706d62
+  after: 2751b4e4de5789e951368ba5e00bd62880823a6fbaf5f5cfdd73eef7e14f0afa
+Binary change: public/images/lock-calendar/customize.webp
+  before: a1c2eed59f3e73db4db79c16d74a987768a9b73852b58ba9451abcef903fbb9f
+  after: absent
+Binary change: public/images/lock-calendar/home.webp
+  before: b3e93810eac3877e9b22c889c058a91cc5a644acc3b35405f2fc3907c1a6c028
+  after: absent
+Binary change: public/images/lock-calendar/settings.webp
+  before: f7bd3585cd9277262d9e85691fdf39f1fffb6bec92f15fe48db686b947ed3f5f
+  after: absent
+Binary change: public/images/lock-in/design.webp
+  before: absent
+  after: 7c98cf30efe292d5da11a5ec3e7603719db80c7ccd96b84e3c8163503412bca9
+Binary change: public/images/lock-in/focus.webp
+  before: absent
+  after: 16076ad89a9453baefb61fcc6821632eed00576da1022434b4a0abb6503ce5dc
+Binary change: public/images/lock-in/home.webp
+  before: absent
+  after: 0689c3c62f8bdd3bf38d33c83c557ce5f097ddd099dbf4cd8f5837baf5fc56c0
+Binary change: public/images/lock-in/study.webp
+  before: absent
+  after: 8fa1e0f4d368a11af9a14ea72850343e2a5481f4db43a0fcdd71edc0e4b5c2f5
+Binary change: public/images/setline/log.webp
+  before: absent
+  after: d84343e57704fd056de739a273596251009fb55c705efa14f28b4f325a1d2543
+Binary change: public/images/setline/numeric-entry.webp
+  before: absent
+  after: 8933b269779401ea33f71d2ee7634441c24b17f88e3de68831084e1dce0d6ac1
+Binary change: public/images/setline/progress.webp
+  before: absent
+  after: a860200283e68e04259651cf91b3f6e3e1f7c8d8cf712c51821ed2334f2af19d
+Binary change: public/images/setline/rest.webp
+  before: absent
+  after: 7e8cc1ab621b2f2e7fe8d07564dee8c50506aea2aae80099e4b04c58a80d1e62
+--- /dev/null
++++ b/scripts/build-public-cvs.mjs
+@@ -0,0 +1,30 @@
++import { chromium } from "@playwright/test";
++import { fileURLToPath, pathToFileURL } from "node:url";
++import { resolve } from "node:path";
++
++const root = fileURLToPath(new URL("../", import.meta.url));
++const browser = await chromium.launch();
++try {
++  for (const style of ["ATS", "Visual"]) {
++    const page = await browser.newPage();
++    const filename = `Adrian_Munoz_Atienza_CV_Public_${style}`;
++    await page.goto(pathToFileURL(resolve(root, `docs/cv/${filename}.html`)).href);
++    await page.emulateMedia({ media: "print" });
++    await page.evaluate(() => document.fonts.ready);
++    const loaded = await page.evaluate(() =>
++      [...document.images].every((image) => image.complete && image.naturalWidth > 0)
++    );
++    if (!loaded) throw new Error(`${style}: a CV image failed to load`);
++    await page.pdf({
++      path: resolve(root, `public/cv/${filename}.pdf`),
++      preferCSSPageSize: true,
++      printBackground: true,
++      tagged: true,
++      outline: true
++    });
++    await page.close();
++    console.log(`${style}: public PDF generated`);
++  }
++} finally {
++  await browser.close();
++}
+--- a/tests/content.test.ts
++++ b/tests/content.test.ts
+@@ -1,23 +1,33 @@
+ import { describe, expect, it } from "vitest";
+-import { aboutPages, copy, projects, route, slugs } from "../lib/site-data";
++import { aboutPages, copy, projects, route, slugs, isProjectSlug } from "../lib/site-data";
+ import { linkedInBadgeIntegrationState, officialLinkedInBadgeMarkup } from "../lib/linkedin-badge";
+ import { videoRescueAssets, videoRescueStory } from "../lib/video-rescue-data";
+ 
+ describe("public portfolio content", () => {
+   it("keeps the agreed flagship-project order in both languages", () => {
+-    expect(slugs).toEqual(["lock-calendar", "video-rescue", "cybermastery", "lifemap"]);
++    expect(slugs).toEqual(["lock-in", "video-rescue", "setline"]);
+     for (const locale of ["en", "es"] as const)
+       expect(slugs.map((slug) => projects[locale][slug].name)).toEqual([
+-        "Lock Calendar",
++        "Lock In",
+         "VIDEO-RESCUE",
+-        "CyberMastery",
+-        "LifeMap"
++        "Setline"
+       ]);
+   });
+   it("keeps high-risk product claims bounded", () => {
+     expect(projects.en["video-rescue"].limitation).toMatch(/No field deployment/);
+-    expect(projects.en.cybermastery.limitation).toMatch(/private/);
+-    expect(projects.en.lifemap.limitation).toMatch(/not a Play Store release/);
++    expect(projects.en["lock-in"].limitation).toMatch(/emulator captures/);
++    expect(projects.en["lock-in"].facts.at(-1)?.text).toMatch(
++      /does not grade or change Anki reviews/
++    );
++    expect(projects.en.setline.limitation).toMatch(/estimate, not a measured maximum/);
++    expect(projects.en.setline.limitation).toMatch(/Google Calendar connection is web-only/);
++  });
++  it("removes the retired project content and rejects its slugs", () => {
++    for (const slug of ["cybermastery", "lifemap", "lock-calendar"])
++      expect(isProjectSlug(slug)).toBe(false);
++    expect(JSON.stringify({ copy, projects, aboutPages })).not.toMatch(
++      /CyberMastery|LifeMap|Lock Calendar/i
++    );
+   });
+   it("publishes complete English and Spanish navigation", () => {
+     for (const locale of ["en", "es"] as const)
+@@ -66,8 +76,8 @@
+   it("maps equivalent English and Spanish routes", () => {
+     expect(route("en", "/about/")).toBe("/about/");
+     expect(route("es", "/about/")).toBe("/es/about/");
+-    expect(route("es", "/projects/cybermastery/")).toBe("/es/projects/cybermastery/");
+-    expect(route("en", "projects/lock-calendar")).toBe("/projects/lock-calendar/");
++    expect(route("es", "/projects/setline/")).toBe("/es/projects/setline/");
++    expect(route("en", "projects/lock-in")).toBe("/projects/lock-in/");
+     expect(route("es", "/about?view=cv#journey")).toBe("/es/about/?view=cv#journey");
+     expect(route("es", "/#work")).toBe("/es/#work");
+   });
+--- a/tests/smoke.spec.ts
++++ b/tests/smoke.spec.ts
+@@ -6,14 +6,12 @@
+   "/es/",
+   "/about/",
+   "/es/about/",
+-  "/projects/lock-calendar/",
+-  "/es/projects/lock-calendar/",
++  "/projects/lock-in/",
++  "/es/projects/lock-in/",
+   "/projects/video-rescue/",
+-  "/projects/cybermastery/",
+-  "/projects/lifemap/",
++  "/projects/setline/",
+   "/es/projects/video-rescue/",
+-  "/es/projects/cybermastery/",
+-  "/es/projects/lifemap/",
++  "/es/projects/setline/",
+   "/research/",
+   "/es/research/",
+   "/privacy/",
+@@ -50,10 +48,9 @@
+ test("project hierarchy, language switching and public CV links work", async ({ page }) => {
+   await page.goto("/");
+   await expect(page.locator(".project-feature h3")).toHaveText([
+-    "Lock Calendar",
++    "Lock In",
+     "VIDEO-RESCUE",
+-    "CyberMastery",
+-    "LifeMap"
++    "Setline"
+   ]);
+ 
+   const desktopLanguageLink = page.locator(".desktop-nav .language-link");
+@@ -94,7 +91,7 @@
+   await page.emulateMedia({ reducedMotion: "reduce" });
+   await page.goto("/");
+   await expect(page.locator("#hero-title")).toBeVisible();
+-  await expect(page.locator("#work .project-feature")).toHaveCount(4);
++  await expect(page.locator("#work .project-feature")).toHaveCount(3);
+   await expect(page.locator(".specialization-path li")).toHaveCount(4);
+ });
+ 
+@@ -148,13 +145,11 @@
+   }
+ });
+ 
+-test("Lock Calendar explains its concept with accessible example controls at 375px", async ({
+-  page
+-}) => {
++test("Lock In explains its concept with accessible example controls at 375px", async ({ page }) => {
+   await page.setViewportSize({ width: 375, height: 812 });
+   for (const locale of ["en", "es"] as const) {
+-    await page.goto(locale === "en" ? "/projects/lock-calendar/" : "/es/projects/lock-calendar/");
+-    await expect(page.getByRole("heading", { name: "Lock Calendar", exact: true })).toBeVisible();
++    await page.goto(locale === "en" ? "/projects/lock-in/" : "/es/projects/lock-in/");
++    await expect(page.getByRole("heading", { name: "Lock In", exact: true })).toBeVisible();
+     const monday = page.getByRole("button", {
+       name: locale === "en" ? "Mon 10" : "Lun 10",
+       exact: true
+@@ -193,7 +188,7 @@
+ }) => {
+   await page.setViewportSize({ width: 320, height: 812 });
+   await page.emulateMedia({ reducedMotion: "reduce" });
+-  await page.goto("/projects/lock-calendar/");
++  await page.goto("/projects/lock-in/");
+   const monday = page.getByRole("button", { name: "Mon 10", exact: true });
+   await monday.focus();
+   await page.keyboard.press("ArrowLeft");
+@@ -234,10 +229,10 @@
+   expect(unknown?.status()).toBe(404);
+ });
+ 
+-test("Lock Calendar fits narrow screens without overflow", async ({ page }) => {
++test("Lock In fits narrow screens without overflow", async ({ page }) => {
+   for (const width of [320, 375]) {
+     await page.setViewportSize({ width, height: 812 });
+-    for (const path of ["/", "/es/", "/projects/lock-calendar/", "/es/projects/lock-calendar/"]) {
++    for (const path of ["/", "/es/", "/projects/lock-in/", "/es/projects/lock-in/"]) {
+       await page.goto(path);
+       expect(
+         await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),
+@@ -254,3 +249,66 @@
+     }
+   }
+ });
++
++test("current captures load and Setline explains its platform boundaries", async ({ page }) => {
++  for (const locale of ["en", "es"] as const) {
++    await page.goto(locale === "en" ? "/projects/setline/" : "/es/projects/setline/");
++    await expect(page.getByRole("heading", { name: "Setline", exact: true })).toBeVisible();
++    await expect(page.locator(".product-capture")).toHaveCount(4);
++    await expect(page.locator(".setline-example")).toContainText("91 kg");
++    for (const image of await page.locator(".product-capture img").all()) {
++      await image.scrollIntoViewIfNeeded();
++      await expect
++        .poll(() => image.evaluate((el) => (el as HTMLImageElement).naturalWidth))
++        .toBeGreaterThan(0);
++      expect(
++        (await page.request.get((await image.locator("..").getAttribute("href"))!)).ok()
++      ).toBeTruthy();
++    }
++    await page
++      .getByText(
++        locale === "en"
++          ? "How do calendars and rest alerts work?"
++          : "¿Cómo funcionan calendarios y alertas de descanso?",
++        { exact: true }
++      )
++      .click();
++    await expect(page.locator("details[open]")).toContainText(
++      locale === "en" ? "only on the web" : "solo está disponible en web"
++    );
++    await page.goto(locale === "en" ? "/projects/lock-in/" : "/es/projects/lock-in/");
++    await expect(page.locator(".product-capture")).toHaveCount(4);
++    for (const image of await page.locator(".product-capture img").all()) {
++      await image.scrollIntoViewIfNeeded();
++      await expect
++        .poll(() => image.evaluate((el) => (el as HTMLImageElement).naturalWidth))
++        .toBeGreaterThan(0);
++    }
++  }
++});
++
++test("retired routes return 404 and old calendar bookmarks reach Lock In", async ({ page }) => {
++  for (const prefix of ["", "/es"]) {
++    for (const slug of ["cybermastery", "lifemap"]) {
++      const response = await page.goto(`${prefix}/projects/${slug}/`);
++      expect(response?.status()).toBe(404);
++    }
++    await page.goto(`${prefix}/projects/lock-calendar/`);
++    await expect(page).toHaveURL(new RegExp(`${prefix}/projects/lock-in/$`));
++    await expect(page.getByRole("heading", { name: "Lock In", exact: true })).toBeVisible();
++  }
++});
++
++test("old bookmarks retain a working static link without JavaScript", async ({ browser }) => {
++  const context = await browser.newContext({ javaScriptEnabled: false });
++  const page = await context.newPage();
++  for (const prefix of ["", "/es"]) {
++    const response = await page.goto(`http://127.0.0.1:4173${prefix}/projects/lock-calendar/`);
++    expect(response?.status()).toBe(200);
++    const link = page.getByRole("link", { name: prefix ? "Conoce Lock In" : "Explore Lock In" });
++    await expect(link).toHaveAttribute("href", `${prefix}/projects/lock-in/`);
++    await link.click();
++    await expect(page.getByRole("heading", { name: "Lock In", exact: true })).toBeVisible();
++  }
++  await context.close();
++});

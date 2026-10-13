@@ -4,7 +4,7 @@ import { AboutPage } from "@/components/pages";
 export const metadata: Metadata = {
   title: "Sobre mí",
   description:
-    "El recorrido de Adrián Muñoz Atienza entre España y China, su enfoque de software centrado en las personas y el horario universitario que dio origen a Lock Calendar.",
+    "El recorrido de Adrián Muñoz Atienza entre España y China, su enfoque de software centrado en las personas y el horario universitario que dio origen a LockIn.",
   alternates: { canonical: "/es/about/", languages: { en: "/about/", es: "/es/about/" } },
   openGraph: {
     url: "/es/about/",
