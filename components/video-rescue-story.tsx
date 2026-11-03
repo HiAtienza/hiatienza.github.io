@@ -30,6 +30,13 @@ export function VideoRescueFigure({
       <figcaption>
         <strong>{t.label}</strong>
         {!compact && <p>{t.caption}</p>}
+        {compact && asset === "workspace" && (
+          <p>
+            {locale === "en"
+              ? "Map data © OpenStreetMap contributors · Leaflet"
+              : "Datos del mapa © colaboradores de OpenStreetMap · Leaflet"}
+          </p>
+        )}
         <a className="text-link" href={image.src}>
           {locale === "en" ? "View full-size image" : "Ver imagen a tamaño completo"}
           <span aria-hidden="true"> ↗</span>

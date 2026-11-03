@@ -26,13 +26,13 @@ export const videoRescueAssets = {
       label: "Local prototype · Fictional demonstration",
       alt: "Commander console with synthetic operator feeds, map and mission panels.",
       caption:
-        "Optional Overview layout in a local exercise, 2 Nov 2026. Map attribution is visible in the original."
+        "Optional Overview layout in a local exercise, 3 Nov 2026. Map data © OpenStreetMap contributors; displayed with Leaflet."
     },
     es: {
       label: "Prototipo local · Demostración ficticia",
       alt: "Consola de coordinación con cámaras sintéticas, mapa y paneles de misión.",
       caption:
-        "Vista Overview optativa en un ejercicio local del 2 de noviembre de 2026. La atribución cartográfica figura en la captura."
+        "Vista Overview optativa en un ejercicio local del 3 de noviembre de 2026. Datos del mapa © colaboradores de OpenStreetMap; visualización con Leaflet."
     },
     previewSrc: "/images/video-rescue-nov-overview-small.webp"
   },
