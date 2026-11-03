@@ -147,11 +147,11 @@ function ProjectFeature({ locale, slug }: { locale: Locale; slug: ProjectSlug })
               label: locale === "en" ? "My contribution" : "Mi aportación",
               value: perspective.contribution
             },
-            { label: locale === "en" ? "Focus" : "Enfoque", value: perspective.focus }
+            { label: locale === "en" ? "Who tried it" : "Quién lo probó", value: perspective.usage }
           ]}
         />
         <Link className="arrow-link" href={route(locale, `/projects/${slug}/`)}>
-          {copy[locale].projects.link} <span aria-hidden="true">→</span>
+          {perspective.link} <span aria-hidden="true">→</span>
         </Link>
       </div>
       <div className="project-visual">
@@ -365,6 +365,10 @@ export function ProjectPage({ locale, slug }: { locale: Locale; slug: ProjectSlu
               className="case-meta"
               items={[
                 { label: labels.role, value: project.role },
+                {
+                  label: locale === "en" ? "Documented use" : "Uso documentado",
+                  value: projectPerspectives[locale][slug].usage
+                },
                 { label: locale === "en" ? "Status" : "Estado", value: project.status },
                 { label: labels.tech, value: project.tech.join(" · ") }
               ]}
@@ -486,8 +490,8 @@ export function ResearchPage({ locale }: { locale: Locale }) {
               </p>
               <p>
                 {locale === "en"
-                  ? "Preliminary team feedback points to useful information support, requests for assistance across the team and a gap in the assistant’s geographic context. These observations guide the next iteration of the research prototype."
-                  : "Los comentarios preliminares del equipo apuntan a apoyo informativo útil, peticiones de asistencia para todo el equipo y una integración pendiente del contexto geográfico. Estas observaciones orientan la siguiente iteración del prototipo."}
+                  ? "In the earlier study, searchers asked for help finding the next location. The November prototype now supplies selected positions and sectors to the assistant. Its local demonstration followed a reviewed order through to acknowledgement in the field browser."
+                  : "En el estudio anterior, los buscadores pidieron ayuda para localizar el siguiente destino. El prototipo de noviembre ya aporta posiciones y sectores seleccionados al asistente. En la demostración local se siguió una orden revisada hasta su confirmación en el navegador de campo."}
               </p>
               <Link
                 className="arrow-link"

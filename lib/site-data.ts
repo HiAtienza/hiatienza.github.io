@@ -49,7 +49,7 @@ export const copy = {
     hero: {
       eyebrow: "Computer Science student · XJTLU",
       title: "I’m Adrián. I build useful software for people.",
-      lead: "I develop Android apps and web products, from the first interaction to local data, testing and delivery. I care about how people use them, and explore human-centered AI through supervised research.",
+      lead: "I started LockIn because I wanted to find my next classroom at a glance. Since then I’ve built a workout log and helped develop a web workspace for search exercises at XJTLU.",
       work: "Explore my work",
       about: "Get to know me",
       cv: "Download CV",
@@ -243,7 +243,7 @@ export const copy = {
     hero: {
       eyebrow: "Estudiante de Computer Science · XJTLU",
       title: "Soy Adrián. Construyo software útil para las personas.",
-      lead: "Desarrollo apps Android y productos web, desde la primera interacción hasta los datos, las pruebas y la entrega. Cuido cómo las personas los usan y exploro la IA centrada en las personas mediante investigación supervisada.",
+      lead: "Empecé LockIn porque quería encontrar mi próxima aula con un vistazo. También he desarrollado un registro de entrenamiento y he contribuido a un prototipo web para ejercicios de búsqueda en XJTLU.",
       work: "Ver mis proyectos",
       about: "Conóceme",
       cv: "CV en inglés",
@@ -443,28 +443,28 @@ export const projects: Record<Locale, Record<ProjectSlug, Project>> = {
       tech: ["React", "TypeScript", "Express", "SQLite", "LiveKit/WebRTC"],
       status: "Research prototype · data collection complete, fuller analysis ongoing",
       summary:
-        "A browser-based coordination prototype that connects maps, live media, captions, durable events, operator tasking and evidence-linked AI support.",
+        "I helped build a web workspace for search exercises. A coordinator can open the original field report, send a reviewed task and see when the operator acknowledges it.",
       facts: [
         {
-          title: "System overview",
-          text: "Field media, live transcripts, a map for human operators and durable reports share one workspace. Report assignment, receipt confirmation and export support follow-up and later review."
+          title: "Review, send, acknowledge",
+          text: "The Commander checks the recipient, destination and instruction before sending. Retries reuse the order ID. A blocked task records a reason, and a replacement links back to the original."
         },
         {
-          title: "Human-AI interaction",
-          text: "The assistant helps retrieve and relate reports while keeping unknowns visible. The published demonstration distinguishes logged records from unverified speech; these UI labels are not independent validation of truth."
+          title: "Plan and guide",
+          text: "The Commander previews square or parallel search patterns before saving. Field operators see distance and bearing only with a fresh GPS fix. Saving geometry and assigning a task are separate decisions."
         },
         {
-          title: "Decision boundary",
-          text: "Human operators retain decision responsibility; the prototype does not automate rescue decisions."
+          title: "Ask with context",
+          text: "The assistant receives selected reports, transcripts, sectors and positions. Private voice questions stay separate from push-to-talk radio. A suggestion can prepare a draft task for human review."
         },
         {
-          title: "Research setting",
-          text: "The work sits in a supervised, two-student research context. The supplied presentation reports data collection complete and preliminary qualitative feedback; fuller analysis remains ongoing."
+          title: "Review the mission",
+          text: "After-action drafts point to a version of the mission evidence. Reviewers keep their corrections separately, and later evidence can flag a review for renewal."
         }
       ],
       limitation:
-        "No field deployment, operational safety claim, rescue-outcome claim or validated AI-accuracy claim is made. The assistant does not directly access map data, building names or distances; a human-visible map does not establish AI navigation.",
-      next: "Complete fuller analysis and explore team-wide assistance and geographic-context integration as future work, guided by the preliminary feedback."
+        "The November demonstration used synthetic GPS and media in local browsers. Field safety, AI accuracy and outdoor device performance remain unverified.",
+      next: "Field validation would need to check GPS freshness, sensors, radio and screen readability on physical devices."
     }
   },
   es: {
@@ -480,28 +480,28 @@ export const projects: Record<Locale, Record<ProjectSlug, Project>> = {
       tech: ["React", "TypeScript", "Express", "SQLite", "LiveKit/WebRTC"],
       status: "Prototipo de investigación · datos recogidos, análisis más completo en curso",
       summary:
-        "Un prototipo web de coordinación que conecta mapas, contenido multimedia en directo, subtítulos, eventos persistentes, tareas y asistencia de IA vinculada a evidencias.",
+        "Ayudé a desarrollar un espacio web para ejercicios de búsqueda. El coordinador puede consultar el informe original, revisar una orden y ver cuándo el operador confirma que la ha recibido.",
       facts: [
         {
-          title: "Visión del sistema",
-          text: "Contenidos de campo, transcripciones en directo, un mapa para operadores humanos e informes persistentes comparten un espacio. La asignación, confirmación de recepción y exportación permiten seguimiento y revisión posterior."
+          title: "Revisar, enviar y confirmar",
+          text: "El coordinador comprueba destinatario, destino e instrucción antes de enviar. Los reintentos reutilizan el identificador de la orden. Un bloqueo conserva su motivo y una sustitución enlaza con la tarea original."
         },
         {
-          title: "Interacción persona-IA",
-          text: "El asistente ayuda a recuperar y relacionar informes manteniendo visibles las incógnitas. La demostración publicada distingue registros de voz no verificada; estas etiquetas no validan la verdad de forma independiente."
+          title: "Planificar y orientar",
+          text: "El coordinador previsualiza patrones de búsqueda cuadrados o paralelos antes de guardarlos. El operador ve distancia y rumbo cuando hay una posición GPS reciente. Guardar la geometría y asignar una tarea son decisiones independientes."
         },
         {
-          title: "Límite de decisión",
-          text: "Los operadores humanos mantienen la responsabilidad de decisión; el prototipo no automatiza decisiones de rescate."
+          title: "Consultar con contexto",
+          text: "El asistente recibe informes, transcripciones, sectores y posiciones seleccionados. Las preguntas de voz privadas se mantienen separadas de la radio. Una sugerencia puede preparar un borrador de tarea para revisión humana."
         },
         {
-          title: "Entorno de investigación",
-          text: "El trabajo se sitúa en investigación supervisada con dos estudiantes. La presentación facilitada indica recogida de datos completada y comentarios cualitativos preliminares; el análisis más completo continúa."
+          title: "Revisar la misión",
+          text: "Cada borrador del informe posterior remite a una versión de las evidencias. Los revisores conservan sus correcciones por separado. Si llegan nuevos datos, el sistema puede señalar que toca revisar el informe otra vez."
         }
       ],
       limitation:
-        "No se afirma despliegue de campo, seguridad operativa, mejora de resultados de rescate ni precisión validada de IA. El asistente no accede directamente a datos del mapa, nombres de edificios ni distancias; un mapa visible para personas no demuestra navegación con IA.",
-      next: "Completar el análisis más amplio y explorar asistencia para todo el equipo e integración de contexto geográfico como trabajo futuro, a partir de los comentarios preliminares."
+        "La demostración de noviembre utilizó GPS y medios sintéticos en navegadores locales. Quedan por verificar la seguridad en campo, la precisión de la IA y el comportamiento de los dispositivos en exteriores.",
+      next: "La validación en campo requeriría comprobar la vigencia del GPS, los sensores, la radio y la legibilidad en dispositivos físicos."
     }
   }
 };

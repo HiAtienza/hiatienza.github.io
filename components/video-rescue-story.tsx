@@ -70,6 +70,30 @@ export function VideoRescueStory({ locale }: { locale: Locale }) {
           <VideoRescueFigure locale={locale} />
         </div>
       </section>
+      <section className="section page-wrap" aria-labelledby="dispatch-title">
+        <p className="eyebrow">
+          {locale === "en"
+            ? "Local exercise · 2 November 2026"
+            : "Ejercicio local · 2 de noviembre de 2026"}
+        </p>
+        <h2 id="dispatch-title">
+          {locale === "en"
+            ? "From a reviewed order to a field receipt"
+            : "De la revisión de la orden a su recepción en campo"}
+        </h2>
+        <div className="dispatch-gallery">
+          <VideoRescueFigure locale={locale} asset="dispatch" />
+          <VideoRescueFigure locale={locale} asset="field" />
+        </div>
+        <details className="materials-note">
+          <summary>
+            {locale === "en"
+              ? "Explore the saved search pattern"
+              : "Ver el patrón de búsqueda guardado"}
+          </summary>
+          <VideoRescueFigure locale={locale} asset="plan" />
+        </details>
+      </section>
       <section className="section page-wrap rescue-example" aria-labelledby="rescue-example-title">
         <div data-reveal>
           <p className="eyebrow">{t.assistantLabel}</p>

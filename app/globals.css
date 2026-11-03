@@ -2979,3 +2979,19 @@ dd {
     max-width: none;
   }
 }
+
+.dispatch-gallery {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 2rem;
+}
+@media (max-width: 780px) {
+  .dispatch-gallery {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .dispatch-gallery .rescue-figure-field {
+    max-width: 350px;
+    margin-inline: auto;
+  }
+}

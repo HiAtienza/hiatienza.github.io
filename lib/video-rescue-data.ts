@@ -19,21 +19,71 @@ export const videoRescueAssets = {
     }
   },
   workspace: {
-    src: "/images/video-rescue-workspace.webp",
-    previewSrc: "/images/video-rescue-workspace-preview.webp",
-    width: 2400,
-    height: 1500,
+    src: "/images/video-rescue-nov-workspace.webp",
+    width: 1440,
+    height: 900,
     en: {
-      label: "Prototype UI · Fictional demonstration reports",
-      alt: "VIDEO-RESCUE prototype with an assistant panel, field-operator cards, a shared map, live transcripts and a mission log containing a fictional shoe report.",
+      label: "Local prototype · Fictional demonstration",
+      alt: "Commander console with synthetic operator feeds, map and mission panels.",
       caption:
-        "The shared workspace shown in the research presentation. Operators are offline in this demonstration capture; it illustrates the interface, not live connectivity or a rescue outcome. Map attribution: Leaflet / OpenStreetMap."
+        "Optional Overview layout in a local exercise, 2 Nov 2026. Map attribution is visible in the original."
     },
     es: {
-      label: "Interfaz del prototipo · Informes ficticios de demostración",
-      alt: "Prototipo VIDEO-RESCUE con asistente, paneles de operadores, mapa compartido, transcripciones en directo y registro de misión con un informe ficticio de una zapatilla.",
+      label: "Prototipo local · Demostración ficticia",
+      alt: "Consola de coordinación con cámaras sintéticas, mapa y paneles de misión.",
       caption:
-        "Espacio compartido mostrado en la presentación de investigación. Los operadores aparecen desconectados en esta captura de demostración; muestra la interfaz, no conectividad en directo ni resultados de rescate. Mapa: Leaflet / OpenStreetMap."
+        "Vista Overview optativa en un ejercicio local del 2 de noviembre de 2026. La atribución cartográfica figura en la captura."
+    },
+    previewSrc: "/images/video-rescue-nov-overview-small.webp"
+  },
+  dispatch: {
+    src: "/images/video-rescue-nov-dispatch.webp",
+    width: 1440,
+    height: 900,
+    en: {
+      label: "Local prototype · Fictional demonstration",
+      alt: "The Commander reviews a synthetic task for P2 before dispatch.",
+      caption:
+        "In this local exercise the reviewed order was sent through the API and received in P2’s browser."
+    },
+    es: {
+      label: "Prototipo local · Demostración ficticia",
+      alt: "El coordinador revisa una orden de ejemplo para P2 antes de enviarla.",
+      caption:
+        "En este ejercicio local, la orden revisada se envió por la API y llegó al navegador de P2."
+    }
+  },
+  field: {
+    src: "/images/video-rescue-nov-field.webp",
+    width: 645,
+    height: 1398,
+    en: {
+      label: "Local prototype · Fictional demonstration",
+      alt: "P2 field interface in Sunlight mode after acknowledging the task.",
+      caption:
+        "Emulated mobile viewport and synthetic GPS. The acknowledgement records receipt of the order."
+    },
+    es: {
+      label: "Prototipo local · Demostración ficticia",
+      alt: "Interfaz de campo de P2 en modo Sunlight tras confirmar la recepción.",
+      caption:
+        "Vista móvil emulada y GPS sintético. La confirmación registra la recepción de la orden."
+    }
+  },
+  plan: {
+    src: "/images/video-rescue-nov-plan.webp",
+    width: 1440,
+    height: 900,
+    en: {
+      label: "Local prototype · Fictional demonstration",
+      alt: "A reviewed parallel search pattern saved on the demonstration map.",
+      caption: "The cyan line shows saved geometry. Dispatch is a separate operator action."
+    },
+    es: {
+      label: "Prototipo local · Demostración ficticia",
+      alt: "Patrón paralelo revisado y guardado sobre el mapa de demostración.",
+      caption:
+        "El trazado cian representa la geometría guardada. El despacho requiere otra acción del coordinador."
     }
   },
   assistant: {
@@ -103,7 +153,7 @@ export const videoRescueStory: Record<
     ],
     workspaceTitle: "The workspace I helped build",
     workspaceBody:
-      "I developed browser-prototype work within a supervised, two-student XJTLU research team. The interface brings field media, transcripts, a shared map and mission reports into one place. Assignment and receipt confirmation support follow-up; export tools support later review.",
+      "I helped develop the browser prototype as one of two students in the XJTLU research team. It gives one Commander and four field operator roles (P2–P5) a shared mission record. Operators can recover an unsent photo report, use push-to-talk radio and check their assigned destination. The Commander can reopen the original report before deciding where to send someone.",
     assistantLabel: "A closer look",
     assistantTitle: "An answer that keeps the unknowns visible",
     question: "What did P5 report about the shoe, and what is still unknown?",
@@ -124,13 +174,13 @@ export const videoRescueStory: Record<
         body: "Searchers also asked for AI help with understanding instructions and navigating to the next location. Those requests suggest a direction for design; they are not a claim that AI navigation is implemented."
       },
       {
-        title: "Geographic context is a missing piece",
-        body: "The assistant could access video frames, images, transcripts and reports, but did not directly access map data, building names or distances. Participants’ requests highlighted that integration gap."
+        title: "What the study version was missing",
+        body: "During the study, the assistant could access video frames, images, transcripts and reports, but did not directly access map data, building names or distances. Participants’ requests highlighted that integration gap."
       }
     ],
-    boundaryTitle: "A visible map does not mean map-aware AI",
+    boundaryTitle: "Geographic context in the November prototype",
     boundary:
-      "People can consult the shared map. Direct geographic context for the assistant and proactive navigation remain future integration work. The prototype has no claimed field deployment, operational safety validation or demonstrated rescue benefit.",
+      "The assistant can receive mission anchors, sectors and selected positions. The field interface uses fresh GPS for bearing and distance. A Commander reviews each destination before sending an order. Safe routing and rescue outcomes remain unverified.",
     source:
       "Based on the supplied SURF research presentation and speaking script. Findings are paraphrases of the research team’s preliminary feedback summary, not participant quotations or a completed independent analysis."
   },
@@ -159,7 +209,7 @@ export const videoRescueStory: Record<
     ],
     workspaceTitle: "El espacio de trabajo que ayudé a construir",
     workspaceBody:
-      "Desarrollé trabajo de prototipo web dentro de un equipo de investigación supervisada de XJTLU con dos estudiantes. La interfaz reúne contenidos de campo, transcripciones, un mapa compartido e informes de misión. La asignación y la confirmación de recepción permiten dar seguimiento; las exportaciones facilitan la revisión posterior.",
+      "Participé en el desarrollo del prototipo web como uno de los dos estudiantes del equipo de XJTLU. Un coordinador y cuatro roles de campo (P2–P5) comparten un registro de misión. En campo se puede recuperar un borrador de reporte con foto, hablar por radio y consultar el destino asignado. El coordinador puede abrir el informe original antes de decidir adónde enviar a alguien.",
     assistantLabel: "De cerca",
     assistantTitle: "Una respuesta que mantiene visibles las incógnitas",
     question: "¿Qué informó P5 sobre la zapatilla y qué sigue sin saberse?",
@@ -180,13 +230,13 @@ export const videoRescueStory: Record<
         body: "Los buscadores también pidieron ayuda de IA para entender instrucciones y dirigirse al siguiente lugar. Estas peticiones orientan el diseño; no significan que la navegación con IA esté implementada."
       },
       {
-        title: "El contexto geográfico que falta",
-        body: "El asistente podía acceder a fotogramas de vídeo, imágenes, transcripciones e informes, pero no directamente a datos del mapa, nombres de edificios ni distancias. Las peticiones de participantes señalaron esa integración pendiente."
+        title: "Qué faltaba en la versión del estudio",
+        body: "En la versión del estudio, el asistente podía acceder a fotogramas de vídeo, imágenes, transcripciones e informes, pero no directamente a datos del mapa, nombres de edificios ni distancias. Las peticiones de participantes señalaron esa integración pendiente."
       }
     ],
-    boundaryTitle: "Un mapa visible no implica una IA con acceso al mapa",
+    boundaryTitle: "Contexto geográfico en el prototipo de noviembre",
     boundary:
-      "Las personas pueden consultar el mapa compartido. El contexto geográfico directo para el asistente y la navegación proactiva quedan como futuras integraciones. No se afirma despliegue de campo, validación de seguridad operativa ni beneficio demostrado en rescates.",
+      "El asistente puede recibir anclas de misión, sectores y posiciones seleccionadas. La interfaz de campo utiliza GPS reciente para mostrar rumbo y distancia. El coordinador revisa el destino antes de enviar una orden. Quedan por validar la seguridad de los recorridos y los resultados en rescates.",
     source:
       "Basado en la presentación SURF y el guion facilitados. Los hallazgos son paráfrasis del resumen preliminar de comentarios del equipo, no citas de participantes ni un análisis independiente completado."
   }

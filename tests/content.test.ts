@@ -15,7 +15,7 @@ describe("public portfolio content", () => {
       ]);
   });
   it("keeps high-risk product claims bounded", () => {
-    expect(projects.en["video-rescue"].limitation).toMatch(/No field deployment/);
+    expect(projects.en["video-rescue"].limitation).toMatch(/synthetic GPS/);
     expect(projects.en["lock-in"].limitation).toMatch(/emulator captures/);
     expect(projects.en["lock-in"].facts.at(-1)?.text).toMatch(
       /does not grade or change Anki reviews/
@@ -40,10 +40,8 @@ describe("public portfolio content", () => {
     expect(videoRescueAssets.assistant.en.caption).toMatch(/not independently verified/);
     expect(videoRescueStory.en.findingsStatus).toMatch(/Fuller analysis ongoing/);
     expect(videoRescueStory.es.findingsStatus).toMatch(/Análisis más completo en curso/);
-    expect(projects.en["video-rescue"].limitation).toMatch(/does not directly access map data/);
-    expect(projects.es["video-rescue"].limitation).toMatch(
-      /no accede directamente a datos del mapa/
-    );
+    expect(projects.en["video-rescue"].limitation).toMatch(/Field safety.*unverified/);
+    expect(projects.es["video-rescue"].limitation).toMatch(/seguridad en campo/);
     for (const locale of ["en", "es"] as const) {
       expect(videoRescueStory[locale].steps).toHaveLength(4);
       expect(videoRescueStory[locale].findings).toHaveLength(3);

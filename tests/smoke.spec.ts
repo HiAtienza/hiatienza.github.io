@@ -107,17 +107,18 @@ test("VIDEO-RESCUE visuals load, retain evidence boundaries and are accessible",
   for (const locale of ["en", "es"] as const) {
     await page.setViewportSize(originalViewport);
     await page.goto(locale === "en" ? "/projects/video-rescue/" : "/es/projects/video-rescue/");
-    await expect(page.locator(".rescue-figure")).toHaveCount(3);
+    await expect(page.locator(".rescue-figure")).toHaveCount(6);
     await expect(page.locator(".rescue-steps li")).toHaveCount(4);
     await expect(page.locator(".rescue-research-status")).toContainText(
       locale === "en" ? "Fuller analysis ongoing" : "Análisis más completo en curso"
     );
     await expect(page.locator(".rescue-geographic-boundary")).toContainText(
-      locale === "en" ? "future integration work" : "futuras integraciones"
+      locale === "en" ? "selected positions" : "posiciones seleccionadas"
     );
     await expect(page.locator(".rescue-figure-assistant figcaption")).toContainText(
       locale === "en" ? "not independently verified truth" : "no una verdad verificada"
     );
+    await page.locator("details:has(.rescue-figure-plan) summary").click();
     for (const image of await page.locator(".rescue-figure img").all()) {
       await image.scrollIntoViewIfNeeded();
       await expect(image).toBeVisible();

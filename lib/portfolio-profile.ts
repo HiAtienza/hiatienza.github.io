@@ -169,6 +169,8 @@ export const profileCopy = {
 } as const satisfies Record<Locale, ProfileCopy>;
 
 interface ProjectPerspective {
+  usage: string;
+  link: string;
   summary: string;
   contribution: string;
   focus: string;
@@ -178,8 +180,11 @@ interface ProjectPerspective {
 export const projectPerspectives = {
   en: {
     "lock-in": {
+      usage:
+        "The wallpaper was tested on a OnePlus. LockIn was also distributed to approved Google Play testers.",
+      link: "See how the timetable fits",
       summary:
-        "An Android wallpaper that brings planning, focus and study into one modular panel. A shared preview helps people choose what to show and understand what fits.",
+        "I built an Android wallpaper to answer a question I had between classes: where do I need to be next? A preview shows whether the time and room still fit alongside tasks and a focus timer.",
       contribution:
         "Product concept, interaction design, Android development and internal releases.",
       focus: "Information design · Shared rendering · Android delivery",
@@ -189,8 +194,11 @@ export const projectPerspectives = {
         "LockIn shows how I translate a personal need into a product and manage the constraints of a real Android surface."
     },
     setline: {
+      usage:
+        "The internal Play installation was verified on a OnePlus. Separate Android tests used sample workouts to check routine reuse and backup recovery.",
+      link: "Follow a set into the next workout",
       summary:
-        "An Android strength-training log with editable previous loads, custom routines and local backups. Clear inputs keep planned targets separate from actual performance.",
+        "I built a workout log that remembers the last weight without counting reps before they happen. A finished session can become a routine while its original record stays intact.",
       contribution:
         "Product requirements, UX priorities, local-data workflows and physical QA coordination.",
       focus: "Touch interaction · State models · Local persistence",
@@ -200,21 +208,27 @@ export const projectPerspectives = {
         "Setline complements LockIn with deeper work on input, session history, persistence and recovery."
     },
     "video-rescue": {
+      usage:
+        "Participants took coordinator and searcher roles in the supervised study. The November dispatch flow was exercised locally between two browsers with synthetic mission data.",
+      link: "Follow an order from review to receipt",
       summary:
-        "A supervised XJTLU web prototype for human-AI coordination. Reports, transcripts and a shared map support a team while people retain responsibility for decisions.",
+        "I helped build a web workspace for search exercises. A coordinator can open the original field report, send a reviewed task and see when the operator acknowledges it.",
       contribution:
         "Web prototype development and support for study design, sessions and analysis within a two-student team.",
       focus: "Web systems · Human-AI Interaction · Team research",
       learning:
-        "An AI answer must make its supporting information and unknowns inspectable. A visible map alone does not give the assistant geographic context.",
+        "An AI answer must make its supporting information and unknowns inspectable. Supplying selected positions and sectors makes the source of spatial advice traceable.",
       connection:
         "This work complements the Android products with web development, collaborative research and human responsibility in AI interfaces."
     }
   },
   es: {
     "lock-in": {
+      usage:
+        "El fondo se probó en un OnePlus. LockIn también se distribuyó a testers autorizados de Google Play.",
+      link: "Ver cómo encaja el horario",
       summary:
-        "Un fondo Android que reúne planificación, enfoque y estudio en un panel modular. La vista previa compartida ayuda a elegir qué mostrar y entender qué cabe.",
+        "Desarrollé un fondo Android para resolver una duda que tenía entre clases: ¿a qué aula tengo que ir ahora? La vista previa permite comprobar si la hora y el aula caben junto a las tareas y el temporizador.",
       contribution:
         "Concepto de producto, diseño de interacción, desarrollo Android y versiones internas.",
       focus: "Diseño de información · Render compartido · Entrega Android",
@@ -224,8 +238,11 @@ export const projectPerspectives = {
         "LockIn muestra cómo convierto una necesidad personal en producto y trabajo con las restricciones de una superficie Android real."
     },
     setline: {
+      usage:
+        "La instalación interna de Play se comprobó en un OnePlus. En pruebas separadas de Android se usaron sesiones de ejemplo para verificar rutinas y restaurar copias.",
+      link: "Seguir una serie hasta el siguiente entrenamiento",
       summary:
-        "Un registro de fuerza Android con cargas anteriores editables, rutinas propias y copias locales. Una entrada clara separa el objetivo de lo que realmente se hizo.",
+        "Desarrollé un registro de entrenamiento que recuerda la última carga y espera a que anotes las repeticiones que has hecho. Una sesión terminada puede convertirse en rutina y conservar su historial.",
       contribution:
         "Requisitos de producto, prioridades de UX, flujos de datos locales y coordinación de QA físico.",
       focus: "Interacción táctil · Modelos de estado · Persistencia local",
@@ -235,13 +252,16 @@ export const projectPerspectives = {
         "Setline complementa LockIn con más trabajo sobre entrada de datos, historial de sesiones, persistencia y recuperación."
     },
     "video-rescue": {
+      usage:
+        "En el estudio supervisado hubo participantes en los roles de coordinación y búsqueda. El flujo de despacho de noviembre se comprobó en dos navegadores locales con datos de misión sintéticos.",
+      link: "Seguir una orden hasta su recepción",
       summary:
-        "Un prototipo web supervisado de XJTLU para coordinación persona-IA. Informes, transcripciones y mapa compartido apoyan al equipo; las personas conservan las decisiones.",
+        "Ayudé a desarrollar un espacio web para ejercicios de búsqueda. El coordinador puede consultar el informe original, revisar una orden y ver cuándo el operador confirma que la ha recibido.",
       contribution:
         "Desarrollo de prototipo web y apoyo al diseño del estudio, sesiones y análisis dentro de un equipo de dos estudiantes.",
       focus: "Sistemas web · Interacción persona-IA · Investigación en equipo",
       learning:
-        "Una respuesta de IA debe permitir revisar los informes que la apoyan y sus incógnitas. Mostrar un mapa no aporta por sí solo contexto geográfico al asistente.",
+        "Una respuesta de IA debe permitir revisar los informes que la apoyan y sus incógnitas. Proporcionar posiciones y sectores seleccionados permite rastrear el origen de una sugerencia espacial.",
       connection:
         "Este trabajo complementa los productos Android con desarrollo web, investigación colaborativa y responsabilidad humana en las interfaces de IA."
     }
