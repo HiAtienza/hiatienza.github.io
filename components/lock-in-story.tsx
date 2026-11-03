@@ -51,7 +51,7 @@ export function LockInStory({ locale }: { locale: Locale }) {
         ],
         [
           "How do focus sessions and study cards work?",
-          "Choose 25 minutes, 50 minutes or a custom duration, then start, pause or reset. Study cards accept TSV/TXT imports and a local read-only AnkiDroid bridge. LockIn recall tracking does not modify Anki reviews. The photographed study card is an example, not evidence of a new account connection."
+          "Choose 25 minutes, 50 minutes or a custom duration, then start, pause or reset. Study cards accept TSV/TXT imports and a local read-only AnkiDroid bridge. LockIn recall tracking does not modify Anki reviews. Study examples use demonstration content."
         ],
         [
           "Will the wallpaper fit every phone?",
@@ -123,10 +123,10 @@ export function LockInStory({ locale }: { locale: Locale }) {
         }
         description={
           en
-            ? "Selected OnePlus checks from 12 October 2026, version 0.1.9. Study cards, habits and focus appear within the actual system lock screen. The captures keep Android’s clock and controls visible."
+            ? "Selected OnePlus checks from 12 October 2026, version 0.1.9. Habits and focus appear within the actual system lock screen. The captures keep Android’s clock and controls visible."
             : "Comprobaciones seleccionadas en OnePlus del 12 de octubre de 2026, versión 0.1.9. Tarjetas, hábitos y enfoque aparecen en el bloqueo real. Las capturas conservan visibles el reloj y los controles de Android."
         }
-        assets={["lock-locked-study", "lock-locked-focus"]}
+        assets={en ? ["lock-locked-focus"] : ["lock-locked-study", "lock-locked-focus"]}
       />
       <section className="section page-wrap lock-demo-layout" aria-labelledby="lock-demo-title">
         <div data-reveal>

@@ -4,6 +4,7 @@ import type { MobileProjectSlug } from "@/lib/mobile-products";
 interface Capture {
   product: MobileProjectSlug;
   src: string;
+  english?: { src: string; width: number; height: number };
   width: number;
   height: number;
   copy: Record<Locale, { title: string; caption: string; alt: string }>;
@@ -193,12 +194,13 @@ export const productCaptures = {
     src: "/images/setline/routine.webp",
     width: 390,
     height: 844,
+    english: { src: "/images/setline/routine-en.webp", width: 390, height: 844 },
     copy: {
       en: {
         title: "Your routine, ready to repeat",
         caption:
-          "Saved custom routine with edit and start actions. QA capture · synthetic exercises and targets · Oct 2026.",
-        alt: "Your routine, ready to repeat. Saved custom routine with edit and start actions. QA capture · synthetic exercises and targets · Oct 2026."
+          "Saved routine with edit and start actions. English web demo · synthetic data · 3 Nov 2026.",
+        alt: "Saved routine with edit and start actions. English web demo · synthetic data · 3 Nov 2026."
       },
       es: {
         title: "Tu rutina, lista para repetir",
@@ -213,12 +215,13 @@ export const productCaptures = {
     src: "/images/setline/routine-editor.webp",
     width: 390,
     height: 1509,
+    english: { src: "/images/setline/editor-en.webp", width: 390, height: 844 },
     copy: {
       en: {
         title: "A structure you can adapt",
         caption:
-          "Draft editor for exercise order, sets, target reps, rest and notes. QA capture · synthetic data · Oct 2026.",
-        alt: "A structure you can adapt. Draft editor for exercise order, sets, target reps, rest and notes. QA capture · synthetic data · Oct 2026."
+          "Routine editor with target sets, rep range, rest and notes. English web demo · synthetic data · 3 Nov 2026.",
+        alt: "Routine editor with target sets, rep range, rest and notes. English web demo · synthetic data · 3 Nov 2026."
       },
       es: {
         title: "Una estructura que puedes adaptar",
@@ -233,12 +236,13 @@ export const productCaptures = {
     src: "/images/setline/numeric-entry.webp",
     width: 390,
     height: 844,
+    english: { src: "/images/setline/entry-en.webp", width: 390, height: 844 },
     copy: {
       en: {
         title: "A keypad that understands the field",
         caption:
-          "Weight entry with 2.5 / 5 kg steps and Apply / Cancel. QA screenshot framed around the keypad; the full capture has an unloaded background image.",
-        alt: "A keypad that understands the field. Weight entry with 2.5 / 5 kg steps and Apply / Cancel. QA screenshot framed around the keypad; the full capture has an unloaded background image."
+          "Weight keypad with 2.5 / 5 kg adjustments and Apply / Cancel. English web demo · synthetic data · 3 Nov 2026.",
+        alt: "Weight keypad with 2.5 / 5 kg adjustments and Apply / Cancel. English web demo · synthetic data · 3 Nov 2026."
       },
       es: {
         title: "Un teclado que entiende el campo",
@@ -253,12 +257,13 @@ export const productCaptures = {
     src: "/images/setline/progress.webp",
     width: 390,
     height: 844,
+    english: { src: "/images/setline/progress-en.webp", width: 390, height: 844 },
     copy: {
       en: {
         title: "A trend you can inspect",
         caption:
-          "Lightweight SVG charts with exercise filters and estimated 1RM. QA capture · synthetic history; the values are mathematical estimates.",
-        alt: "A trend you can inspect. Lightweight SVG charts with exercise filters and estimated 1RM. QA capture · synthetic history; the values are mathematical estimates."
+          "SVG strength chart and exercise history. The 1RM values are mathematical estimates. English web demo · synthetic data · 3 Nov 2026.",
+        alt: "SVG strength chart and exercise history. The 1RM values are mathematical estimates. English web demo · synthetic data · 3 Nov 2026."
       },
       es: {
         title: "Una tendencia que puedes consultar",
@@ -273,12 +278,13 @@ export const productCaptures = {
     src: "/images/setline/session-template.webp",
     width: 1080,
     height: 2376,
+    english: { src: "/images/setline/template-en.webp", width: 390, height: 844 },
     copy: {
       en: {
         title: "A completed session becomes a routine",
         caption:
-          "Free-workout summary and Save as new routine. Physical QA · synthetic sets · Oct 2026; the personal-record toast is transient.",
-        alt: "A completed session becomes a routine. Free-workout summary and Save as new routine. Physical QA · synthetic sets · Oct 2026; the personal-record toast is transient."
+          "Completed free-workout summary with Save as new routine. English web demo · synthetic data · 3 Nov 2026.",
+        alt: "Completed free-workout summary with Save as new routine. English web demo · synthetic data · 3 Nov 2026."
       },
       es: {
         title: "Una sesión terminada se convierte en rutina",

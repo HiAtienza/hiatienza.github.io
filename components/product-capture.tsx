@@ -15,19 +15,20 @@ export function ProductCapture({
 }) {
   const capture = productCaptures[asset];
   const text = capture.copy[locale];
+  const source = locale === "en" && "english" in capture ? capture.english : capture;
   return (
     <figure
       className={`product-capture capture-${capture.product} capture-${asset} ${compact ? "product-capture-compact" : ""}`}
     >
       <a
-        href={capture.src}
+        href={source.src}
         aria-label={`${locale === "en" ? "View full-size capture" : "Ver captura a tamaño completo"}: ${text.title}`}
       >
         <Image
-          src={capture.src}
+          src={source.src}
           alt={text.alt}
-          width={capture.width}
-          height={capture.height}
+          width={source.width}
+          height={source.height}
           sizes="(max-width: 780px) 85vw, 320px"
           loading={eager ? "eager" : "lazy"}
         />

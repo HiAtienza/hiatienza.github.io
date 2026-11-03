@@ -256,6 +256,14 @@ test("current captures load and Setline explains its platform boundaries", async
     await page.goto(locale === "en" ? "/projects/setline/" : "/es/projects/setline/");
     await expect(page.getByRole("heading", { name: "Setline", exact: true })).toBeVisible();
     await expect(page.locator(".product-capture")).toHaveCount(5);
+    const sources = await page
+      .locator(".product-capture img")
+      .evaluateAll((images) => images.map((image) => image.getAttribute("src")));
+    expect(
+      sources.every((src) =>
+        locale === "en" ? src?.endsWith("-en.webp") : !src?.endsWith("-en.webp")
+      )
+    ).toBeTruthy();
     await expect(page.locator(".setline-example")).toContainText("91 kg");
     for (const image of await page.locator(".product-capture img").all()) {
       await image.scrollIntoViewIfNeeded();
@@ -278,7 +286,7 @@ test("current captures load and Setline explains its platform boundaries", async
       locale === "en" ? "only on the web" : "solo está disponible en web"
     );
     await page.goto(locale === "en" ? "/projects/lock-in/" : "/es/projects/lock-in/");
-    await expect(page.locator(".product-capture")).toHaveCount(8);
+    await expect(page.locator(".product-capture")).toHaveCount(locale === "en" ? 7 : 8);
     for (const image of await page.locator(".product-capture img").all()) {
       await image.scrollIntoViewIfNeeded();
       await expect
