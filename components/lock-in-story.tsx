@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { LockInPreview } from "@/components/lock-in-preview";
-import { ProductCapture, ProductGallery, ProductScene } from "@/components/product-capture";
+import { ProductCapture, ProductScene } from "@/components/product-capture";
 import { ProductEvidence } from "@/components/product-evidence";
 import { ProductQuestions } from "@/components/product-questions";
 import { external, route, type Locale } from "@/lib/site-data";
@@ -115,19 +115,24 @@ export function LockInStory({ locale }: { locale: Locale }) {
         </p>
         <ProductCapture asset="lock-capacity" locale={locale} />
       </ProductScene>
-      <ProductGallery
+      <ProductScene
         locale={locale}
         id="lock-physical"
-        title={
-          en ? "From preview to a real locked screen." : "De la vista previa a un bloqueo real."
-        }
-        description={
-          en
-            ? "Selected OnePlus checks from 12 October 2026, version 0.1.9. Habits and focus appear within the actual system lock screen. The captures keep Android’s clock and controls visible."
-            : "Comprobaciones seleccionadas en OnePlus del 12 de octubre de 2026, versión 0.1.9. Tarjetas, hábitos y enfoque aparecen en el bloqueo real. Las capturas conservan visibles el reloj y los controles de Android."
-        }
+        eyebrow={en ? "03 / On a real device" : "03 / En un dispositivo real"}
+        title={en ? "From preview to a real lock screen." : "De la vista previa a un bloqueo real."}
         assets={en ? ["lock-locked-focus"] : ["lock-locked-study", "lock-locked-focus"]}
-      />
+      >
+        <p>
+          {en
+            ? "Habits and focus appear within the actual system lock screen, alongside Android’s clock and controls."
+            : "Tarjetas, hábitos y enfoque aparecen en el bloqueo real, junto al reloj y los controles de Android."}
+        </p>
+        <p className="product-takeaway">
+          {en
+            ? "Selected checks on OnePlus · Version 0.1.9 · 12 October 2026."
+            : "Comprobaciones seleccionadas en OnePlus · Versión 0.1.9 · 12 de octubre de 2026."}
+        </p>
+      </ProductScene>
       <section className="section page-wrap lock-demo-layout" aria-labelledby="lock-demo-title">
         <div data-reveal>
           <p className="eyebrow">
