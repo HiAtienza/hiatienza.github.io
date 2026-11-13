@@ -1,3 +1,4 @@
+import { cvDocument } from "@/lib/cv";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { ActionLink, MetadataList } from "@/components/ui";
@@ -71,7 +72,7 @@ export function HomePage({ locale }: { locale: Locale }) {
               <ActionLink variant="secondary" href={route(locale, "/about/")}>
                 {t.hero.about}
               </ActionLink>
-              <a className="text-link" href="/cv/Adrian_Munoz_Atienza_CV_Public_ATS.pdf">
+              <a className="text-link" href={cvDocument(locale)} hrefLang={locale}>
                 {t.hero.cv} <span aria-hidden="true">↓</span>
               </a>
             </div>
@@ -565,16 +566,15 @@ function ContactSection({
           <ActionLink variant="ghost" href={external.github}>
             {t.github}
           </ActionLink>
-          <a className="light-link" href="/cv/Adrian_Munoz_Atienza_CV_Public_ATS.pdf" hrefLang="en">
-            {t.cv} <span aria-hidden="true">↓</span>
-          </a>
-          <a
-            className="light-link"
-            href="/cv/Adrian_Munoz_Atienza_CV_Public_Visual.pdf"
-            hrefLang="en"
-          >
+          <a className="light-link" href={cvDocument(locale)} hrefLang={locale}>
             {t.visual} <span aria-hidden="true">↗</span>
           </a>
+          <a className="light-link" href={cvDocument(locale, "ATS")} hrefLang={locale}>
+            {t.cv} <span aria-hidden="true">↓</span>
+          </a>
+          <Link className="light-link" href={route(locale, "/cv/")}>
+            {locale === "en" ? "CV & project presentations" : "Currículum y presentaciones"}
+          </Link>
         </div>
         {showLinkedInBadge ? <LinkedInProfileBadge /> : null}
       </div>

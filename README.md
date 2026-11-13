@@ -67,3 +67,9 @@ The Lock In calendar illustration supports native buttons plus arrow/Home/End sh
 The website’s downloadable ATS and visual CVs mirror the current three-project catalogue. Their editable HTML sources are in `docs/cv/`; regenerate the tagged PDFs with `node scripts/build-public-cvs.mjs` using the existing Playwright dependency. These copies are independent of the original career-document workspace. Neither these files nor a successful local build establishes a live deployment.
 
 The October 12 project update and its source-page mapping are recorded in `docs/project-refresh-20261012.md`.
+
+## Bilingual curriculum
+
+The curriculum pages are `/cv/` (English) and `/es/cv/` (Spanish). Each prioritizes the visual PDF and provides the matching ATS document, a language switch and three illustrated project presentations. All homepage and contact CV links follow the page locale.
+
+`lib/cv.ts` is the shared document URL mapping. The English visual PDF supplied on 13 November 2026 is preserved byte-for-byte; its Spanish translation and both ATS variants use the editable sources in `docs/cv/`. Rebuild with `node scripts/build-public-cvs.mjs`. The old unsuffixed download URLs remain compatible English copies.

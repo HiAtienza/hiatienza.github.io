@@ -5,6 +5,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const pages = [
     "",
     "es/",
+    "cv/",
+    "es/cv/",
     "about/",
     "es/about/",
     "research/",

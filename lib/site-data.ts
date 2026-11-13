@@ -52,7 +52,7 @@ export const copy = {
       lead: "I started LockIn because I wanted to find my next classroom at a glance. Since then I’ve built a workout log and helped develop a web workspace for search exercises at XJTLU.",
       work: "Explore my work",
       about: "Get to know me",
-      cv: "Download CV",
+      cv: "View visual CV",
       visual: "View public visual CV",
       signals: [
         "Suzhou · Spain ↔ China",
@@ -246,7 +246,7 @@ export const copy = {
       lead: "Empecé LockIn porque quería encontrar mi próxima aula con un vistazo. También he desarrollado un registro de entrenamiento y he contribuido a un prototipo web para ejercicios de búsqueda en XJTLU.",
       work: "Ver mis proyectos",
       about: "Conóceme",
-      cv: "CV en inglés",
+      cv: "Ver CV visual",
       visual: "Ver CV visual público",
       signals: [
         "Suzhou · España ↔ China",
@@ -385,8 +385,8 @@ export const copy = {
       body: "Busco prácticas de ingeniería de software y desarrollo de producto para aportar a apps Android o productos web y seguir aprendiendo en equipo. Vivo en Suzhou; estoy abierto a oportunidades en Shanghái, España, la UE y trabajo remoto compatible.",
       linkedin: "LinkedIn",
       github: "GitHub",
-      cv: "CV ATS · inglés",
-      visual: "CV visual · inglés"
+      cv: "Descargar CV de texto (ATS)",
+      visual: "Ver CV visual"
     },
     footer:
       "© 2026 Adrián Muñoz Atienza. El código fuente usa licencia MIT; el contenido personal permanece protegido.",

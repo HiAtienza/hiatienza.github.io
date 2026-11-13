@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Adrián Muñoz Atienza - Prácticas de ingeniería de software - CV visual</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: Arial, "Helvetica Neue", sans-serif;
+        color: #142a3f;
+        background: #fff;
+        line-height: 1.32;
+      }
+      header,
+      article {
+        break-inside: avoid;
+      }
+      h1,
+      h2,
+      h3,
+      p,
+      ul {
+        margin: 0;
+      }
+      h1 {
+        line-height: 1.14;
+      }
+      h2 {
+        font-size: 10.6pt;
+        letter-spacing: 0.85pt;
+        text-transform: uppercase;
+      }
+      h3 {
+        font-size: 10.8pt;
+        line-height: 1.22;
+      }
+      h3 span {
+        font-weight: normal;
+      }
+      article + article {
+        margin-top: 2.8mm;
+      }
+      article > p,
+      li + li {
+        margin-top: 0.8mm;
+      }
+      section + section {
+        margin-top: 4.2mm;
+      }
+      ul {
+        padding-left: 4.7mm;
+        margin-top: 1mm;
+      }
+      a {
+        color: inherit;
+        text-decoration: underline;
+        text-decoration-thickness: 0.55pt;
+        text-underline-offset: 1.4pt;
+      }
+      .meta {
+        font-size: 9.1pt;
+        color: #41566b;
+      }
+      .contact {
+        font-size: 9pt;
+      }
+      .skills p + p {
+        margin-top: 0.7mm;
+      }
+
+      @page {
+        size: A4;
+        margin: 0;
+      }
+      body {
+        font-size: 10.8pt;
+        line-height: 1.33;
+      }
+      header {
+        padding: 11mm 14mm 7mm;
+        background: #122d44;
+        color: #fffdf7;
+        border-bottom: 1.5mm solid #c6764f;
+      }
+      .portrait {
+        float: right;
+        width: 27mm;
+        height: 27mm;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 0.65mm solid #f1eee6;
+        margin: 0 0 1.5mm 4mm;
+      }
+      h1 {
+        font-size: 27pt;
+      }
+      .target {
+        font-size: 13pt;
+        font-weight: bold;
+        margin-top: 1.5mm;
+      }
+      .focus {
+        color: #d6e9ed;
+        font-size: 10.9pt;
+        margin-top: 0.7mm;
+      }
+      .contact {
+        margin-top: 3mm;
+        clear: both;
+      }
+      main {
+        padding: 5.6mm 14mm 6mm;
+      }
+      h2 {
+        color: #316779;
+        border-bottom: 0.6pt solid #9aaab2;
+        padding-bottom: 1.1mm;
+        margin-bottom: 2.4mm;
+      }
+      .flagship {
+        background: #edf5f4;
+        border-left: 1mm solid #34736b;
+        padding: 3mm 4mm;
+      }
+      .flagship h3 {
+        font-size: 12pt;
+      }
+      .flagship h3 span {
+        font-size: 10pt;
+      }
+      h3 a {
+        color: #194d69;
+      }
+      article + article {
+        margin-top: 2.8mm;
+      }
+      section + section {
+        margin-top: 3.7mm;
+      }
+      .previous {
+        margin-top: 2.3mm;
+      }
+
+      body {
+        font-size: 10.3pt;
+        line-height: 1.29;
+      }
+      section + section {
+        margin-top: 3.4mm;
+      }
+      h3 {
+        font-size: 10.3pt;
+      }
+      .focus {
+        font-size: 10.4pt;
+      }
+      .target {
+        font-size: 12.5pt;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <img
+        class="portrait"
+        src="../../public/images/profile-400.jpg"
+        alt="Retrato de Adrián Muñoz Atienza"
+        width="102"
+        height="102"
+      />
+      <div>
+        <h1>Adrián Muñoz Atienza</h1>
+        <p class="target">Busco prácticas de ingeniería de software en IA aplicada</p>
+        <p class="focus">Estudiante de 3.º de Informática en XJTLU · Interacción persona-IA</p>
+        <p class="contact">
+          Suzhou, China &nbsp;·&nbsp;
+          <a href="https://hiatienza.github.io/es/">hiatienza.github.io</a> &nbsp;·&nbsp;
+          <a href="https://www.linkedin.com/in/hiatienza/">linkedin.com/in/hiatienza</a>
+          &nbsp;·&nbsp; <a href="https://github.com/HiAtienza">github.com/HiAtienza</a>
+        </p>
+      </div>
+    </header>
+    <main>
+      <section>
+        <h2>Proyectos destacados</h2>
+        <article class="flagship">
+          <h3>
+            <a href="https://hiatienza.github.io/es/projects/video-rescue/">VIDEO-RESCUE</a>
+            <span>· Prototipo de investigación supervisada en XJTLU</span>
+          </h3>
+          <ul>
+            <li>
+              Desarrollé una herramienta que compara informes de distintos miembros de una búsqueda
+              y descarta sugerencias de IA que no citen un informe facilitado. El coordinador puede
+              abrir la fuente antes de asignar una tarea.
+            </li>
+            <li>
+              Implementé una cola sin conexión que reintenta subir cada foto con el identificador
+              original del informe. En una prueba de almacenamiento, guardar dos veces el mismo
+              informe produjo un único registro de misión.
+            </li>
+          </ul>
+        </article>
+        <article>
+          <h3>
+            <a href="https://hiatienza.github.io/es/projects/lock-in/">LockIn</a>
+            <span>· Planificador para la pantalla de bloqueo de Android</span>
+          </h3>
+          <p>
+            Utilicé un cálculo de distribución común para la vista previa y el fondo, de modo que
+            los estudiantes puedan ver qué tareas caben. Comprobé el fondo aplicado en un OnePlus y
+            distribuí una versión firmada mediante pruebas internas de Google Play.
+          </p>
+        </article>
+        <article>
+          <h3>
+            <a href="https://hiatienza.github.io/es/projects/setline/">Setline</a>
+            <span>· Diario de entrenamiento sin conexión</span>
+          </h3>
+          <p>
+            Diseñé sesiones que conservan sus propios objetivos. En una prueba de regresión, una
+            sesión de dos series mantiene ambas después de modificar su plantilla a ocho series y
+            eliminarla.
+          </p>
+        </article>
+      </section>
+      <section>
+        <h2>Experiencia</h2>
+        <article>
+          <h3>
+            Investigador de grado <span>· XJTLU Summer Undergraduate Research Fellowship</span>
+          </h3>
+          <p class="meta">Julio de 2026 - actualidad · Suzhou, China</p>
+          <p>
+            Uno de los dos estudiantes que investigan cómo se utiliza la IA para coordinar búsquedas
+            simuladas. Colaboré en el diseño del estudio, la selección de participantes, las
+            sesiones y el análisis. La recogida de datos ha finalizado; el análisis continúa.
+          </p>
+        </article>
+        <article>
+          <h3>Desarrollador de software independiente <span>· Productos Android</span></h3>
+          <p class="meta">Julio de 2026 - actualidad · Suzhou, China</p>
+          <p>
+            Definí requisitos y prioridades de UX para ambas apps Android y dirigí el desarrollo
+            asistido por Codex hasta las versiones internas.
+          </p>
+        </article>
+        <p class="previous">
+          <strong>Experiencia anterior en Madrid</strong> · Profesor particular de matemáticas
+          (2023-2024) y botones de temporada en Marriott International (julio-septiembre de 2024).
+        </p>
+      </section>
+      <section>
+        <h2>Formación</h2>
+        <article>
+          <h3>
+            BSc Information and Computing Science <span>· Xi'an Jiaotong-Liverpool University</span>
+          </h3>
+          <p>3.º curso · Graduación prevista: julio de 2028 · Suzhou, China</p>
+        </article>
+        <article>
+          <h3>Estudios de Ingeniería del Software <span>· U-TAD, Madrid</span></h3>
+          <p>Estudios impartidos en inglés, 2022-2025. Traslado a XJTLU.</p>
+        </article>
+      </section>
+      <section class="skills">
+        <h2>Competencias e idiomas</h2>
+        <p>
+          <strong>Ingeniería</strong> &nbsp; TypeScript, React, Kotlin, Jetpack Compose, SQLite,
+          IndexedDB y Playwright.
+        </p>
+        <p>
+          <strong>Idiomas</strong> &nbsp; Español (nativo), inglés (competencia profesional plena) y
+          chino mandarín (elemental).
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

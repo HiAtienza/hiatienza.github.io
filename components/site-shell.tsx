@@ -32,9 +32,13 @@ export function SiteShell({
           {label}
         </Link>
       ))}
-      <a className="nav-cv" href="/cv/Adrian_Munoz_Atienza_CV_Public_ATS.pdf">
-        {locale === "en" ? "CV" : "CV · EN"}
-      </a>
+      <Link
+        className="nav-cv"
+        href={route(locale, "/cv/")}
+        aria-current={path === "/cv/" ? "page" : undefined}
+      >
+        {locale === "en" ? "CV" : "Currículum"}
+      </Link>
       <Link className="language-link" href={route(other, path)} lang={other}>
         {t.nav.language}
       </Link>

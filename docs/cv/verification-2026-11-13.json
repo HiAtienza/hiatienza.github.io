@@ -1,0 +1,65 @@
+{
+  "source": "User-supplied English visual CV, received 2026-11-13",
+  "pdfs": [
+    {
+      "file": "Adrian_Munoz_Atienza_CV_Public_Visual_EN.pdf",
+      "pages": 1,
+      "tagged": true,
+      "links": [
+        "https://hiatienza.github.io/",
+        "https://www.linkedin.com/in/hiatienza/",
+        "https://github.com/HiAtienza",
+        "https://hiatienza.github.io/projects/video-rescue/",
+        "https://hiatienza.github.io/projects/lock-in/",
+        "https://hiatienza.github.io/projects/setline/"
+      ],
+      "sha256": "14d7fc02ace17b46ad8bf5d86c99f56362c5aaa2d9566e754195504e91d345c1",
+      "bytes": 222156
+    },
+    {
+      "file": "Adrian_Munoz_Atienza_CV_Public_Visual_ES.pdf",
+      "pages": 1,
+      "tagged": true,
+      "links": [
+        "https://hiatienza.github.io/es/",
+        "https://www.linkedin.com/in/hiatienza/",
+        "https://github.com/HiAtienza",
+        "https://hiatienza.github.io/es/projects/video-rescue/",
+        "https://hiatienza.github.io/es/projects/lock-in/",
+        "https://hiatienza.github.io/es/projects/setline/"
+      ],
+      "sha256": "741b619ba338440642bbd296332afbd9adab59a638d55b2b94dadc880fa0b675",
+      "bytes": 223034
+    },
+    {
+      "file": "Adrian_Munoz_Atienza_CV_Public_ATS_EN.pdf",
+      "pages": 1,
+      "tagged": true,
+      "links": [
+        "https://hiatienza.github.io/",
+        "https://www.linkedin.com/in/hiatienza/",
+        "https://github.com/HiAtienza",
+        "https://hiatienza.github.io/projects/video-rescue/",
+        "https://hiatienza.github.io/projects/lock-in/",
+        "https://hiatienza.github.io/projects/setline/"
+      ],
+      "sha256": "8747e5e779aca8c277da3fd1f69ff192fc16acd7b8b8f023f3e848103b468334",
+      "bytes": 158518
+    },
+    {
+      "file": "Adrian_Munoz_Atienza_CV_Public_ATS_ES.pdf",
+      "pages": 1,
+      "tagged": true,
+      "links": [
+        "https://hiatienza.github.io/es/",
+        "https://www.linkedin.com/in/hiatienza/",
+        "https://github.com/HiAtienza",
+        "https://hiatienza.github.io/es/projects/video-rescue/",
+        "https://hiatienza.github.io/es/projects/lock-in/",
+        "https://hiatienza.github.io/es/projects/setline/"
+      ],
+      "sha256": "14ec9903954783de8d8c948a2ee0b2f91c8a9d6b374fb285a636903bb2235de5",
+      "bytes": 159970
+    }
+  ]
+}

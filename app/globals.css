@@ -2995,3 +2995,136 @@ dd {
     margin-inline: auto;
   }
 }
+
+/* Localized curriculum and project presentations. */
+.cv-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: start;
+}
+.cv-introduction {
+  padding-top: 2rem;
+}
+.cv-hero h1 {
+  font-size: clamp(2.8rem, 5vw, 4.8rem);
+  overflow-wrap: anywhere;
+}
+.cv-languages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-block: 2rem;
+}
+.cv-languages a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.55rem 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.cv-languages a[aria-current="page"] {
+  color: var(--paper);
+  background: var(--ink);
+  border-color: var(--ink);
+}
+.cv-document-label {
+  margin-top: 2rem;
+}
+.cv-ats {
+  padding-top: 1.5rem;
+  margin-top: 1.8rem;
+  border-top: 1px solid var(--line);
+}
+.cv-ats p {
+  max-width: 48ch;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+.cv-preview {
+  margin: 0;
+  min-width: 0;
+}
+.cv-preview a {
+  display: block;
+  background: white;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+.cv-preview img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.cv-preview figcaption {
+  color: var(--muted);
+  font-size: 0.8rem;
+  padding-top: 1rem;
+}
+.cv-presentations {
+  background: var(--canvas);
+  border-top: 1px solid var(--line);
+}
+.cv-project-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2rem;
+}
+.cv-project {
+  min-width: 0;
+}
+.cv-project-image {
+  position: relative;
+  height: 300px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+}
+.cv-project-image img {
+  object-fit: contain;
+  padding: 12px;
+}
+.cv-project-caption {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-block: 0.75rem 1.5rem;
+}
+.cv-project h3 {
+  font-size: 1.7rem;
+}
+.cv-project > p:not(.cv-project-caption) {
+  color: var(--ink-soft);
+}
+.cv-project .arrow-link {
+  font-size: 0.9rem;
+}
+@media (max-width: 780px) {
+  .cv-hero,
+  .cv-project-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .cv-project-grid {
+    gap: 3.5rem;
+  }
+  .cv-preview {
+    width: min(100%, 520px);
+    margin-inline: auto;
+  }
+  .cv-introduction {
+    padding-top: 0;
+  }
+}
+
+.cv-project .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
